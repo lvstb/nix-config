@@ -17,6 +17,7 @@
 
   outputs = { self, nixpkgs, ... }@inputs: {
     nixosConfigurations.default = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux"; # Adjust for your architecture
       specialArgs = { inherit inputs; };
       modules = [
         ./hosts/default/configuration.nix
