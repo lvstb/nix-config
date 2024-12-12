@@ -374,7 +374,7 @@ environment.systemPackages = with pkgs; [
     };
   };
 
-  hardware = {
+  # hardware = {
     # sane = {
     #   enable = true;
     #   extraBackends = [ pkgs.sane-airscan ];
