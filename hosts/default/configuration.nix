@@ -8,17 +8,17 @@ let
   timeZone = "Europe/Brussels";
 in
 {
-  imports =
-    [
+  # imports =
+  #   [
       # ./hardware-configuration.nix
       # ./user.nix
       # ../../modules/nvidia-drivers.nix
       # ../../modules/nvidia-prime-drivers.nix
       # ../../modules/intel-drivers.nix
       # inputs.home-manager.nixosModules.default
-    ];
+    # ];
 
-  boot = {
+  # boot = {
     # kernelPackages = pkgs.linuxPackages_zen;
     # kernelModules = [ "v4l2loopback" ];
     # extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
@@ -50,7 +50,7 @@ in
     #   magicOrExtension = ''\x7fELF....AI\x02'';
     # };
     # plymouth.enable = true;
-  };
+  # };
 
   networking = {
     hostName = hostName;
@@ -443,4 +443,4 @@ environment.systemPackages = with pkgs; [
   };
 
   system.stateVersion = "24.05";
-}
+};}
