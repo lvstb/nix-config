@@ -8,15 +8,15 @@ let
   timeZone = "Europe/Brussels";
 in
 {
-  # imports =
-  #   [
-      # ./hardware-configuration.nix
+  imports =
+    [
+      ./hardware-configuration.nix
       # ./user.nix
       # ../../modules/nvidia-drivers.nix
       # ../../modules/nvidia-prime-drivers.nix
       # ../../modules/intel-drivers.nix
       # inputs.home-manager.nixosModules.default
-    # ];
+    ];
 
   # boot = {
     # kernelPackages = pkgs.linuxPackages_zen;
@@ -432,7 +432,7 @@ environment.systemPackages = with pkgs; [
     };
   };
 
-     # programs.hyprland.enable = true;
+     programs.hyprland.enable = true;
 
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
