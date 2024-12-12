@@ -2,7 +2,7 @@
 
 let
   username = "lvstb";
-  userDescription = "Lars Van Steenbergen";
+  userDescription = "Lars";
   homeDirectory = "/home/${username}";
   hostName = "framework";
   timeZone = "Europe/Brussels";
@@ -11,52 +11,55 @@ in
   imports =
     [
       ./hardware-configuration.nix
-      # ./user.nix
+    #  ./user.nix
+    #  ../../modules/nvidia-drivers.nix
+    #  ../../modules/nvidia-prime-drivers.nix
+    #  ../../modules/intel-drivers.nix
       inputs.home-manager.nixosModules.default
     ];
 
-  # boot = {
-    # kernelPackages = pkgs.linuxPackages_zen;
-    # kernelModules = [ "v4l2loopback" ];
-    # extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
-    # kernel.sysctl = {
-    #   "vm.max_map_count" = 2147483642;
-    # };
-    # loader = {
-    #   efi = {
-    #     canTouchEfiVariables = true;
-    #     efiSysMountPoint = "/boot";
-    #   };
-    #   grub = {
-    #     enable = true;
-    #     device = "nodev";
-    #     efiSupport = true;
-    #     useOSProber = true;
-    #   };
-    # };
-    # tmp = {
-    #   useTmpfs = true;
-    #   tmpfsSize = "30%";
-    # };
-    # binfmt.registrations.appimage = {
-    #   wrapInterpreterInShell = false;
-    #   interpreter = "${pkgs.appimage-run}/bin/appimage-run";
-    #   recognitionType = "magic";
-    #   offset = 0;
-    #   mask = ''\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff'';
-    #   magicOrExtension = ''\x7fELF....AI\x02'';
-    # };
-    # plymouth.enable = true;
-  # };
+ # boot = {
+ #   kernelPackages = pkgs.linuxPackages_zen;
+ #   kernelModules = [ "v4l2loopback" ];
+ #   extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
+ #   kernel.sysctl = {
+ #     "vm.max_map_count" = 2147483642;
+ #   };
+ #   loader = {
+ #     efi = {
+ #       canTouchEfiVariables = true;
+ #       efiSysMountPoint = "/boot";
+ #     };
+ #     grub = {
+ #       enable = true;
+ #       device = "nodev";
+ #       efiSupport = true;
+ #       useOSProber = true;
+ #     };
+ #   };
+ #   tmp = {
+ #     useTmpfs = true;
+ #     tmpfsSize = "30%";
+ #   };
+ #   binfmt.registrations.appimage = {
+ #     wrapInterpreterInShell = false;
+ #     interpreter = "${pkgs.appimage-run}/bin/appimage-run";
+ #     recognitionType = "magic";
+ #     offset = 0;
+ #     mask = ''\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff'';
+ #     magicOrExtension = ''\x7fELF....AI\x02'';
+ #   };
+ #   plymouth.enable = true;
+ # };
 
   networking = {
     hostName = hostName;
     networkmanager.enable = true;
     timeServers = options.networking.timeServers.default ++ [ "pool.ntp.org" ];
-    # firewall = {
-    #   allowedTCPPortRanges = [ { from = 8060; to = 8090; } ];
-    #   allowedUDPPortRanges = [ { from = 8060; to = 8090; } ];
-    # };
+    firewall = {
+      allowedTCPPortRanges = [ { from = 8060; to = 8090; } ];
+      allowedUDPPortRanges = [ { from = 8060; to = 8090; } ];
+    };
   };
 
   time.timeZone = timeZone;
@@ -76,53 +79,53 @@ in
     };
   };
 
-  # stylix = {
-  #   enable = true;
-  #   base16Scheme = {
-  #     base00 = "191724";
-  #     base01 = "1f1d2e";
-  #     base02 = "26233a";
-  #     base03 = "6e6a86";
-  #     base04 = "908caa";
-  #     base05 = "e0def4";
-  #     base06 = "e0def4";
-  #     base07 = "524f67";
-  #     base08 = "eb6f92";
-  #     base09 = "f6c177";
-  #     base0A = "ebbcba";
-  #     base0B = "31748f";
-  #     base0C = "9ccfd8";
-  #     base0D = "c4a7e7";
-  #     base0E = "f6c177";
-  #     base0F = "524f67";
-  #   };
-  #   image = ../../config/assets/wall.png;
-  #   polarity = "dark";
-  #   opacity.terminal = 0.8;
-  #   cursor.package = pkgs.bibata-cursors;
-  #   cursor.name = "Bibata-Modern-Ice";
-  #   cursor.size = 24;
-  #   fonts = {
-  #     monospace = {
-  #       package = pkgs.nerd-fonts.jetbrains-mono;
-  #       name = "JetBrainsMono Nerd Font Mono";
-  #     };
-  #     sansSerif = {
-  #       package = pkgs.montserrat;
-  #       name = "Montserrat";
-  #     };
-  #     serif = {
-  #       package = pkgs.montserrat;
-  #       name = "Montserrat";
-  #     };
-  #     sizes = {
-  #       applications = 12;
-  #       terminal = 15;
-  #       desktop = 11;
-  #       popups = 12;
-  #     };
-  #   };
-  # };
+#  stylix = {
+#    enable = true;
+#    base16Scheme = {
+#      base00 = "191724";
+#      base01 = "1f1d2e";
+#      base02 = "26233a";
+#      base03 = "6e6a86";
+#      base04 = "908caa";
+#      base05 = "e0def4";
+#      base06 = "e0def4";
+#      base07 = "524f67";
+#      base08 = "eb6f92";
+#      base09 = "f6c177";
+#      base0A = "ebbcba";
+#      base0B = "31748f";
+#      base0C = "9ccfd8";
+#      base0D = "c4a7e7";
+#      base0E = "f6c177";
+#      base0F = "524f67";
+#    };
+#    image = ../../config/assets/wall.png;
+#    polarity = "dark";
+#    opacity.terminal = 0.8;
+#    cursor.package = pkgs.bibata-cursors;
+#    cursor.name = "Bibata-Modern-Ice";
+#    cursor.size = 24;
+#    fonts = {
+#      monospace = {
+#        package = pkgs.nerd-fonts.jetbrains-mono;
+#        name = "JetBrainsMono Nerd Font Mono";
+#      };
+#      sansSerif = {
+#        package = pkgs.montserrat;
+#        name = "Montserrat";
+#      };
+#      serif = {
+#        package = pkgs.montserrat;
+#        name = "Montserrat";
+#      };
+#      sizes = {
+#        applications = 12;
+#        terminal = 15;
+#        desktop = 11;
+#        popups = 12;
+#      };
+#    };
+#  };
 
   virtualisation = {
     docker = {
@@ -169,16 +172,16 @@ in
 environment.systemPackages = with pkgs; [
   # Text editors and IDEs
   vim neovim vscode zed-editor  neovide jetbrains.idea-ultimate
-
+  
     # jetbrains.idea-community-bin
-
+  
     # Zen Browser from custom input
-  inputs.zen-browser.packages."${system}".default
+#  inputs.zen-browser.packages."${system}".default
 
   # Programming languages and tools
   go lua python3 python3Packages.pip uv clang zig rustup
   nodePackages_latest.pnpm nodePackages_latest.yarn nodePackages_latest.nodejs
-  bun jdk maven gcc
+  bun jdk maven gcc 
 
   # Frappe Bench
   redis wkhtmltopdf nginx uv mariadb
@@ -244,7 +247,7 @@ environment.systemPackages = with pkgs; [
   networkmanagerapplet
 
   # Education
-  # ciscoPacketTracer8
+  # ciscoPacketTracer8 
   wireshark ventoy
 
   # Music and streaming
@@ -371,50 +374,50 @@ environment.systemPackages = with pkgs; [
     };
   };
 
-  # hardware = {
-    # sane = {
-    #   enable = true;
-    #   extraBackends = [ pkgs.sane-airscan ];
-    #   disabledDefaultBackends = [ "escl" ];
-    # };
-    # logitech.wireless = {
-    #   enable = true;
-    #   enableGraphical = true;
-    # };
-    # bluetooth = {
-    #   enable = true;
-    #   powerOnBoot = true;
-    # };
-    # pulseaudio.enable = false;
-    # graphics.enable = true;
-  # };
-  #
-  # services.blueman.enable = true;
-  #
-  # security = {
-  #   rtkit.enable = true;
-  #   polkit = {
-  #     enable = true;
-  #     extraConfig = ''
-  #       polkit.addRule(function(action, subject) {
-  #         if (
-  #           subject.isInGroup("users")
-  #             && (
-  #               action.id == "org.freedesktop.login1.reboot" ||
-  #               action.id == "org.freedesktop.login1.reboot-multiple-sessions" ||
-  #               action.id == "org.freedesktop.login1.power-off" ||
-  #               action.id == "org.freedesktop.login1.power-off-multiple-sessions"
-  #             )
-  #           )
-  #         {
-  #           return polkit.Result.YES;
-  #         }
-  #       })
-  #     '';
-  #   };
-  #   pam.services.swaylock.text = "auth include login";
-  # };
-
+#  hardware = {
+#    sane = {
+#      enable = true;
+#      extraBackends = [ pkgs.sane-airscan ];
+#      disabledDefaultBackends = [ "escl" ];
+#    };
+#    logitech.wireless = {
+#      enable = true;
+#      enableGraphical = true;
+#    };
+#    bluetooth = {
+#      enable = true;
+#      powerOnBoot = true;
+#    };
+#    pulseaudio.enable = false;
+#    graphics.enable = true;
+#  };
+#
+#  services.blueman.enable = true;
+#
+#  security = {
+#    rtkit.enable = true;
+#    polkit = {
+#      enable = true;
+#      extraConfig = ''
+#        polkit.addRule(function(action, subject) {
+#          if (
+#            subject.isInGroup("users")
+#              && (
+#                action.id == "org.freedesktop.login1.reboot" ||
+#                action.id == "org.freedesktop.login1.reboot-multiple-sessions" ||
+#                action.id == "org.freedesktop.login1.power-off" ||
+#                action.id == "org.freedesktop.login1.power-off-multiple-sessions"
+#              )
+#            )
+#          {
+#            return polkit.Result.YES;
+#          }
+#        })
+#      '';
+#    };
+#    pam.services.swaylock.text = "auth include login";
+#  };
+#
   nix = {
     settings = {
       auto-optimise-store = true;
@@ -429,15 +432,15 @@ environment.systemPackages = with pkgs; [
     };
   };
 
-     programs.hyprland.enable = true;
+  programs.hyprland.enable = true;
 
-  home-manager = {
-    extraSpecialArgs = { inherit inputs; };
-    users.${username} = import ./home.nix;
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    backupFileExtension = "backup";
-  };
+#  home-manager = {
+#    extraSpecialArgs = { inherit inputs; };
+#    users.${username} = import ./home.nix;
+#    useGlobalPkgs = true;
+#    useUserPackages = true;
+#    backupFileExtension = "backup";
+#  };
 
   system.stateVersion = "24.05";
 }
