@@ -1,12 +1,12 @@
 { config, lib, pkgs, inputs, options, ... }:
 
-# let
-#   username = "lvstb";
-#   userDescription = "Lars";
-#   homeDirectory = "/home/${username}";
-#   hostName = "framework";
-#   timeZone = "Europe/Brussels";
-# in
+ let
+   username = "lvstb";
+   userDescription = "Lars";
+   homeDirectory = "/home/${username}";
+   hostName = "framework";
+   timeZone = "Europe/Brussels";
+ in
 {
   imports =
     [
@@ -18,25 +18,25 @@
       inputs.home-manager.nixosModules.default
     ];
 
- # boot = {
+  boot = {
  #   kernelPackages = pkgs.linuxPackages_zen;
  #   kernelModules = [ "v4l2loopback" ];
  #   extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
  #   kernel.sysctl = {
  #     "vm.max_map_count" = 2147483642;
  #   };
- #   loader = {
+    loader = {
  #     efi = {
  #       canTouchEfiVariables = true;
  #       efiSysMountPoint = "/boot";
  #     };
- #     grub = {
- #       enable = true;
- #       device = "nodev";
+      grub = {
+        enable = true;
+        device = "/dev/vda";
  #       efiSupport = true;
- #       useOSProber = true;
- #     };
- #   };
+         useOSProber = true;
+      };
+    };
  #   tmp = {
  #     useTmpfs = true;
  #     tmpfsSize = "30%";
@@ -50,10 +50,10 @@
  #     magicOrExtension = ''\x7fELF....AI\x02'';
  #   };
  #   plymouth.enable = true;
- # };
+  };
 
   networking = {
-    hostName = "framework";
+    hostName = hostName;
     networkmanager.enable = true;
     timeServers = options.networking.timeServers.default ++ [ "pool.ntp.org" ];
     firewall = {
@@ -62,7 +62,7 @@
     };
   };
 
-  time.timeZone = Europe/Brussels;
+  time.timeZone = timeZone;
 
   i18n = {
     defaultLocale = "en_US.UTF-8";
@@ -156,18 +156,19 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  # users = {
-  #   mutableUsers = true;
-  #   users.${username} = {
-  #     isNormalUser = true;
-  #     description = userDescription;
-  #     extraGroups = [ "networkmanager" "wheel" ];
-  #     packages = with pkgs; [
-  #       firefox
-  #       thunderbird
-  #     ];
-  #   };
-  # };
+   users = {
+     mutableUsers = true;
+     users.${username} = {
+       isNormalUser = true;
+       initialPassword = "test";
+       description = userDescription;
+       extraGroups = [ "networkmanager" "wheel" ];
+       packages = with pkgs; [
+         firefox
+         thunderbird
+       ];
+     };
+   };
 
 environment.systemPackages = with pkgs; [
   # Text editors and IDEs
@@ -179,12 +180,9 @@ environment.systemPackages = with pkgs; [
 #  inputs.zen-browser.packages."${system}".default
 
   # Programming languages and tools
-  go lua python3 python3Packages.pip uv clang zig rustup
+  go lua python3 python3Packages.pip
   nodePackages_latest.pnpm nodePackages_latest.yarn nodePackages_latest.nodejs
-  bun jdk maven gcc
-
-  # Frappe Bench
-  redis wkhtmltopdf nginx uv mariadb
+  gcc
 
   # Version control and development tools
   git gh lazygit lazydocker bruno gnumake coreutils nixfmt-rfc-style meson ninja
@@ -199,9 +197,6 @@ environment.systemPackages = with pkgs; [
   # System monitoring and management
   htop btop lm_sensors inxi auto-cpufreq nvtopPackages.nvidia anydesk
 
-  # Network and internet tools
-  aria2 qbittorrent cloudflare-warp tailscale onedrive
-
   # Audio and video
   pulseaudio pavucontrol ffmpeg mpv deadbeef-with-plugins
 
@@ -209,7 +204,7 @@ environment.systemPackages = with pkgs; [
   imagemagick gimp hyprpicker swww hyprlock waypaper imv
 
   # Productivity and office
-  obsidian onlyoffice-bin libreoffice-qt6-fresh spacedrive hugo
+  onlyoffice-bin libreoffice-qt6-fresh spacedrive hugo
 
   # Communication and social
   telegram-desktop zoom-us vesktop element-desktop
@@ -254,7 +249,7 @@ environment.systemPackages = with pkgs; [
   youtube-music spotify
 
   # Miscellaneous
-  greetd.tuigreet
+  #greetd.tuigreet
 ];
 
   fonts.packages = with pkgs; [
@@ -288,27 +283,22 @@ environment.systemPackages = with pkgs; [
         variant = "";
       };
     };
-    greetd = {
-      enable = true;
-      vt = 3;
-      settings = {
-        default_session = {
-          user = "lvstb";
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
-        };
-      };
-    };
+#    greetd = {
+#      enable = true;
+#      vt = 3;
+#      settings = {
+#        default_session = {
+#          user = username;
+#          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+#        };
+#      };
+#    };
     logind = {
       extraConfig = ''
       HandlePowerKey=suspend
     '';
     };
-    cloudflare-warp.enable = true;
     supergfxd.enable = true;
-    tailscale = {
-      enable = true;
-      useRoutingFeatures = "client";
-    };
     # ollama = {
     #   enable=true;
     #   acceleration = "cuda";
@@ -321,10 +311,10 @@ environment.systemPackages = with pkgs; [
     gvfs.enable = true;
     openssh.enable = true;
     flatpak.enable = true;
-    printing = {
-      enable = true;
-      drivers = [ pkgs.hplipWithPlugin ];
-    };
+#    printing = {
+#      enable = true;
+#      drivers = [ pkgs.hplipWithPlugin ];
+#    };
     auto-cpufreq.enable = true;
     gnome.gnome-keyring.enable = true;
     avahi = {
