@@ -10,11 +10,9 @@
 {
   imports =
     [
-      ./hardware-configuration.nix
-    #  ./user.nix
-    #  ../../modules/nvidia-drivers.nix
-    #  ../../modules/nvidia-prime-drivers.nix
-    #  ../../modules/intel-drivers.nix
+     ./hardware-configuration.nix
+     ./user.nix
+     ./home.nix
       inputs.home-manager.nixosModules.default
     ];
 
@@ -79,80 +77,80 @@
     };
   };
 
-#  stylix = {
-#    enable = true;
-#    base16Scheme = {
-#      base00 = "191724";
-#      base01 = "1f1d2e";
-#      base02 = "26233a";
-#      base03 = "6e6a86";
-#      base04 = "908caa";
-#      base05 = "e0def4";
-#      base06 = "e0def4";
-#      base07 = "524f67";
-#      base08 = "eb6f92";
-#      base09 = "f6c177";
-#      base0A = "ebbcba";
-#      base0B = "31748f";
-#      base0C = "9ccfd8";
-#      base0D = "c4a7e7";
-#      base0E = "f6c177";
-#      base0F = "524f67";
-#    };
-#    image = ../../config/assets/wall.png;
-#    polarity = "dark";
-#    opacity.terminal = 0.8;
-#    cursor.package = pkgs.bibata-cursors;
-#    cursor.name = "Bibata-Modern-Ice";
-#    cursor.size = 24;
-#    fonts = {
-#      monospace = {
-#        package = pkgs.nerd-fonts.jetbrains-mono;
-#        name = "JetBrainsMono Nerd Font Mono";
-#      };
-#      sansSerif = {
-#        package = pkgs.montserrat;
-#        name = "Montserrat";
-#      };
-#      serif = {
-#        package = pkgs.montserrat;
-#        name = "Montserrat";
-#      };
-#      sizes = {
-#        applications = 12;
-#        terminal = 15;
-#        desktop = 11;
-#        popups = 12;
-#      };
-#    };
-#  };
+ stylix = {
+   enable = true;
+   base16Scheme = {
+     base00 = "191724";
+     base01 = "1f1d2e";
+     base02 = "26233a";
+     base03 = "6e6a86";
+     base04 = "908caa";
+     base05 = "e0def4";
+     base06 = "e0def4";
+     base07 = "524f67";
+     base08 = "eb6f92";
+     base09 = "f6c177";
+     base0A = "ebbcba";
+     base0B = "31748f";
+     base0C = "9ccfd8";
+     base0D = "c4a7e7";
+     base0E = "f6c177";
+     base0F = "524f67";
+   };
+   # image = ../../config/assets/wall.png;
+   polarity = "dark";
+   opacity.terminal = 0.8;
+   cursor.package = pkgs.bibata-cursors;
+   cursor.name = "Bibata-Modern-Ice";
+   cursor.size = 24;
+   fonts = {
+     monospace = {
+       package = pkgs.nerd-fonts.jetbrains-mono;
+       name = "JetBrainsMono Nerd Font Mono";
+     };
+     sansSerif = {
+       package = pkgs.montserrat;
+       name = "Montserrat";
+     };
+     serif = {
+       package = pkgs.montserrat;
+       name = "Montserrat";
+     };
+     sizes = {
+       applications = 12;
+       terminal = 15;
+       desktop = 11;
+       popups = 12;
+     };
+   };
+ };
 
-  # virtualisation = {
-  #   docker = {
-  #     enable = true;
-  #   };
-  # };
-  #
-  # programs = {
-  #   nix-ld = {
-  #     enable = true;
-  #     package = pkgs.nix-ld-rs;
-  #   };
-  #   firefox.enable = false;
-  #   dconf.enable = true;
-  #   fuse.userAllowOther = true;
-  #   gnupg.agent = {
-  #     enable = true;
-  #     enableSSHSupport = true;
-  #   };
-  #   thunar = {
-  #     enable = true;
-  #     plugins = with pkgs.xfce; [
-  #       thunar-archive-plugin
-  #       thunar-volman
-  #     ];
-  #   };
-  # };
+  virtualisation = {
+    docker = {
+      enable = true;
+    };
+  };
+
+  programs = {
+    nix-ld = {
+      enable = true;
+      package = pkgs.nix-ld-rs;
+    };
+    firefox.enable = false;
+    dconf.enable = true;
+    fuse.userAllowOther = true;
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
+    thunar = {
+      enable = true;
+      plugins = with pkgs.xfce; [
+        thunar-archive-plugin
+        thunar-volman
+      ];
+    };
+  };
 
   nixpkgs.config.allowUnfree = true;
 
@@ -195,7 +193,7 @@ environment.systemPackages = with pkgs; [
   yazi p7zip unzip unrar file-roller ncdu duf
 
   # System monitoring and management
-  htop btop lm_sensors inxi auto-cpufreq nvtopPackages.nvidia anydesk
+  htop btop lm_sensors inxi auto-cpufreq anydesk
 
   # Audio and video
   pulseaudio pavucontrol ffmpeg mpv deadbeef-with-plugins
@@ -408,13 +406,13 @@ environment.systemPackages = with pkgs; [
 
   programs.hyprland.enable = true;
 
-#  home-manager = {
-#    extraSpecialArgs = { inherit inputs; };
-#    users.${username} = import ./home.nix;
-#    useGlobalPkgs = true;
-#    useUserPackages = true;
-#    backupFileExtension = "backup";
-#  };
+ home-manager = {
+   extraSpecialArgs = { inherit inputs; };
+   users.${username} = import ./home.nix;
+   useGlobalPkgs = true;
+   useUserPackages = true;
+   backupFileExtension = "backup";
+ };
 
   system.stateVersion = "24.05";
 }
