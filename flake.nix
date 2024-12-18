@@ -10,9 +10,19 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
 
+    #Stylix
+    stylix.url = "github:danth/stylix";
+
     # Home manager
-    home-manager.url = "github:nix-community/home-manager/release-23.11";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # nixCats = {
+    #   url = "path:./modules/nixCats";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    zen-browser.url = "github:MarceColl/zen-browser-flake";
   };
 
   outputs = {
@@ -53,12 +63,12 @@
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
-      # FIXME replace with your hostname
       framework = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          # > Our main nixos configuration file <
           ./hosts/framework/configuration.nix
+          inputs.stylix.nixosModules.stylix
+          inputs.home-manager.nixosModules.default
         ];
       };
     };
