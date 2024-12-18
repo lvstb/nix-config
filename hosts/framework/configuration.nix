@@ -16,25 +16,25 @@
       inputs.home-manager.nixosModules.default
     ];
 
-  boot = {
+  # boot = {
  #   kernelPackages = pkgs.linuxPackages_zen;
  #   kernelModules = [ "v4l2loopback" ];
  #   extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
  #   kernel.sysctl = {
  #     "vm.max_map_count" = 2147483642;
  #   };
-    loader = {
- #     efi = {
- #       canTouchEfiVariables = true;
- #       efiSysMountPoint = "/boot";
- #     };
-      grub = {
-        enable = true;
-        device = "/dev/vda";
- #       efiSupport = true;
-         useOSProber = true;
-      };
-    };
+ #    loader = {
+ # #     efi = {
+ # #       canTouchEfiVariables = true;
+ # #       efiSysMountPoint = "/boot";
+ # #     };
+ #      grub = {
+ #        enable = true;
+ #        device = "/dev/vda";
+ # #       efiSupport = true;
+ #         useOSProber = true;
+ #      };
+ #    };
  #   tmp = {
  #     useTmpfs = true;
  #     tmpfsSize = "30%";
@@ -48,7 +48,7 @@
  #     magicOrExtension = ''\x7fELF....AI\x02'';
  #   };
  #   plymouth.enable = true;
-  };
+  # };
 
   networking = {
     hostName = hostName;
@@ -158,7 +158,7 @@
      mutableUsers = true;
      users.${username} = {
        isNormalUser = true;
-       initialPassword = "test";
+       initialHashedPassword = "test";
        description = userDescription;
        extraGroups = [ "networkmanager" "wheel" ];
        packages = with pkgs; [
