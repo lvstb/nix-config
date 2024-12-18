@@ -13,10 +13,10 @@ in
 
     file = {
       # Hyprland Config
-      ".config/hypr".source = ../../dotfiles/.config/hypr;
+      ".config/hypr".source = dotfiles/.config/hypr;
 
       # wlogout icons
-      ".config/wlogout/icons".source = ../../config/wlogout;
+      ".config/wlogout/icons".source = config/wlogout;
 
       # Top Level Files symlinks
       ".zshrc".source = dotfiles/.zshrc;
@@ -28,7 +28,7 @@ in
       ".local/bin/wallpaper".source = dotfiles/.local/bin/wallpaper;
 
       # Config directories
-      ".config/dunst".source = dotfiles/.config/dunst;
+      # ".config/dunst".source = dotfiles/.config/dunst;
       ".config/fastfetch".source = dotfiles/.config/fastfetch;
       ".config/kitty".source = dotfiles/.config/kitty;
       ".config/mpv".source = dotfiles/.config/mpv;
