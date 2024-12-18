@@ -16,7 +16,7 @@
       inputs.home-manager.nixosModules.default
     ];
 
-  # boot = {
+  boot = {
  #   kernelPackages = pkgs.linuxPackages_zen;
  #   kernelModules = [ "v4l2loopback" ];
  #   extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
@@ -28,13 +28,13 @@
  # #       canTouchEfiVariables = true;
  # #       efiSysMountPoint = "/boot";
  # #     };
- #      grub = {
- #        enable = true;
- #        device = "/dev/vda";
- # #       efiSupport = true;
- #         useOSProber = true;
- #      };
- #    };
+      grub = {
+        enable = true;
+        device = "/dev/vda";
+ #       efiSupport = true;
+         useOSProber = true;
+      };
+    # };
  #   tmp = {
  #     useTmpfs = true;
  #     tmpfsSize = "30%";
@@ -47,8 +47,8 @@
  #     mask = ''\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff'';
  #     magicOrExtension = ''\x7fELF....AI\x02'';
  #   };
- #   plymouth.enable = true;
-  # };
+   plymouth.enable = true;
+  };
 
   networking = {
     hostName = hostName;
