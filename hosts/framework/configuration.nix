@@ -12,7 +12,7 @@
     [
      ./hardware-configuration.nix
      ./user.nix
-     ./home.nix
+     # ./home.nix
       inputs.home-manager.nixosModules.default
     ];
 
