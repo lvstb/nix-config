@@ -23,7 +23,7 @@
  #   kernel.sysctl = {
  #     "vm.max_map_count" = 2147483642;
  #   };
- #    loader = {
+    loader = {
  # #     efi = {
  # #       canTouchEfiVariables = true;
  # #       efiSysMountPoint = "/boot";
@@ -34,7 +34,7 @@
  #       efiSupport = true;
          useOSProber = true;
       };
-    # };
+    };
  #   tmp = {
  #     useTmpfs = true;
  #     tmpfsSize = "30%";
