@@ -10,7 +10,8 @@ in
   config = {
     users.users.${userName} = {
       isNormalUser = true;
-      initialPasswd = "test";
+      # initialPasswd = "test";
+      password = "test";
       description = userDescription;
       shell = pkgs.zsh;
       extraGroups = [ "wheel"  "docker" ];
