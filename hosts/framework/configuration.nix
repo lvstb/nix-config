@@ -158,7 +158,7 @@
      mutableUsers = true;
      users.${username} = {
        isNormalUser = true;
-       initialPasswd = "test";
+       password = "test";
        description = userDescription;
        extraGroups = [ "networkmanager" "wheel" ];
        packages = with pkgs; [
