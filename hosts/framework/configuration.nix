@@ -198,20 +198,10 @@ environment.systemPackages = with pkgs; [
 
   # Audio and video
   hypnotix
-  # pulseaudio 
-  #  pavucontrol 
-  #  ffmpeg 
-  #  mpv 
-  #  deadbeef-with-plugins
  
   # Image and graphics
   # imagemagick 
   # gimp 
-  # hyprpicker 
-  # swww 
-  # hyprlock 
-  # waypaper 
-  # imv
 
   # Productivity and office
   onlyoffice-bin 
@@ -236,9 +226,6 @@ environment.systemPackages = with pkgs; [
   swappy appimage-run yad playerctl nh ansible
   yubioath-flutter
 
-  # Wayland specific
-  # hyprshot hypridle grim slurp waybar dunst wl-clipboard swaynotificationcente
-
   # Virtualization
   libvirt
 
@@ -251,8 +238,6 @@ environment.systemPackages = with pkgs; [
   # Music and streaming
   spotify
 
-  # Miscellaneous
-  # greetd.tuigreet
 ];
 
   fonts.packages = with pkgs; [

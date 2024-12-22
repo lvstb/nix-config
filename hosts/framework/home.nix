@@ -43,11 +43,14 @@ in
     ];
 
   };
-
+  packages = [
+      (import ../../scripts/rofi-launcher.nix { inherit pkgs; })
+    ];
   imports = [
       ../common/shell.nix
       ../common/starship.nix
       ../common/git.nix
+      ../common/rofi.nix
   ];
 
   # Styling
