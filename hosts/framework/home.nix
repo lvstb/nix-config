@@ -14,6 +14,7 @@ in
       ".xinitrc".source = ../../dotfiles/.xinitrc;
       # Config directories
       ".config/nvim".source = ../../dotfiles/.config/nvim;
+      ".config/kitty".source = ../../dotfiles/.config/kitty;
       # Individual config files
       # ".config/starship.toml".source = ../../dotfiles/.config/starship.toml;
     };
@@ -21,7 +22,7 @@ in
     sessionVariables = {
       EDITOR = "nvim";
     #   VISUAL = "nixCats";
-    #   TERMINAL = "kitty";
+      TERMINAL = "kitty";
       BROWSER = "firefox";
       XDG_CONFIG_HOME = "$HOME/.config";
       XDG_DATA_HOME = "$HOME/.local/share";
@@ -43,9 +44,6 @@ in
     ];
 
   };
-  packages = [
-      (import ../../scripts/rofi-launcher.nix { inherit pkgs; })
-    ];
   imports = [
       ../common/shell.nix
       ../common/starship.nix
@@ -54,25 +52,24 @@ in
   ];
 
   # Styling
-  #stylix.targets.waybar.enable = false;
-  # gtk = {
-  #   iconTheme = {
-  #     name = "Papirus-Dark";
-  #     package = pkgs.papirus-icon-theme;
-  #   };
-  #   gtk3.extraConfig = {
-  #     gtk-application-prefer-dark-theme = 1;
-  #   };
-  #   gtk4.extraConfig = {
-  #     gtk-application-prefer-dark-theme = 1;
-  #   };
-  # };
-  # qt = {
-  #   enable = true;
-  #   style.name = "adwaita-dark";
-  #   platformTheme.name = "gtk3";
-  # };
-
+  gtk = {
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+  };
+  qt = {
+    enable = true;
+    style.name = "adwaita-dark";
+    platformTheme.name = "gtk3";
+  };
+  stylix.autoEnable = true;
 
   programs.home-manager.enable = true;
 }

@@ -33,7 +33,6 @@
     };
   };
 
-  # programs.hyprland.enable = true; 
   time.timeZone = timeZone;
 
   i18n = {
@@ -76,6 +75,7 @@
    cursor.package = pkgs.bibata-cursors;
    cursor.name = "Bibata-Modern-Ice";
    cursor.size = 16;
+   targets.gnome.enable = true;
    fonts = {
      monospace = {
        package = pkgs.nerd-fonts.jetbrains-mono;
@@ -92,7 +92,7 @@
      sizes = {
        applications = 12;
        terminal = 15;
-       desktop = 11;
+       desktop = 20;
        popups = 12;
      };
    };
@@ -176,6 +176,7 @@ environment.systemPackages = with pkgs; [
   alacritty 
   starship
   awscli2
+  wezterm
 
   # inputs.nixCats.packages.${pkgs.system}.nixCats
 
@@ -215,6 +216,7 @@ environment.systemPackages = with pkgs; [
   telegram-desktop 
   vesktop 
   slack
+  whatsapp-for-linux
 
   # Browsers
   firefox 
