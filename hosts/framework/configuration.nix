@@ -221,19 +221,12 @@ in {
     tmux
     progress
     tree
-    alacritty
-    starship
-    awscli2
     distrobox
     just
     gnome-boxes
-    virt-manager
-    virt-viewer
     spice
     spice-gtk
     spice-protocol
-    win-virtio
-    win-spice
 
     # File management and archives
     yazi
@@ -249,9 +242,8 @@ in {
     btop
     lm_sensors
     inxi
-    anydesk
 
-    # Audio and video
+    # Audio and vudeo
     hypnotix
 
     # Image and graphics
@@ -295,7 +287,6 @@ in {
     yad
     playerctl
     nh
-    ansible
     yubioath-flutter
 
     # Virtualization
