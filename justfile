@@ -39,5 +39,5 @@ history:
 # on darwin, you may need to switch to root user to run this command
 [group('nix')]
 clean:
-  sudo nix profile wipe-history --profile /nix/var/nix/profiles/system  --older-than 1d
+  sudo nix profile wipe-history --profile /nix/var/nix/profiles/system  --older-than 7d
 
