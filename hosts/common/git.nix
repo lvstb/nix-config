@@ -37,7 +37,7 @@
     };
 
     signing = {
-      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBwx7yjdiTjQbqjlkUyoSI7SI3SQmw1NQeQgLOaIMSaB"; 
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBwx7yjdiTjQbqjlkUyoSI7SI3SQmw1NQeQgLOaIMSaB";
       signByDefault = true;
     };
 
@@ -59,7 +59,6 @@
       ca = "commit -am";
       dc = "diff --cached";
       amend = "commit --amend -m";
-
 
       # aliases for submodule
       update = "submodule update --init --recursive";

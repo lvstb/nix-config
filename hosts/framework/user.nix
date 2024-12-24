@@ -1,10 +1,13 @@
-{ lib, config, pkgs,username, ... }:
-
-let
+{
+  lib,
+  config,
+  pkgs,
+  username,
+  ...
+}: let
   userName = username;
   userDescription = "Lars";
-in
-{
+in {
   options = {
   };
   config = {
@@ -14,8 +17,8 @@ in
       password = "test";
       description = userDescription;
       shell = pkgs.zsh;
-      extraGroups = [ "wheel"  "docker" ];
+      extraGroups = ["wheel" "docker"];
     };
-  programs.zsh.enable = true;
+    programs.zsh.enable = true;
   };
 }

@@ -11,27 +11,33 @@
     };
     zen-browser.url = "github:MarceColl/zen-browser-flake";
   };
-  
-  outputs = { self, nixpkgs, ... }@inputs: 
-  let
+
+  outputs = {
+    self,
+    nixpkgs,
+    ...
+  } @ inputs: let
     username = "lvstb";
     userfullname = "Lars Van Steenbergen";
     useremail = "lars@wingu.dev";
-    system = "x86_64"; # aarch64-darwin or x86_64-darwin
+    system = "x86_64-linux"; # aarch64-darwin or x86_64-darwin
 
     specialArgs =
       inputs
       // {
-        inherit username userfullname useremail ;
+        inherit username userfullname useremail;
       };
   in {
-    nixosConfigurations.framework= nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs username userfullname useremail; };
+    nixosConfigurations.framework = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs username userfullname useremail system;};
+      system = system;
       modules = [
         ./hosts/framework/configuration.nix
         inputs.nixos-hardware.nixosModules.framework-13-7040-amd
         inputs.stylix.nixosModules.stylix
       ];
     };
+    # nix code formatter
+    formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
   };
 }
