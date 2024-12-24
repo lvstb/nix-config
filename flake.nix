@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    lanzaboote.url = "github:nix-community/lanzaboote";
     stylix.url = "github:danth/stylix";
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -15,6 +16,7 @@
   outputs = {
     self,
     nixpkgs,
+    lanzaboote,
     ...
   } @ inputs: let
     username = "lvstb";
@@ -30,10 +32,11 @@
   in {
     nixosConfigurations.framework = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs username userfullname useremail system;};
-      system = system;
+      system = "x86_64-linux"; # aarch64-darwin or x86_64-darwin
       modules = [
         ./hosts/framework/configuration.nix
         inputs.nixos-hardware.nixosModules.framework-13-7040-amd
+        lanzaboote.nixosModules.lanzaboote
         inputs.stylix.nixosModules.stylix
       ];
     };

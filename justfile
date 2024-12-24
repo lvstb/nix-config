@@ -3,14 +3,16 @@
 # Variables
 set shell := ["bash", "-cu"]
 
-# Update packages based on the flake configuration
-update-packages:
+# Update inputs based on the flake configuration
+[group('desktop')]
+update:
 	nix flake update
 
-# Update the entire system using the flake configuration
+# Update and apply using the flake configuration
+[group('desktop')]
 update-system:
-	sudo nixos-rebuild switch --flake .#
-
+    sudo nixos-rebuild switch --recreate-lock-file --flake .
+    
 # Format the code in the repository
 [group('nix')]
 fmt:
@@ -18,18 +20,15 @@ fmt:
   nix fmt
 
 # Build and deploy to a specific hostname
+[group('nix')]
 deploy hostname:
-	sudo nixos-rebuild switch --flake .# --build-host {{hostname}} --target-host {{hostname}}
+	sudo nixos-rebuild switch --flake .#{{hostname}}
 
 
 [group('desktop')]
 deploy-debug hostname:
   nix build .#nixosConfigurations.{{hostname}}.system --show-trace --verbose \
     --extra-experimental-features 'nix-command flakes'
-
-# Perform a debug build on a specific hostname
-debug-build hostname:
-	sudo nixos-rebuild switch --flake .# --debug --build-host {{hostname}} --target-host {{hostname}}
 
 # List all generations of the system profile
 [group('nix')]
@@ -40,5 +39,5 @@ history:
 # on darwin, you may need to switch to root user to run this command
 [group('nix')]
 clean:
-  sudo nix profile wipe-history --profile /nix/var/nix/profiles/system  --older-than 7d
+  sudo nix profile wipe-history --profile /nix/var/nix/profiles/system  --older-than 1d
 

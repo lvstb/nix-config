@@ -22,13 +22,35 @@ in {
   ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.supportedFilesystems = ["btrfs" "ntfs"];
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  hardware.enableAllFirmware = true;
-  boot.plymouth.enable = true;
+  boot = {
+    bootspec.enable = true;
+    initrd.systemd.enable = true;
+    loader.systemd-boot.enable = lib.mkForce false;
+    supportedFilesystems = ["btrfs" "ntfs"];
+    kernelPackages = pkgs.linuxPackages_latest;
+    plymouth.enable = true;
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/etc/secureboot";
+    };
+    initrd = {
+        availableKernelModules = [
+        "ahci"
+        "nvme"
+        "sd_mod"
+        "usb_storage"
+        "usbhid"
+        "xhci_pci"
+        ];
+        kernelModules = [];
+  };
+    kernelModules = [
+        "kvm_amd"
+        "vhost_vsock"
+    ];
+};
 
+  hardware.enableAllFirmware = true;
   networking = {
     hostName = hostName;
     networkmanager.enable = true;
@@ -115,6 +137,15 @@ in {
   };
 
   virtualisation = {
+    libvirtd = {
+      enable = true;
+      qemu = {
+        swtpm.enable = true;
+        ovmf.enable = true;
+        ovmf.packages = [pkgs.OVMFFull.fd];
+      };
+    };
+    spiceUSBRedirection.enable = true;
     podman = {
       enable = true;
     };
@@ -122,6 +153,7 @@ in {
       enable = true;
     };
   };
+  services.spice-vdagentd.enable = true;
 
   programs = {
     nix-ld = {
@@ -194,6 +226,14 @@ in {
     awscli2
     distrobox
     just
+    gnome-boxes
+    virt-manager
+    virt-viewer
+    spice
+    spice-gtk
+    spice-protocol
+    win-virtio
+    win-spice
 
     # File management and archives
     yazi
@@ -245,13 +285,11 @@ in {
     ydotool
     pciutils
     socat
-    cowsay
     ripgrep
     lshw
     bat
     pkg-config
     brightnessctl
-    virt-viewer
     swappy
     appimage-run
     yad
