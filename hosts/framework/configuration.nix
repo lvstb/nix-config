@@ -154,6 +154,7 @@ in {
     };
   };
   services.spice-vdagentd.enable = true;
+  services.spice-webdavd.enable = true;
 
   programs = {
     nix-ld = {
