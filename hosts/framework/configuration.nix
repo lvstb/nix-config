@@ -55,20 +55,20 @@ in {
     hostName = hostName;
     networkmanager.enable = true;
     timeServers = options.networking.timeServers.default ++ ["pool.ntp.org"];
-    firewall = {
-      allowedTCPPortRanges = [
-        {
-          from = 8060;
-          to = 8090;
-        }
-      ];
-      allowedUDPPortRanges = [
-        {
-          from = 8060;
-          to = 8090;
-        }
-      ];
-    };
+    # firewall = {
+    #   allowedTCPPortRanges = [
+    #     {
+    #       from = 8060;
+    #       to = 8090;
+    #     }
+    #   ];
+    #   allowedUDPPortRanges = [
+    #     {
+    #       from = 8060;
+    #       to = 8090;
+    #     }
+    #   ];
+    # };
   };
 
   time.timeZone = timeZone;
@@ -195,6 +195,7 @@ in {
     lua
     python3
     python3Packages.pip
+    python3Packages.pipx
     nodePackages_latest.pnpm
     nodePackages_latest.yarn
     nodePackages_latest.nodejs
@@ -214,6 +215,7 @@ in {
 
     # Shell and terminal utilities
     wget
+    file
     killall
     eza
     kitty
@@ -228,6 +230,7 @@ in {
     spice
     spice-gtk
     spice-protocol
+    ghostty
 
     # File management and archives
     yazi
@@ -289,6 +292,7 @@ in {
     playerctl
     nh
     yubioath-flutter
+    
 
     # Virtualization
     libvirt

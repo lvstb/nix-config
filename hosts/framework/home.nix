@@ -73,6 +73,5 @@ in {
     platformTheme.name = "gtk3";
   };
   stylix.autoEnable = true;
-
   programs.home-manager.enable = true;
 }
