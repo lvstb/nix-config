@@ -52,6 +52,7 @@ in {
     ../common/starship.nix
     ../common/git.nix
     ../common/rofi.nix
+    ../common/lazygit.nix
   ];
 
   # Styling
