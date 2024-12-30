@@ -34,21 +34,21 @@ in {
       pkiBundle = "/etc/secureboot";
     };
     initrd = {
-        availableKernelModules = [
+      availableKernelModules = [
         "ahci"
         "nvme"
         "sd_mod"
         "usb_storage"
         "usbhid"
         "xhci_pci"
-        ];
-        kernelModules = [];
-  };
+      ];
+      kernelModules = [];
+    };
     kernelModules = [
-        "kvm_amd"
-        "vhost_vsock"
+      "kvm_amd"
+      "vhost_vsock"
     ];
-};
+  };
 
   hardware.enableAllFirmware = true;
   networking = {
@@ -189,7 +189,7 @@ in {
 
     # Zen Browser from custom input
     inputs.zen-browser.packages."${system}".default
-
+    inputs.ghostty.packages."${system}".default
     # Programming languages and tools
     go
     lua
@@ -230,7 +230,6 @@ in {
     spice
     spice-gtk
     spice-protocol
-    ghostty
 
     # File management and archives
     yazi
@@ -246,6 +245,9 @@ in {
     btop
     lm_sensors
     inxi
+    gnomeExtensions.caffeine
+    gnomeExtensions.custom-osd
+    gnomeExtensions.espresso
 
     # Audio and vudeo
     hypnotix
@@ -292,7 +294,6 @@ in {
     playerctl
     nh
     yubioath-flutter
-    
 
     # Virtualization
     libvirt

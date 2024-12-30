@@ -10,7 +10,7 @@
       vim = "nvim";
       rg = "rg --smart-case";
       du = "ncdu --color dark -rr -x --exclude .git";
-      aws-sso-util="distrobox-enter -n tools -- aws-sso-util"
+      aws-sso-util = "distrobox-enter -n tools -- aws-sso-util";
     };
 
     initExtra = ''
