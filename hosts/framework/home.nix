@@ -26,7 +26,7 @@ in {
     sessionVariables = {
       EDITOR = "nvim";
       #   VISUAL = "nixCats";
-      TERMINAL = "kitty";
+      TERMINAL = "ghostty";
       BROWSER = "firefox";
       XDG_CONFIG_HOME = "$HOME/.config";
       XDG_DATA_HOME = "$HOME/.local/share";
