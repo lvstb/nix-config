@@ -90,22 +90,26 @@ in {
   stylix = {
     enable = true;
     base16Scheme = {
-      base00 = "191724";
-      base01 = "1f1d2e";
-      base02 = "26233a";
-      base03 = "6e6a86";
-      base04 = "908caa";
-      base05 = "e0def4";
-      base06 = "e0def4";
-      base07 = "524f67";
-      base08 = "eb6f92";
-      base09 = "f6c177";
-      base0A = "ebbcba";
-      base0B = "31748f";
-      base0C = "9ccfd8";
-      base0D = "c4a7e7";
-      base0E = "f6c177";
-      base0F = "524f67";
+      # base00 = "#f9f5d7";
+      # base01 = "#f0ebce";
+      # base02 = "#e8e3c8";
+      # base03 = "#c0c0c0";
+      base00 = "#141617";
+      base01 = "#1d2021";
+      base02 = "#292929";
+      base03 = "#000000";
+      base04 = "#f9f5d7";
+      base05 = "#f0ebce";
+      base06 = "#e8e3c8";
+      base07 = "#c0c0c0";
+      base08 = "#c14a4a";
+      base09 = "#b47109";
+      base0A = "#d8a657";
+      base0B = "#6c782e";
+      base0C = "#4c7a5d";
+      base0D = "#45707a";
+      base0E = "#ea6962";
+      base0F = "#89b482";
     };
     image = ../../config/assets/wall.png;
     polarity = "dark";
@@ -230,6 +234,8 @@ in {
     spice
     spice-gtk
     spice-protocol
+    snyk
+    base16-schemes
 
     # File management and archives
     yazi
@@ -246,8 +252,7 @@ in {
     lm_sensors
     inxi
     gnomeExtensions.caffeine
-    gnomeExtensions.custom-osd
-    gnomeExtensions.espresso
+    gnome-tweaks
 
     # Audio and vudeo
     hypnotix

@@ -10,10 +10,19 @@
       vim = "nvim";
       rg = "rg --smart-case";
       du = "ncdu --color dark -rr -x --exclude .git";
-      aws-sso-util = "distrobox-enter -n tools -- aws-sso-util";
+      # aws-sso-util = "distrobox-enter -n tools -- aws-sso-util";
     };
 
     initExtra = ''
+        # Function to check if credentials are valid for the selected profile
+        function check_credentials() {
+            local profile=$1
+            if ! aws sts get-caller-identity --profile "$profile" > /dev/null 2>&1; then
+                echo "No valid credentials found for '$profile'. Initiating SSO login..."
+                aws-sso-util login --profile "$profile"
+            fi
+        }
+            
       # Function to select AWS profile using fzf
       function saws() {
           local profile
@@ -30,8 +39,8 @@
     '';
 
     sessionVariables = {
-      AWS_CA_BUNDLE = "/opt/homebrew/etc/ca-certificates/cert.pem";
-      NODE_EXTRA_CA_CERTS = "$HOME/.zcli/zscaler_root.pem";
+      # AWS_CA_BUNDLE = "/opt/homebrew/etc/ca-certificates/cert.pem";
+      # NODE_EXTRA_CA_CERTS = "$HOME/.zcli/zscaler_root.pem";
       JAVA_HOME = "/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home";
     };
   };

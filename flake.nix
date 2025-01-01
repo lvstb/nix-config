@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     lanzaboote.url = "github:nix-community/lanzaboote";
     stylix.url = "github:danth/stylix";
@@ -19,6 +23,7 @@
   outputs = {
     self,
     nixpkgs,
+    nur,
     lanzaboote,
     ...
   } @ inputs: let
