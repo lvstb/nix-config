@@ -8,7 +8,6 @@
       url = "github:nix-community/lanzaboote/v0.4.1";
       inputs.nixpkgs.follows = "nixos-pkgs";
     };
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     
    #home-manager is  a module to manage your user config 
     home-manager = {
@@ -55,6 +54,7 @@
         ./home/starship.nix
         ./home/vscode.nix
         ./home/shell.nix
+        ./home/firefox.nix
       ];
 
       # Additional user applications and configurations

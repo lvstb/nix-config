@@ -7,11 +7,6 @@ set shell := ["bash", "-cu"]
 [group('desktop')]
 update:
 	nix flake update
-
-# Update and apply using the flake configuration
-[group('desktop')]
-update-system:
-    sudo nixos-rebuild switch --recreate-lock-file --flake .
     
 # Format the code in the repository
 [group('nix')]
@@ -24,6 +19,10 @@ fmt:
 deploy hostname:
 	sudo nixos-rebuild switch --flake .#{{hostname}}
 
+# Build the user profile
+[group('nix')]
+user user:
+    home-manager build --flake .#{{user}} switch
 
 [group('desktop')]
 deploy-debug hostname:

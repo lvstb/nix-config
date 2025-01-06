@@ -5,7 +5,6 @@
 
   # Install packages via programs.* where possible
   # May include extra config OOTB that the package does not
-  programs.firefox.enable = lib.mkDefault true;
   programs.vscode.enable = lib.mkDefault true;
   programs.chromium = {
     enable = lib.mkDefault true;
@@ -65,6 +64,7 @@
     distrobox
     snyk
     terraform
+    awscli
     
     #File mgmt and archives
     yazi 

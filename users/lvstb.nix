@@ -6,6 +6,39 @@
     ".config/nvim".source = ../dotfiles/.config/nvim;
   };  
 
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    #   VISUAL = "nixCats";
+    TERMINAL = "ghostty";
+    BROWSER = "firefox";
+    XDG_CONFIG_HOME = "$HOME/.config";
+    XDG_DATA_HOME = "$HOME/.local/share";
+    XDG_STATE_HOME = "$HOME/.local/state";
+    XDG_CACHE_HOME = "$HOME/.cache";
+    XDG_SCREENSHOTS_DIR = "$HOME/Pictures/screenshots";
+      #   JAVA_AWT_WM_NONREPARENTING = "1";
+      #   XDG_SESSION_TYPE = "wayland";
+      #   XDG_CURRENT_DESKTOP = "Hyprland";
+      #   XDG_SESSION_DESKTOP = "Hyprland";
+      #   __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      #   GBM_BACKEND = "nvidia-drm";
+      #   LC_ALL = "en_US.UTF-8";
+  };
+
+  home.sessionPath = [
+    "$HOME/.local/bin"
+    "$HOME/go/bin"
+  ];
+    
+  xdg.mimeApps.enable = true;
+  xdg.mimeApps.associations.added = {                                                                                                           
+    "text/html" = "firefox.desktop";
+    "x-scheme-handler/http" = "firefox.desktop";
+    "x-scheme-handler/https" = "firefox.desktop";
+    "x-scheme-handler/about" = "firefox.desktop";
+    "x-scheme-handler/unknown" = "firefox.desktop";
+  };  
+        
   home.packages = with pkgs; [
     nodejs
     openssh
@@ -22,6 +55,9 @@
       ];
       favorite-apps = [
         # "chromium-browser.desktop"
+        "firefox.desktop"
+        "slack.desktop"
+        "com.mitchellh.ghostty.desktop"
         "code.desktop"
         "org.gnome.Nautilus.desktop"
       ];
