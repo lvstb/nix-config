@@ -1,22 +1,22 @@
 {pkgs, ...}: {
   programs.vscode = {
     enable = true;
-    extensions = with pkgs.vscode-marketplace;
-    with pkgs.vscode-marketplace-release; [
-      esbenp.prettier-vscode
-      dbaeumer.vscode-eslint
-      eamodio.gitlens
-      jnoortheen.nix-ide
-      expo.vscode-expo-tools
-
+    # extensions = with pkgs.vscode-marketplace;
+    # with pkgs.vscode-marketplace-release; [
+    #   esbenp.prettier-vscode
+    #   dbaeumer.vscode-eslint
+    #   eamodio.gitlens
+    #   jnoortheen.nix-ide
+    #   expo.vscode-expo-tools
+    #
       # Catppuccin
-      catppuccin.catppuccin-vsc
-      catppuccin.catppuccin-vsc-icons
-
-      # GitHub Copilot
-      github.copilot
-      github.copilot-chat
-    ];
+    #   catppuccin.catppuccin-vsc
+    #   catppuccin.catppuccin-vsc-icons
+    #
+    #   # GitHub Copilot
+    #   github.copilot
+    #   github.copilot-chat
+    # ];
     userSettings = {
       # Visual Studio Code
       "workbench.startupEditor" = "none";

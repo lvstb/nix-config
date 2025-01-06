@@ -27,14 +27,14 @@
     # shell configuration depends on the user
 
     "org/gnome/desktop/interface" = {
-      enable-hot-corners = false;
+      enable-hot-corners = true;
       # All the below are installed at the system level
       # Could instead use `gtk.cursorTheme`, etc. and reference the actual packages
-      cursor-theme = "capitaine-cursors";
-      document-font-name = "Merriweather 11";
-      font-name = "IBM Plex Sans Arabic 11";
+      # cursor-theme = "Bibata-Modern-Ice";
+      # document-font-name = "Merriweather 11";
+      # font-name = "IBM Plex Sans Arabic 11";
       # icon-theme = "Adwaita";
-      monospace-font-name = "FiraCode Nerd Font 10";
+      # monospace-font-name = "FiraCode Nerd Font 10";
     };
 
     # "com/raggesilver/BlackBox" = {

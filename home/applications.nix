@@ -27,7 +27,6 @@
   programs.tmux.enable = lib.mkDefault true;
   programs.ripgrep.enable = lib.mkDefault true;
   programs.neovim.enable = lib.mkDefault true;
-  programs.lazydocker.enable = lib.mkDefault true;
 
 
   # Languages
@@ -85,7 +84,7 @@
     btop
     ripgrep
     bat
-    inputs.ghostty.packages."${system}".default
+    # inputs.ghostty.packages."${system}".default
 
     #Audio and video
     spotify

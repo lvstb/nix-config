@@ -26,7 +26,7 @@
     opacity.terminal = 0.8;
     cursor.package = pkgs.bibata-cursors;
     cursor.name = "Bibata-Modern-Ice";
-    cursor.size = 16;
+    cursor.size = 14;
     targets.gnome.enable = true;
     fonts = {
       monospace = {

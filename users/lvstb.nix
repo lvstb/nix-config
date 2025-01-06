@@ -1,7 +1,7 @@
 { pkgs, ... }: {
 
-  home.username = "lvstb";
-  home.homeDirectory = "/home/lvstb";
+  home.username = "lars";
+  home.homeDirectory = "/home/lars";
   home.file = {
     ".config/nvim".source = ../dotfiles/.config/nvim;
   };  

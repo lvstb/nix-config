@@ -4,7 +4,7 @@
 #   # useremail,
 #   ...
 # }
-{lib}:let
+{lib, ...}:let
     userfullname = "Lars van Steenbergen";
     useremail = "lars@wingu.dev";
 

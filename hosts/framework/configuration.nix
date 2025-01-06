@@ -33,7 +33,7 @@ in {
     # };
   };
     
-  users.users.lvstb = {
+  users.users.lars= {
     isNormalUser = true;
     initialPassword = "test";
     shell = pkgs.zsh;
@@ -42,9 +42,11 @@ in {
   };
     
   environment.systemPackages = with pkgs; [
-
+    ghostty
   ];
-
+  # Enable LVFS testing to get UEFI updates
+  services.fwupd.extraRemotes = [ "lvfs-testing" ];
+    
   hardware = {
     bluetooth = {
       enable = true;

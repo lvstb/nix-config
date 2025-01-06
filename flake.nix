@@ -1,13 +1,16 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
+    nixos-pkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
+    # Secure Boot for NixOS
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
+      inputs.nixpkgs.follows = "nixos-pkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    lanzaboote.url = "github:nix-community/lanzaboote";
-    stylix.url = "github:danth/stylix";
+    
+   #home-manager is  a module to manage your user config 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -16,12 +19,11 @@
     # Stylix is a NixOS module for managing system-wide styles
     stylix.url = "github:danth/stylix";
         
-    zen-browser.url = "github:MarceColl/zen-browser-flake";
-        
-    #Ghostty is a new terminal emulator
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
-    };
+    # VSCode extensions     
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };        
         
     # Provides module support for specific vendor hardware
     nixos-hardware.url = "github:NixOS/nixos-hardware";
@@ -52,12 +54,13 @@
         ./home/lazygit.nix
         ./home/starship.nix
         ./home/vscode.nix
+        ./home/shell.nix
       ];
 
       # Additional user applications and configurations
       guiModules = [
         ./home/gnome.nix
-        ./home/stylix.nix
+        # ./home/stylix.nix
       ];
 
 
@@ -65,9 +68,11 @@
       osModules = [
         inputs.lanzaboote.nixosModules.lanzaboote
         inputs.nixos-hardware.nixosModules.common-hidpi
+        inputs.stylix.nixosModules.stylix
         ./system/boot.nix
         ./system/os.nix
         ./system/global.nix
+        ./home/stylix.nix
         {
           nixpkgs.overlays = osOverlays;
         }
@@ -90,7 +95,7 @@
 
     in {
       homeConfigurations = {
-        lvstb = homeUser [ ./users/lvstb.nix ];
+        lars = homeUser [ ./users/lvstb.nix ];
       };
       nixosConfigurations = {
         framework = nixosSystem [

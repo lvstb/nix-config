@@ -114,7 +114,7 @@
       ibm-plex
       merriweather
       noto-fonts-emoji
-      (nerdfonts.override { fonts = [ "FiraCode" "UbuntuMono" "CascadiaCode" "Noto" ]; })
+      nerd-fonts.fira-code
     ];
 
     fontconfig = {
