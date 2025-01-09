@@ -55,6 +55,7 @@
         ./home/vscode.nix
         ./home/shell.nix
         ./home/firefox.nix
+        ./home/tmux.nix
       ];
 
       # Additional user applications and configurations

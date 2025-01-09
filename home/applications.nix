@@ -23,7 +23,6 @@
     
   # Shell based tools
   programs.home-manager.enable = lib.mkDefault true;
-  programs.tmux.enable = lib.mkDefault true;
   programs.ripgrep.enable = lib.mkDefault true;
   programs.neovim.enable = lib.mkDefault true;
 

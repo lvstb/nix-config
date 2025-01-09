@@ -57,7 +57,7 @@ in {
   #
   services.blueman.enable = true;
 
-  security.pam.services.login.fprintAuth = false;
+  # security.pam.services.login.fprintAuth = false;
   # similarly to how other distributions handle the fingerprinting login
   security.pam.services.gdm-fingerprint.text = ''
     auth       required                    pam_shells.so

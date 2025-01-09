@@ -4,6 +4,7 @@
   home.homeDirectory = "/home/lars";
   home.file = {
     ".config/nvim".source = ../dotfiles/.config/nvim;
+    ".config/ghostty".source = ../dotfiles/.config/ghostty;
   };  
 
   home.sessionVariables = {
