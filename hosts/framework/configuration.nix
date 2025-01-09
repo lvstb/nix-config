@@ -46,6 +46,7 @@ in {
   ];
   # Enable LVFS testing to get UEFI updates
   services.fwupd.extraRemotes = [ "lvfs-testing" ];
+    programs.ssh.startAgent = true;
     
   hardware = {
     bluetooth = {
