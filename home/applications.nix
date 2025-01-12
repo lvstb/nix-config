@@ -25,12 +25,23 @@
   programs.home-manager.enable = lib.mkDefault true;
   programs.ripgrep.enable = lib.mkDefault true;
   programs.neovim.enable = lib.mkDefault true;
+  programs.bat.enable = lib.mkDefault true; 
+  programs.fzf.enable = lib.mkDefault true; 
+  programs.zoxide.enable = lib.mkDefault true;
+  programs.jq.enable = lib.mkDefault true;
+  programs.eza.enable = lib.mkDefault true;
+  programs.btop.enable = lib.mkDefault true;
+  programs.gh.enable = lib.mkDefault true;
+  programs.yazi.enable = lib.mkDefault true;
 
 
   # Languages
   # programs.java.enable = lib.mkDefault true;
   # programs.java.package = lib.mkDefault pkgs.jdk17_headless;
   programs.go.enable = lib.mkDefault true;
+  programs.zed-editor.enable = lib.mkDefault true;
+
+  services.nextcloud-client.enable = lib.mkDefault true;
 
 
   home.packages = lib.mkBefore (with pkgs; [
@@ -41,7 +52,6 @@
     slack
 
     #Text editors and IDEs
-    zed-editor
     obsidian
     
     #Programming Languages
@@ -55,35 +65,22 @@
     cargo
     
     #Version control and dev tools
-    gh 
     httpie-desktop
-    kubernetes-helm
     kubectl
-    tmux
     distrobox
     snyk
     terraform
-    awscli
+    awscli2
     
     #File mgmt and archives
-    yazi 
-    file-roller
     ncdu
-    nextcloud-client
+    file-roller
         
     #Terminal utilities
     wget
     file
-    jq
     killall
-    eza
-    zoxide
-    fzf
     tree 
-    btop
-    ripgrep
-    bat
-    # inputs.ghostty.packages."${system}".default
 
     #Audio and video
     spotify
