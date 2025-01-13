@@ -55,8 +55,8 @@
         # "luminus-shell-y@dikasp.gitlab"
       ];
       favorite-apps = [
-        # "chromium-browser.desktop"
         "firefox.desktop"
+        "thunderbird.desktop"
         "slack.desktop"
         "com.mitchellh.ghostty.desktop"
         "code.desktop"

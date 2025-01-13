@@ -83,6 +83,7 @@
     wl-clipboard
     gnome-tweaks
     gnome-boxes
+    vlc
   ]) ++ (with pkgs.gnomeExtensions; [
     # blur-my-shell
     # gsconnect

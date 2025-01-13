@@ -56,6 +56,7 @@
         ./home/shell.nix
         ./home/firefox.nix
         ./home/tmux.nix
+        ./home/thunderbird.nix
       ];
 
       # Additional user applications and configurations
