@@ -1,4 +1,4 @@
-{lib,...}: {
+{lib,pkgs,...}: {
   programs.zsh = {
     enable = lib.mkDefault true;
     history.extended = true;
@@ -15,6 +15,11 @@
     };
 
     initExtra = ''
+        # Shell integrations
+        eval "$(zoxide init --cmd cd zsh)" 
+        eval "$(fzf --zsh)" 
+        #extra opts
+        zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
         # Function to check if credentials are valid for the selected profile
         function check_credentials() {
             local profile=$1
@@ -44,5 +49,11 @@
       # NODE_EXTRA_CA_CERTS = "$HOME/.zcli/zscaler_root.pem";
       JAVA_HOME = "/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home";
     };
+    plugins = [
+    {
+        name = "fzf-tab";
+        src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
+    }
+    ];
   };
 }

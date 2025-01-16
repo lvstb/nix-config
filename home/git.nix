@@ -35,6 +35,7 @@ in{
     extraConfig = {
       core.editor = "nvim";
       core.excludesfile = "~/.gitignore_global";
+      core.sshCommand = "ssh -i ~/.ssh/id_ed25519";
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
       pull.rebase = true;
@@ -79,7 +80,9 @@ in{
 
         [user]
           email = lars.van.steenbergen@persgroep.net
-          signingkey = ~/DPG/.ssh/id_ed25519.pub
+          signingkey = ~/DPG/.ssh/id_ed25519
+        [commit]
+          gpgSign = true
       '';
     };
   };

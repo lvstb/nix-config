@@ -33,7 +33,12 @@
   programs.btop.enable = lib.mkDefault true;
   programs.gh.enable = lib.mkDefault true;
   programs.yazi.enable = lib.mkDefault true;
-
+  programs.direnv = {
+    enable = true;
+    config = {
+      "load_dotenv" = true;
+    };
+    };
 
   # Languages
   # programs.java.enable = lib.mkDefault true;

@@ -85,7 +85,7 @@
     gnome-boxes
     vlc
   ]) ++ (with pkgs.gnomeExtensions; [
-    # blur-my-shell
+    blur-my-shell
     # gsconnect
     # luminus-shell-y
     # night-theme-switcher
@@ -95,7 +95,7 @@
   # Remove unused/icky packages
   environment.gnome.excludePackages = with pkgs; [
     epiphany
-    # geary
+    geary
     gedit
     gnome-contacts
     gnome-music

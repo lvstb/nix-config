@@ -49,10 +49,9 @@
       disable-user-extensions = false;
       enabled-extensions = [
         "gsconnect@andyholmes.github.io"
-        # "nightthemeswitcher@romainvigier.fr"
+        "caffeine@patapon.info"
         "GPaste@gnome-shell-extensions.gnome.org"
-        # "blur-my-shell@aunetx"
-        # "luminus-shell-y@dikasp.gitlab"
+        "blur-my-shell@aunetx"
       ];
       favorite-apps = [
         "firefox.desktop"
