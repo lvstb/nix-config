@@ -68,6 +68,7 @@
     nodePackages_latest.nodejs
     gcc
     cargo
+    nextcloud-client
     
     #Version control and dev tools
     httpie-desktop
@@ -80,6 +81,7 @@
     #File mgmt and archives
     ncdu
     file-roller
+    unzip
         
     #Terminal utilities
     wget
