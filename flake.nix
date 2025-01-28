@@ -5,7 +5,7 @@
 
     # Secure Boot for NixOS
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
+      url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixos-pkgs";
     };
     
@@ -26,6 +26,7 @@
         
     # Provides module support for specific vendor hardware
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+    # nixos-hardware.url = "https://github.com/NixOS/nixos-hardware/archive/e7ac747157a3301034b0caea9eb45c7b071e52fd.zip";
 
     # fw ectool as configured for FW13 7040 AMD (until patch is upstreamed)
     fw-ectool = {

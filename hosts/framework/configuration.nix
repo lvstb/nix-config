@@ -11,7 +11,7 @@ in {
     
   #Specific boot config for the device
   boot.initrd.systemd.enable = true;
-  boot.initrd.kernelModules = ["kvm_amd"];
+  # boot.initrd.kernelModules = ["kvm_amd"];
     
   networking = {
     hostName = hostName;

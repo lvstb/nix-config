@@ -29,7 +29,12 @@
   boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.lanzaboote = {
     enable = true;
-    pkiBundle = "/etc/secureboot";
+    pkiBundle = "/var/lib/sbctl";
+  };
+  hardware = {
+    # disable framework kernel module
+    # https://github.com/NixOS/nixos-hardware/issues/1330
+    framework.enableKmod = false;
   };
 
   # TPM for unlocking LUKS

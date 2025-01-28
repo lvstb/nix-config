@@ -47,7 +47,7 @@
   services.gvfs.enable = true;
   services.avahi = {
     enable = true;
-    nssmdns = true;
+    nssmdns4 = true;
     openFirewall = true;
   }; 
   services.ipp-usb.enable = true;
@@ -59,7 +59,7 @@
   services.printing.enable = true;
 
   # Enable sound using pipewire
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
