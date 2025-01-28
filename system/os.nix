@@ -13,6 +13,107 @@
   networking.useDHCP = lib.mkDefault true;
   networking.networkmanager.enable = true;
 
+  programs.nix-ld.enable = lib.mkDefault true;
+  environment.variables = {
+      NIX_LD_LIBRARY_PATH = with pkgs; lib.makeLibraryPath [
+        stdenv.cc.cc
+        openssl
+        xorg.libXcomposite
+        xorg.libXtst
+        xorg.libXrandr
+        xorg.libXext
+        xorg.libX11
+        xorg.libXfixes
+        libGL
+        libva
+        pipewire.lib
+        xorg.libxcb
+        xorg.libXdamage
+        xorg.libxshmfence
+        xorg.libXxf86vm
+        libelf
+        
+        # Required
+        glib
+        gtk2
+        bzip2
+        
+        # Without these it silently fails
+        xorg.libXinerama
+        xorg.libXcursor
+        xorg.libXrender
+        xorg.libXScrnSaver
+        xorg.libXi
+        xorg.libSM
+        xorg.libICE
+        gnome2.GConf
+        nspr
+        nss
+        cups
+        libcap
+        SDL2
+        libusb1
+        dbus-glib
+        ffmpeg
+        # Only libraries are needed from those two
+        libudev0-shim
+        
+        # Verified games requirements
+        xorg.libXt
+        xorg.libXmu
+        libogg
+        libvorbis
+        SDL
+        SDL2_image
+        glew110
+        libidn
+        tbb
+        
+        # Other things from runtime
+        flac
+        freeglut
+        libjpeg
+        libpng
+        libpng12
+        libsamplerate
+        libmikmod
+        libtheora
+        libtiff
+        pixman
+        speex
+        SDL_image
+        SDL_ttf
+        SDL_mixer
+        SDL2_ttf
+        SDL2_mixer
+        libappindicator-gtk2
+        libdbusmenu-gtk2
+        libindicator-gtk2
+        libcaca
+        libcanberra
+        libgcrypt
+        libvpx
+        librsvg
+        xorg.libXft
+        libvdpau
+        gnome2.pango
+        cairo
+        atk
+        gdk-pixbuf
+        fontconfig
+        freetype
+        dbus
+        alsaLib
+        expat
+        # Needed for electron
+        libdrm
+        mesa
+        libxkbcommon
+      ];
+      NIX_LD = lib.fileContents "${pkgs.stdenv.cc}/nix-support/dynamic-linker";
+  };  
+  programs.zsh.enable = lib.mkDefault true;
+    
   services.xserver = {
     enable = true;
     displayManager.gdm = {
@@ -52,9 +153,8 @@
   }; 
   services.ipp-usb.enable = true;
     
-  programs.ssh.askPassword = lib.mkForce "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
-  programs.zsh.enable = lib.mkDefault true;
-
+  # programs.ssh.askPassword = lib.mkForce "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
+    
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
