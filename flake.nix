@@ -14,7 +14,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+        
+    #portable cicd    
+    dagger.url = "github:dagger/nix";
+        
     # Stylix is a NixOS module for managing system-wide styles
     stylix.url = "github:danth/stylix";
         
@@ -45,6 +48,8 @@
       };
       osOverlays = [
         (_: _: { fw-ectool = inputs.fw-ectool.packages.${system}.ectool; })
+        (final: prev: {dagger = inputs.dagger.packages.${system}.dagger;})
+                
       ];
 
       # Base user config modules

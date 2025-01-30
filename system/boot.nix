@@ -34,7 +34,7 @@
   hardware = {
     # disable framework kernel module
     # https://github.com/NixOS/nixos-hardware/issues/1330
-    framework.enableKmod = false;
+    framework.enableKmod = true;
   };
 
   # TPM for unlocking LUKS
