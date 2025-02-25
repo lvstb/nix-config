@@ -54,6 +54,9 @@
         "editor.formatOnSave" = true;
       };
 
+      # UI
+      "titleBarStyle" = "custom";
+
       # GitHub Copilot
       "github.copilot.enable" = {
         "*" = true;

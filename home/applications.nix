@@ -74,9 +74,10 @@
     httpie-desktop
     kubectl
     distrobox
-    snyk
+    # snyk
     terraform
     awscli2
+    sops
     
     #File mgmt and archives
     ncdu
