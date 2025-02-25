@@ -11,8 +11,13 @@ keybind = ctrl+d=new_split:right
 # Empty values reset the configuration to the default value
 font-family = "FiraCode Nerd Font Mono"
 
-window-decoration = true
-gtk-titlebar = true
+window-theme = system
+gtk-titlebar = false
+gtk-wide-tabs = false
+gtk-adwaita = false
+
+# window-decoration = true
+# gtk-titlebar = true
 clipboard-read = allow
 # Colors can be changed by setting the 16 colors of `palette`, which each color
 # being defined as regular and bold.
