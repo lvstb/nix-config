@@ -13,8 +13,9 @@
       du = "ncdu --color dark -rr -x --exclude .git";
       # aws-sso-util = "distrobox-enter -n tools -- aws-sso-util";
     };
-
+        
     initExtra = ''
+        any-nix-shell zsh --info-right | source /dev/stdin
         # Shell integrations
         eval "$(zoxide init --cmd cd zsh)" 
         eval "$(fzf --zsh)" 

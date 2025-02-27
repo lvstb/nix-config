@@ -57,6 +57,7 @@
     slack
 
     #Text editors and IDEs
+    any-nix-shell
     obsidian
     
     #Programming Languages
@@ -69,6 +70,7 @@
     gcc
     cargo
     nextcloud-client
+    vscode-langservers-extracted
     
     #Version control and dev tools
     httpie-desktop
