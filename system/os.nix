@@ -96,7 +96,7 @@
     gnupg
     sbctl
     podman-compose
-    podman-desktop
+    # podman-desktop
     wl-clipboard
     gnome-tweaks
     gnome-boxes

@@ -3,8 +3,14 @@
     enable = true;
     enableZshIntegration = true;
     settings = {
-          format = "$username$hostname$directory$git_branch$git_state$git_status$cmd_duration$line_break$python$golang$nodejs$terraform$java$character";
-          right_format = "$aws";
+          right_format = "$time";
+          time = {
+          disabled = false;
+          format = "[ $time ](#474747) ";
+          time_format = "%Y-%m-%dT%H:%M:%S";
+          };
+          format = "$username$hostname$directory$git_branch$git_state$git_status$cmd_duration$line_break$nix$python$golang$nodejs$terraform$java$character";
+          # right_format = "$aws";
           nix_shell = {
             disabled = false;
             impure_msg = "";

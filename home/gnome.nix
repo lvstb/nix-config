@@ -58,6 +58,8 @@ in
   };
 
   # Enable gnome-keyring - omit gnome-keyring-ssh
+  # services.gnome3.gnome-keyring.enable = true;
+  # security.pam.services.sddm.enableGnomeKeyring = true;
   services.gnome-keyring = {
     enable = true;
     components = [ "pkcs11" "secrets" ];

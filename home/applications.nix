@@ -48,6 +48,10 @@
 
   services.nextcloud-client.enable = lib.mkDefault true;
 
+  home.sessionPath = [
+    "$HOME/.local/bin"
+    ];
+
 
   home.packages = lib.mkBefore (with pkgs; [
     #Communication and social
@@ -76,7 +80,7 @@
     httpie-desktop
     kubectl
     distrobox
-    # snyk
+    snyk
     terraform
     awscli2
     sops

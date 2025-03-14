@@ -1,19 +1,19 @@
 {
   inputs = {
-    nixos-pkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+        nixos-pkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # Secure Boot for NixOS
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixos-pkgs";
-    };
+            };
     
    #home-manager is  a module to manage your user config 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
+            };
         
     #portable cicd    
     dagger.url = "github:dagger/nix";

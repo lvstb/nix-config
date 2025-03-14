@@ -16,6 +16,7 @@ return function()
 			python = { "isort", "black" },
 			protobuf = { "buf" },
 			golang = { "gofumpt" },
+            nix = {"alejandra"},
 		},
 		format_on_save = {
 			lsp_format = "fallback",
