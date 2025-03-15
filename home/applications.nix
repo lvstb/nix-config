@@ -24,7 +24,7 @@
   # Shell based tools
   programs.home-manager.enable = lib.mkDefault true;
   programs.ripgrep.enable = lib.mkDefault true;
-  programs.neovim.enable = lib.mkDefault true;
+  # programs.neovim.enable = lib.mkDefault true;
   programs.bat.enable = lib.mkDefault true; 
   programs.fzf.enable = lib.mkDefault true; 
   programs.zoxide.enable = lib.mkDefault true;

@@ -1,11 +1,16 @@
-{ pkgs, ... }: {
-
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: {
   home.username = "lars";
   home.homeDirectory = "/home/lars";
   home.file = {
-    ".config/nvim".source = ../dotfiles/.config/nvim;
+    # ".config/nvim".source = ../dotfiles/.config/nvim;
+    # ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${../dotfiles/.config/nvim}";
     ".config/ghostty".source = ../dotfiles/.config/ghostty;
-  };  
+  };
 
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -17,29 +22,29 @@
     XDG_STATE_HOME = "$HOME/.local/state";
     XDG_CACHE_HOME = "$HOME/.cache";
     XDG_SCREENSHOTS_DIR = "$HOME/Pictures/screenshots";
-      #   JAVA_AWT_WM_NONREPARENTING = "1";
-      #   XDG_SESSION_TYPE = "wayland";
-      #   XDG_CURRENT_DESKTOP = "Hyprland";
-      #   XDG_SESSION_DESKTOP = "Hyprland";
-      #   __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-      #   GBM_BACKEND = "nvidia-drm";
-      #   LC_ALL = "en_US.UTF-8";
+    #   JAVA_AWT_WM_NONREPARENTING = "1";
+    #   XDG_SESSION_TYPE = "wayland";
+    #   XDG_CURRENT_DESKTOP = "Hyprland";
+    #   XDG_SESSION_DESKTOP = "Hyprland";
+    #   __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    #   GBM_BACKEND = "nvidia-drm";
+    #   LC_ALL = "en_US.UTF-8";
   };
 
   home.sessionPath = [
     "$HOME/.local/bin"
     "$HOME/go/bin"
   ];
-    
+
   xdg.mimeApps.enable = true;
-  xdg.mimeApps.associations.added = {                                                                                                           
+  xdg.mimeApps.associations.added = {
     "text/html" = "firefox.desktop";
     "x-scheme-handler/http" = "firefox.desktop";
     "x-scheme-handler/https" = "firefox.desktop";
     "x-scheme-handler/about" = "firefox.desktop";
     "x-scheme-handler/unknown" = "firefox.desktop";
-  };  
-        
+  };
+
   home.packages = with pkgs; [
     nodejs
     openssh
@@ -66,4 +71,3 @@
 
   home.stateVersion = "22.11";
 }
-

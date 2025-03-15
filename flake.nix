@@ -63,6 +63,7 @@
         ./home/firefox.nix
         ./home/tmux.nix
         ./home/thunderbird.nix
+        ./home/nvim.nix
       ];
 
       # Additional user applications and configurations
