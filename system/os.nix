@@ -1,8 +1,10 @@
 # os.nix
 # Common system configuration
-{ lib, pkgs, ... }:
 {
-
+  lib,
+  pkgs,
+  ...
+}: {
   time.timeZone = "Europe/Brussels";
   i18n.defaultLocale = "en_US.utf8";
 
@@ -14,22 +16,22 @@
   networking.networkmanager.enable = true;
 
   programs.nix-ld.enable = lib.mkDefault true;
-# programs.nix-ld.libraries = with pkgs; [
-#      "libpacparser"
-#     # "net-tools"
-#     # "dbus"
-#     # "libqt5core5a"
-#     # "libqt5webengine5"
-#     # "libqt5webenginewidgets5"   
-#     # "libqt5sql5"
-#     # "libqt5webkit5"
-#     # "libdbus-glib-1-2"   
-#     # "libnss3-tools"
-#     # "libnss-resolve"
-#     # "libpcap0.8"
-#   ]; 
+  # programs.nix-ld.libraries = with pkgs; [
+  #      "libpacparser"
+  #     # "net-tools"
+  #     # "dbus"
+  #     # "libqt5core5a"
+  #     # "libqt5webengine5"
+  #     # "libqt5webenginewidgets5"
+  #     # "libqt5sql5"
+  #     # "libqt5webkit5"
+  #     # "libdbus-glib-1-2"
+  #     # "libnss3-tools"
+  #     # "libnss-resolve"
+  #     # "libpcap0.8"
+  #   ];
   programs.zsh.enable = lib.mkDefault true;
-    
+
   services.xserver = {
     enable = true;
     displayManager.gdm = {
@@ -42,11 +44,11 @@
       variant = "";
     };
   };
-    
+
   services.displayManager = {
     defaultSession = "gnome";
   };
-    
+
   services.desktopManager = {
     plasma6.enable = lib.mkDefault false;
   };
@@ -54,7 +56,7 @@
   services.cron = {
     enable = true;
   };
-    
+
   services.libinput = {
     enable = true;
     touchpad.naturalScrolling = true;
@@ -66,11 +68,11 @@
     enable = true;
     nssmdns4 = true;
     openFirewall = true;
-  }; 
+  };
   services.ipp-usb.enable = true;
-    
+
   # programs.ssh.askPassword = lib.mkForce "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
-    
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -84,30 +86,35 @@
     pulse.enable = true;
   };
 
-  environment.systemPackages = (with pkgs; [
-    dagger
-    appimage-run
-    yubikey-personalization
-    gcc
-    gnumake
-    coreutils
-    just
-    lshw
-    gnupg
-    sbctl
-    podman-compose
-    # podman-desktop
-    wl-clipboard
-    gnome-tweaks
-    gnome-boxes
-    vlc
-  ]) ++ (with pkgs.gnomeExtensions; [
-    blur-my-shell
-    # gsconnect
-    # luminus-shell-y
-    # night-theme-switcher
-    caffeine
-  ]);
+  environment.systemPackages =
+    (with pkgs; [
+      nix-output-monitor
+      dagger
+      appimage-run
+      yubikey-personalization
+      gcc
+      gnumake
+      coreutils
+      just
+      lshw
+      gnupg
+      sbctl
+      podman-compose
+      podman-desktop
+      wl-clipboard
+      gnome-tweaks
+      gnome-boxes
+      vlc
+      virt-manager
+      devenv
+    ])
+    ++ (with pkgs.gnomeExtensions; [
+      blur-my-shell
+      # gsconnect
+      # luminus-shell-y
+      # night-theme-switcher
+      caffeine
+    ]);
 
   # Remove unused/icky packages
   environment.gnome.excludePackages = with pkgs; [
@@ -137,13 +144,13 @@
 
     fontconfig = {
       defaultFonts = {
-        serif = [ "Merriweather" ];
-        sansSerif = [ "IBM Plex Sans" ];
-        monospace = [ "FiraCode" "CascadiaCode" ];
+        serif = ["Merriweather"];
+        sansSerif = ["IBM Plex Sans"];
+        monospace = ["FiraCode" "CascadiaCode"];
       };
 
       antialias = true;
-    #More crisp text on 4k displays
+      #More crisp text on 4k displays
       subpixel = {
         rgba = "none";
         lcdfilter = "none";
@@ -168,10 +175,13 @@
       swtpm.enable = true;
       ovmf = {
         enable = true;
-        packages = [(pkgs.OVMF.override {
-          secureBoot = true;
-          tpmSupport = true;
-        }).fd];
+        packages = [
+          (pkgs.OVMF.override {
+            secureBoot = true;
+            tpmSupport = true;
+          })
+          .fd
+        ];
       };
     };
   };
@@ -192,5 +202,4 @@
 
   # gpaste has a daemon, must be enabled over package
   programs.gpaste.enable = true;
-
 }

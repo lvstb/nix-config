@@ -18,8 +18,11 @@ completion["saghen/blink.cmp"] = {
 	dependencies = {
 		"rafamadriz/friendly-snippets",
 		"saghen/blink.compat",
+		"onsails/lspkind.nvim",
+		"giuxtaposition/blink-cmp-copilot",
 	},
-	-- config = require("completion.blink"),
+	version = "*",
+	config = require("completion.blink"),
 }
 
 completion["stevearc/conform.nvim"] = {
