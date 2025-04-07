@@ -36,12 +36,6 @@
       url = "github:tlvince/ectool.nix";
       inputs.nixpkgs.follows = "nixos-pkgs";
     };
-
-    #your local Zscaler package definition
-    zscaler = {
-      url = "git+file:./pkgs"; # Point to the 'pkgs' directory
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = {nixpkgs, ...} @ inputs: let
@@ -54,7 +48,6 @@
     osOverlays = [
       (_: _: {fw-ectool = inputs.fw-ectool.packages.${system}.ectool;})
       (final: prev: {dagger = inputs.dagger.packages.${system}.dagger;})
-      (final: prev: {zscaler = inputs.zscaler.packages.${system}.zscaler;})
     ];
 
     # Base user config modules
