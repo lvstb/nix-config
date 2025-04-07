@@ -44,8 +44,16 @@ history:
 [group('maintenance')]
 clean:
   sudo nix profile wipe-history --profile /nix/var/nix/profiles/system  --older-than 7d
-
+  
 #Show the diff of all packages since last nixos-rebuild
 [group('nix')]
-diff:
-    nix store diff-closures /run/*-system
+diff type="both":
+    #!/usr/bin/env bash
+    if [[ "{{type}}" == "nixos" || "{{type}}" == "both" ]]; then
+      echo "=== NixOS changes ==="
+      nvd diff $(ls -d /nix/var/nix/profiles/system-*-link | sort | tail -2 | head -1) $(ls -d /nix/var/nix/profiles/system-*-link | sort | tail -1)
+    fi
+    if [[ "{{type}}" == "home" || "{{type}}" == "both" ]]; then
+      [[ "{{type}}" == "both" ]] && echo -e "\n=== Home Manager changes ==="
+      nvd diff $(home-manager generations | head -2 | tail -1 | awk -F' -> ' '{print $2}') $(home-manager generations | head -1 | awk -F' -> ' '{print $2}')
+    fi
