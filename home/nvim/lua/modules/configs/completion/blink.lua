@@ -99,7 +99,7 @@ return function()
 
 		-- My super-TAB configuration
 		keymap = {
-			["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+			["<c-space>"] = { "show", "show_documentation", "hide_documentation" },
 			["<C-e>"] = { "hide", "fallback" },
 			["<CR>"] = { "accept", "fallback" },
 
@@ -137,7 +137,7 @@ return function()
 			-- cmdline = {}, -- Disable sources for command-line mode
 			providers = {
 				lsp = {
-					min_keyword_length = 2, -- Number of characters to trigger porvider
+					min_keyword_length = 0, -- Number of characters to trigger porvider
 					score_offset = 0, -- Boost/penalize the score of the items
 				},
 				path = {
