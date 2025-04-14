@@ -14,6 +14,33 @@
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   networking.networkmanager.enable = true;
+  #specific config for a network bridge for a vm
+  networking = {
+    # Use networkd for managing the bridge
+    useNetworkd = true;
+    # Define the bridge interface
+    bridges = {
+      br0 = {
+        interfaces = ["eth0"]; # Replace with your actual physical interface name
+      };
+    };
+    # Configure the bridge with networkd
+    networkmanager.unmanaged = ["br0"];
+    # Optional: assign a static IP to the bridge
+    interfaces.br0 = {
+      useDHCP = true;
+      # Or for static IP:
+      # ipv4.addresses = [{
+      #   address = "192.168.1.10";
+      #   prefixLength = 24;
+      # }];
+    };
+  };
+
+  # Enable IP forwarding for bridge networking
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+  };
 
   programs.nix-ld.enable = lib.mkDefault true;
   # programs.nix-ld.libraries = with pkgs; [
@@ -165,6 +192,10 @@
     dockerCompat = true;
     defaultNetwork.settings.dns_enabled = true;
   };
+  # In your configuration.nix
+  virtualisation.virtualbox.host.enable = true;
+  # If using EFI Secure Boot
+  virtualisation.virtualbox.host.enableExtensionPack = true;
 
   # libvert
   virtualisation.libvirtd = {

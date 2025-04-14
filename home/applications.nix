@@ -1,6 +1,9 @@
 # applications.nix
-{ lib, pkgs, ... }: {
-
+{
+  lib,
+  pkgs,
+  ...
+}: {
   # Use lib.mkDefault where possible so user config can override without lib.mkForce
 
   # Install packages via programs.* where possible
@@ -13,20 +16,20 @@
       pkgs.hunspellDictsChromium.en_US
     ];
     extensions = [
-      { id = "ocaahdebbfolfmndjeplogmgcagdmblk"; }
-      { id = "nngceckbapebfimnlniiiahkandclblb"; }
-      { id = "ecjfaoeopefafjpdgnfcjnhinpbldjij"; }
-      { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; }
-      { id = "mnjggcdmjocbbbhaepdhchncahnbgone"; }
+      {id = "ocaahdebbfolfmndjeplogmgcagdmblk";}
+      {id = "nngceckbapebfimnlniiiahkandclblb";}
+      {id = "ecjfaoeopefafjpdgnfcjnhinpbldjij";}
+      {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";}
+      {id = "mnjggcdmjocbbbhaepdhchncahnbgone";}
     ];
   };
-    
+
   # Shell based tools
   programs.home-manager.enable = lib.mkDefault true;
   programs.ripgrep.enable = lib.mkDefault true;
   # programs.neovim.enable = lib.mkDefault true;
-  programs.bat.enable = lib.mkDefault true; 
-  programs.fzf.enable = lib.mkDefault true; 
+  programs.bat.enable = lib.mkDefault true;
+  programs.fzf.enable = lib.mkDefault true;
   programs.zoxide.enable = lib.mkDefault true;
   programs.jq.enable = lib.mkDefault true;
   programs.eza.enable = lib.mkDefault true;
@@ -38,7 +41,7 @@
     config = {
       "load_dotenv" = true;
     };
-    };
+  };
 
   # Languages
   # programs.java.enable = lib.mkDefault true;
@@ -47,11 +50,9 @@
   programs.zed-editor.enable = lib.mkDefault true;
 
   services.nextcloud-client.enable = lib.mkDefault true;
-
   home.sessionPath = [
     "$HOME/.local/bin"
-    ];
-
+  ];
 
   home.packages = lib.mkBefore (with pkgs; [
     #Communication and social
@@ -63,7 +64,7 @@
     #Text editors and IDEs
     any-nix-shell
     obsidian
-    
+
     #Programming Languages
     python3
     python3Packages.pip
@@ -75,7 +76,7 @@
     cargo
     nextcloud-client
     vscode-langservers-extracted
-    
+
     #Version control and dev tools
     httpie-desktop
     kubectl
@@ -84,17 +85,17 @@
     terraform
     awscli2
     sops
-    
+
     #File mgmt and archives
     ncdu
     file-roller
     unzip
-        
+
     #Terminal utilities
     wget
     file
     killall
-    tree 
+    tree
 
     #Audio and video
     spotify
@@ -103,7 +104,5 @@
     #Productivity
     libreoffice-qt6-fresh
     bitwarden
-
   ]);
-
 }

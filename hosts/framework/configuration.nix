@@ -8,11 +8,11 @@ in {
   imports = [
     ./hardware-configuration.nix
   ];
-    
+
   #Specific boot config for the device
   boot.initrd.systemd.enable = true;
   # boot.initrd.kernelModules = ["kvm_amd"];
-    
+
   networking = {
     hostName = hostName;
     networkmanager.enable = true;
@@ -32,22 +32,22 @@ in {
     #   ];
     # };
   };
-    
-  users.users.lars= {
+
+  users.users.lars = {
     isNormalUser = true;
     initialPassword = "test";
     shell = pkgs.zsh;
     description = "Lars Van Steenbergen";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "podman" ];
+    extraGroups = ["networkmanager" "wheel" "libvirtd" "podman" "vboxusers"];
   };
-    
+
   environment.systemPackages = with pkgs; [
     ghostty
   ];
   # Enable LVFS testing to get UEFI updates
-  services.fwupd.extraRemotes = [ "lvfs-testing" ];
-    programs.ssh.startAgent = true;
-    
+  services.fwupd.extraRemotes = ["lvfs-testing"];
+  programs.ssh.startAgent = true;
+
   hardware = {
     bluetooth = {
       enable = true;
@@ -58,7 +58,6 @@ in {
   #
   services.blueman.enable = true;
 
-    
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
