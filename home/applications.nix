@@ -85,6 +85,7 @@
     terraform
     awscli2
     sops
+    act
 
     #File mgmt and archives
     ncdu
