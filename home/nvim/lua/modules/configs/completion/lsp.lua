@@ -9,17 +9,11 @@ return function()
 			},
 		},
 	})
-	require("mason-lspconfig").setup({
-		ensure_installed = require("core.settings").lsp_deps,
-	})
 
 	require("lspconfig.ui.windows").default_options.border = "single"
-
 	require("neodev").setup()
 
-	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-
+	-- Now use the updated mason-lspconfig setup
 	require("modules.configs.completion.mason-lspconfig").setup()
 
 	vim.diagnostic.config({
@@ -38,7 +32,7 @@ return function()
 		},
 	})
 
-	local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
+	local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
 	for type, icon in pairs(signs) do
 		local hl = "DiagnosticSign" .. type
 		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
