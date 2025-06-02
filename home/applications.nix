@@ -81,6 +81,8 @@
     nixd
     yaml-language-server
     lua-language-server
+    typescript-language-server
+    json-language-server
 
     #formatters and linters
     selene
