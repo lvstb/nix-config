@@ -2,7 +2,11 @@
   inputs = {
     nixos-pkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-
+    # My personal nvim config    
+    nvim-config = {
+      url = "github:lvstb/nvim-config";
+      flake = false;  # Treat as source, not a flake
+    };
     # Secure Boot for NixOS
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
@@ -90,6 +94,9 @@
         inherit pkgs;
         # userModules overwrites, so is appended
         modules = homeModules ++ guiModules ++ userModules;
+        extraSpecialArgs = {
+          inherit inputs;
+        };
       };
 
     # Function to build a nixos configuration from system modules

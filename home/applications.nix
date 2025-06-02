@@ -82,10 +82,15 @@
     yaml-language-server
     lua-language-server
     typescript-language-server
-    json-language-server
+    nodePackages.vscode-json-languageserver
+    terraform-ls
 
     #formatters and linters
     selene
+    black
+    nodePackages.prettier
+    eslint
+        
     #Version control and dev tools
     httpie-desktop
     kubectl

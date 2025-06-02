@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 with lib; let
@@ -90,7 +91,7 @@ in {
     extraLuaPackages = ls: with ls; [luarocks];
   };
   home.file.".config/nvim" = {
-    source = ./nvim;
+    source = inputs.nvim-config;
     recursive = true;
   };
 
