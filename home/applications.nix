@@ -23,7 +23,7 @@
       {id = "mnjggcdmjocbbbhaepdhchncahnbgone";}
     ];
   };
-
+    
   # Shell based tools
   programs.home-manager.enable = lib.mkDefault true;
   programs.ripgrep.enable = lib.mkDefault true;
@@ -75,8 +75,15 @@
     gcc
     cargo
     nextcloud-client
-    vscode-langservers-extracted
 
+    #language servers
+    gopls
+    nixd
+    yaml-language-server
+    lua-language-server
+
+    #formatters and linters
+    selene
     #Version control and dev tools
     httpie-desktop
     kubectl

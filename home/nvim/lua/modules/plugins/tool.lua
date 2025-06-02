@@ -64,11 +64,6 @@ tool["nvim-telescope/telescope.nvim"] = {
 		{ "BurntSushi/ripgrep" },
 		{ "debugloop/telescope-undo.nvim" },
 		{ "nvim-telescope/telescope-ui-select.nvim" },
-		{
-			"ahmedkhalf/project.nvim",
-			event = "BufReadPost",
-			config = require("tool.project"),
-		},
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		-- { "nvim-telescope/telescope-frecency.nvim", dependencies = {
 		-- 	{ "kkharji/sqlite.lua" },
@@ -90,26 +85,5 @@ tool["ThePrimeagen/refactoring.nvim"] = {
 ----------------------------------------------------------------------
 --                           DAP Plugins                            --
 ----------------------------------------------------------------------
-tool["mfussenegger/nvim-dap"] = {
-	lazy = true,
-	cmd = {
-		"DapSetLogLevel",
-		"DapShowLog",
-		"DapContinue",
-		"DapToggleBreakpoint",
-		"DapToggleRepl",
-		"DapStepOver",
-		"DapStepInto",
-		"DapStepOut",
-		"DapTerminate",
-	},
-	config = require("tool.dap"),
-	dependencies = {
-		{
-			"rcarriga/nvim-dap-ui",
-			config = require("tool.dap.dapui"),
-		},
-	},
-}
 
 return tool

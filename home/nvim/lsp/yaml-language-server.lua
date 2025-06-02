@@ -40,11 +40,10 @@ return {
 				"!Join sequence",
 			},
 			schemaStore = {
-				-- 	url = "https://www.schemastore.org/api/json/catalog.json",
-				enable = false,
-				url = "",
+				url = "https://www.schemastore.org/api/json/catalog.json",
+				enable = true,
 			},
-			schemas = require("schemastore").yaml.schemas(),
+			-- schemas = require("schemastore").yaml.schemas(),
 		},
 	},
 }

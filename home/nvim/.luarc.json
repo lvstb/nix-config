@@ -4,6 +4,7 @@
         "need-check-nil"
     ],
     "diagnostics.globals": [
-        "vim"
+        "vim",
+        "colors"
     ]
 }

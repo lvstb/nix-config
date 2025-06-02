@@ -59,7 +59,6 @@ settings["linter_deps"] = {
 ---@type string[]
 settings["lsp_deps"] = {
 	"bashls",
-	"clangd",
 	"jsonls",
 	"lua_ls",
 	"gopls",

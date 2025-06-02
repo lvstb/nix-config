@@ -5,16 +5,6 @@ local map_cmd = bind.map_cmd
 local map_callback = bind.map_callback
 
 local plug_map = {
-	-- LSP-related keymaps, work only when event = { "InsertEnter", "LspStart" }
-	["n|<leader>li"] = map_cr("LspInfo"):with_noremap():with_silent():with_nowait():with_desc("lsp: Info"),
-	["n|<leader>lr"] = map_cr("LspRestart"):with_noremap():with_silent():with_nowait():with_desc("lsp: Restart"),
-	-- ["n|go"] = map_cr("Lspsaga outline"):with_noremap():with_silent():with_desc("lsp: Toggle outline"),
-	-- ["n|g["] = map_cr("Lspsaga diagnostic_jump_prev"):with_noremap():with_silent():with_desc("lsp: Prev diagnostic"),
-	-- ["n|g]"] = map_cr("Lspsaga diagnostic_jump_next"):with_noremap():with_silent():with_desc("lsp: Next diagnostic"),
-	-- ["n|leader>ld"] = map_cr("Lspsaga show_line_diagnostics")
-	-- 	:with_noremap()
-	-- 	:with_silent()
-	-- 	:with_desc("lsp: Line diagnostic"),
 	["n|g["] = map_callback(function()
 			require("trouble").previous({ skip_groups = true, jump = true })
 		end)
