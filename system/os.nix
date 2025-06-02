@@ -6,8 +6,7 @@
   ...
 }: {
   time.timeZone = "Europe/Brussels";
-  i18n.defaultLocale = "en_US.utf8";
-
+  i18n.defaultLocale = "en_US.UTF-8";
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
@@ -194,10 +193,6 @@
     dockerCompat = true;
     defaultNetwork.settings.dns_enabled = true;
   };
-  # In your configuration.nix
-  virtualisation.virtualbox.host.enable = true;
-  # If using EFI Secure Boot
-  virtualisation.virtualbox.host.enableExtensionPack = true;
 
   # libvert
   virtualisation.libvirtd = {

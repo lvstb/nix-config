@@ -138,6 +138,7 @@ local load_core = function()
 	shell_config()
 
 	require("core.options")
+	require("core.lsp")
 	require("core.mapping")
 	require("keymap")
 	require("core.event")
@@ -150,3 +151,4 @@ local load_core = function()
 end
 
 load_core()
+

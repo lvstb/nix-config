@@ -1,18 +1,18 @@
 local completion = {}
 
-completion["neovim/nvim-lspconfig"] = {
-	lazy = true,
-	event = { "BufReadPost", "BufAdd", "BufNewFile" },
-	config = require("completion.lsp"),
-	dependencies = {
-		{ "williamboman/mason.nvim" },
-		{ "folke/neodev.nvim" },
-		{ "b0o/schemastore.nvim" },
-		{ "williamboman/mason-lspconfig.nvim" },
-		{ "hrsh7th/cmp-nvim-lsp" },
-		{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
-	},
-}
+-- completion["neovim/nvim-lspconfig"] = {
+-- 	lazy = true,
+-- 	event = { "BufReadPost", "BufAdd", "BufNewFile" },
+-- 	config = require("completion.lsp"),
+-- 	dependencies = {
+-- 		{ "williamboman/mason.nvim" },
+-- 		{ "folke/neodev.nvim" },
+-- 		{ "b0o/schemastore.nvim" },
+-- 		{ "williamboman/mason-lspconfig.nvim" },
+-- 		{ "hrsh7th/cmp-nvim-lsp" },
+-- 		{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
+-- 	},
+-- }
 
 completion["saghen/blink.cmp"] = {
 	dependencies = {

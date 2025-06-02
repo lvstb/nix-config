@@ -31,7 +31,7 @@
         };
         autoFetch = true;
         autoRefresh = true;
-        allBranchesLogCmd = "git log --graph --all --color=always --abbrev-commit --decorate --date=relative  --pretty=medium";
+        # allBranchesLogCmds = "git log --graph --all --color=always --abbrev-commit --decorate --date=relative  --pretty=medium";
         overrideGpg = false; # prevents lazygit from spawning a separate process when using GPG
         parseEmoji = false;
       };
@@ -135,7 +135,7 @@
         #  lib.mkDefault {searchingActiveBorderColor = ["#a9b665"];}
         # ];
         nerdFontsVersion = "3";
-       };
       };
     };
-  }
+  };
+}

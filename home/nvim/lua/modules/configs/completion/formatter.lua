@@ -15,7 +15,7 @@ return function()
 			lua = { "stylua" },
 			python = { "isort", "black" },
 			protobuf = { "buf" },
-			golang = { "gofumpt" },
+			golang = { "gofmt" },
 			nix = { "alejandra" },
 		},
 		format_on_save = {

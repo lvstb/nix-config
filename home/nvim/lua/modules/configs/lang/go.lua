@@ -4,7 +4,7 @@ return function()
 		icons = false,
 		-- diagnostic = false,
 		lsp_cfg = true,
-		lsp_gofumpt = false,
+		lsp_gofumpt = true,
 		lsp_keymaps = false,
 		lsp_codelens = false,
 		lsp_document_formatting = false,
