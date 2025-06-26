@@ -27,7 +27,7 @@ deploy hostname:
 # Build the user profile
 [group('home-manager')]
 user user:
-    home-manager build --flake .#{{user}} switch
+    NIXPKGS_ALLOW_UNFREE=1 home-manager build --flake .#lars switch --impure
 
 [group('home-manager')]
 deploy-debug hostname:

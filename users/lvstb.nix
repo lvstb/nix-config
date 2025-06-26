@@ -46,7 +46,6 @@
   };
 
   home.packages = with pkgs; [
-    nodejs
     openssh
   ];
   dconf.settings = {

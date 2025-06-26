@@ -60,16 +60,18 @@
 
   services.xserver = {
     enable = true;
-    displayManager.gdm = {
-      enable = lib.mkDefault true;
-      wayland = true;
-    };
-    desktopManager.gnome.enable = lib.mkDefault true;
     xkb = {
       layout = "us";
       variant = "";
     };
   };
+
+  services.displayManager.gdm = {
+    enable = lib.mkDefault true;
+    wayland = true;
+  };
+
+  services.desktopManager.gnome.enable = lib.mkDefault true;
 
   services.displayManager = {
     defaultSession = "gnome";
@@ -132,7 +134,6 @@
       gnome-boxes
       vlc
       virt-manager
-      devenv
       delve
       go
     ])
@@ -219,7 +220,7 @@
     # keepassxc / QT apps will use xwayland by default - override
     QT_QPA_PLATFORM = "wayland";
     # Ensure Electron / "Ozone platform" apps enable using wayland in NixOS
-    NIXOS_OZONE_WL = "1";
+    # NIXOS_OZONE_WL = "1";
   };
 
   # Force gnome-keyring to disable, because it likes to bully gpg-agent

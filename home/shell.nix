@@ -14,7 +14,7 @@
       # aws-sso-util = "distrobox-enter -n tools -- aws-sso-util";
     };
         
-    initExtra = ''
+    initContent = ''
         any-nix-shell zsh --info-right | source /dev/stdin
         # Shell integrations
         eval "$(zoxide init --cmd cd zsh)" 
@@ -49,6 +49,7 @@
       # AWS_CA_BUNDLE = "/opt/homebrew/etc/ca-certificates/cert.pem";
       # NODE_EXTRA_CA_CERTS = "$HOME/.zcli/zscaler_root.pem";
       JAVA_HOME = "/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home";
+      PATH = "/home/lars/.opencode/bin:$PATH";
     };
     plugins = [
     {

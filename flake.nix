@@ -1,28 +1,33 @@
 {
+  description = "NixOS and Home Manager configuration";
+
   inputs = {
+    # Main nixpkgs channels
     nixos-pkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    # My personal nvim config    
+
+    # Personal nvim config
     nvim-config = {
       url = "github:lvstb/nvim-config";
-      flake = false;  # Treat as source, not a flake
+      flake = false; # Treat as source, not a flake
     };
+
     # Secure Boot for NixOS
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixos-pkgs";
     };
 
-    #home-manager is  a module to manage your user config
+    # Home Manager for user configuration
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    #portable cicd
+    # Portable CI/CD
     dagger.url = "github:dagger/nix";
 
-    # Stylix is a NixOS module for managing system-wide styles
+    # System-wide styles
     stylix.url = "github:danth/stylix";
 
     # VSCode extensions
@@ -31,24 +36,37 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Provides module support for specific vendor hardware
+    # Hardware support
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    # nixos-hardware.url = "https://github.com/NixOS/nixos-hardware/archive/e7ac747157a3301034b0caea9eb45c7b071e52fd.zip";
 
-    # fw ectool as configured for FW13 7040 AMD (until patch is upstreamed)
+    # Framework laptop ectool
     fw-ectool = {
       url = "github:tlvince/ectool.nix";
       inputs.nixpkgs.follows = "nixos-pkgs";
     };
   };
 
-  outputs = {nixpkgs, ...} @ inputs: let
+  nixConfig = {
+    allowUnfree = true;
+    # Also add this to make it work with --impure flag
+    accept-flake-config = true;
+  };
+
+  outputs = {
+    self,
+    nixpkgs,
+    nixos-pkgs,
+    ...
+  } @ inputs: let
     system = "x86_64-linux";
-    lib = inputs.nixos-pkgs.lib;
+    lib = nixos-pkgs.lib;
+
+    # Create pkgs with unfree enabled
     pkgs = import nixpkgs {
       inherit system;
-      config.allowUnfree = true;
     };
+
+    # OS overlays
     osOverlays = [
       (_: _: {fw-ectool = inputs.fw-ectool.packages.${system}.ectool;})
       (final: prev: {dagger = inputs.dagger.packages.${system}.dagger;})
@@ -68,13 +86,13 @@
       ./home/nvim.nix
     ];
 
-    # Additional user applications and configurations
+    # GUI-specific modules
     guiModules = [
       ./home/gnome.nix
       # ./home/stylix.nix
     ];
 
-    # Base OS configs, adapts to system configs
+    # Base OS configs
     osModules = [
       inputs.lanzaboote.nixosModules.lanzaboote
       inputs.nixos-hardware.nixosModules.common-hidpi
@@ -88,33 +106,47 @@
       }
     ];
 
-    # Function to build a home configuration from user modules
+    # Function to build a home configuration
     homeUser = userModules:
       inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        # userModules overwrites, so is appended
-        modules = homeModules ++ guiModules ++ userModules;
+        modules =
+          homeModules
+          ++ guiModules
+          ++ userModules;
         extraSpecialArgs = {
           inherit inputs;
+          # Pass VSCode extensions with proper unfree handling
+          vscode-extensions = inputs.nix-vscode-extensions.extensions.${system};
         };
       };
 
-    # Function to build a nixos configuration from system modules
+    # Function to build a NixOS configuration
     nixosSystem = systemModules:
       lib.nixosSystem {
         inherit system;
-        # osModules depends on some values from systemModules, so is appended
-        modules = systemModules ++ osModules;
+        modules =
+          systemModules
+          ++ osModules;
+        specialArgs = {
+          inherit inputs;
+        };
       };
   in {
+    # Home Manager configurations
     homeConfigurations = {
       lars = homeUser [./users/lvstb.nix];
     };
+
+    # NixOS configurations
     nixosConfigurations = {
       framework = nixosSystem [
         inputs.nixos-hardware.nixosModules.framework-13-7040-amd
         ./hosts/framework/configuration.nix
       ];
     };
+
+    # Formatter
+    formatter.${system} = pkgs.alejandra;
   };
 }

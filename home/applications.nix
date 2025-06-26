@@ -23,7 +23,7 @@
       {id = "mnjggcdmjocbbbhaepdhchncahnbgone";}
     ];
   };
-    
+
   # Shell based tools
   programs.home-manager.enable = lib.mkDefault true;
   programs.ripgrep.enable = lib.mkDefault true;
@@ -36,6 +36,7 @@
   programs.btop.enable = lib.mkDefault true;
   programs.gh.enable = lib.mkDefault true;
   programs.yazi.enable = lib.mkDefault true;
+  programs.fd.enable = lib.mkDefault true;
   programs.direnv = {
     enable = true;
     config = {
@@ -47,9 +48,12 @@
   # programs.java.enable = lib.mkDefault true;
   # programs.java.package = lib.mkDefault pkgs.jdk17_headless;
   programs.go.enable = lib.mkDefault true;
-  programs.zed-editor.enable = lib.mkDefault true;
+  # programs.zed-editor.enable = lib.mkDefault true;
 
-  services.nextcloud-client.enable = lib.mkDefault true;
+  services.nextcloud-client = {
+    enable = lib.mkDefault true;
+    startInBackground = lib.mkDefault true;
+  };
   home.sessionPath = [
     "$HOME/.local/bin"
   ];
@@ -64,6 +68,8 @@
     #Text editors and IDEs
     any-nix-shell
     obsidian
+    claude-code
+    code-cursor
 
     #Programming Languages
     python3
@@ -75,22 +81,30 @@
     gcc
     cargo
     nextcloud-client
-
+    #nvim deps
+    luajitPackages.luarocks
     #language servers
     gopls
     nixd
     yaml-language-server
     lua-language-server
     typescript-language-server
-    nodePackages.vscode-json-languageserver
     terraform-ls
+    marksman
 
     #formatters and linters
     selene
     black
-    nodePackages.prettier
+    prettier
     eslint
-        
+    alejandra
+    stylua
+    isort
+    buf
+    yamllint
+    yamlfmt
+    markdownlint-cli
+
     #Version control and dev tools
     httpie-desktop
     kubectl

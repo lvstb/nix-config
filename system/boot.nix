@@ -5,7 +5,7 @@
 {
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
-  nixpkgs.config.allowUnfree = true;
+
   hardware.enableAllFirmware = true;
   boot.supportedFilesystems = [ "btrfs" "ntfs" ];
 
