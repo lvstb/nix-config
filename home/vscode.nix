@@ -3,7 +3,7 @@
     enable = true;
     
     # Use extensions from the vscode-extensions input
-    profiles.default.extensions = with vscode-extensions.vscode-marketplace; [
+    profiles.default.extensions = with vscode-extensions; [
       # Formatters and linters
       esbenp.prettier-vscode
       dbaeumer.vscode-eslint

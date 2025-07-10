@@ -7,56 +7,16 @@
 }: {
   time.timeZone = "Europe/Brussels";
   i18n.defaultLocale = "en_US.UTF-8";
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  networking.useDHCP = lib.mkDefault true;
+  # NetworkManager handles DHCP automatically, so we don't need to set useDHCP
   networking.networkmanager.enable = true;
-  #specific config for a network bridge for a vm
-  # networking = {
-  #   # Use networkd for managing the bridge
-  #   useNetworkd = true;
-  #   # Define the bridge interface
-  #   bridges = {
-  #     br0 = {
-  #       interfaces = ["eth0"]; # Replace with your actual physical interface name
-  #     };
-  #   };
-  #   # Configure the bridge with networkd
-  #   networkmanager.unmanaged = ["br0"];
-  #   # Optional: assign a static IP to the bridge
-  #   interfaces.br0 = {
-  #     useDHCP = true;
-  #     # Or for static IP:
-  #     # ipv4.addresses = [{
-  #     #   address = "192.168.1.10";
-  #     #   prefixLength = 24;
-  #     # }];
-  #   };
-  # };
 
   # Enable IP forwarding for bridge networking
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 1;
   };
 
-  programs.nix-ld.enable = lib.mkDefault true;
-  # programs.nix-ld.libraries = with pkgs; [
-  #      "libpacparser"
-  #     # "net-tools"
-  #     # "dbus"
-  #     # "libqt5core5a"
-  #     # "libqt5webengine5"
-  #     # "libqt5webenginewidgets5"
-  #     # "libqt5sql5"
-  #     # "libqt5webkit5"
-  #     # "libdbus-glib-1-2"
-  #     # "libnss3-tools"
-  #     # "libnss-resolve"
-  #     # "libpcap0.8"
-  #   ];
-  programs.zsh.enable = lib.mkDefault true;
+  programs.nix-ld.enable = true;
+  programs.zsh.enable = true;
 
   services.xserver = {
     enable = true;
@@ -67,19 +27,12 @@
   };
 
   services.displayManager.gdm = {
-    enable = lib.mkDefault true;
+    enable = true;
     wayland = true;
   };
 
-  services.desktopManager.gnome.enable = lib.mkDefault true;
-
-  services.displayManager = {
-    defaultSession = "gnome";
-  };
-
-  services.desktopManager = {
-    plasma6.enable = lib.mkDefault false;
-  };
+  services.desktopManager.gnome.enable = true;
+  services.displayManager.defaultSession = "gnome";
 
   services.cron = {
     enable = true;
@@ -98,10 +51,6 @@
     openFirewall = true;
   };
   services.ipp-usb.enable = true;
-
-  # programs.ssh.askPassword = lib.mkForce "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
-
-  # Enable CUPS to print documents.
   services.printing.enable = true;
 
   # Enable sound using pipewire
@@ -189,7 +138,7 @@
 
   # OCI engine
   virtualisation.podman = {
-    enable = lib.mkDefault true;
+    enable = true;
     dockerSocket.enable = true;
     dockerCompat = true;
     defaultNetwork.settings.dns_enabled = true;
@@ -217,10 +166,7 @@
 
   # Wayland-specific configuration
   environment.sessionVariables = {
-    # keepassxc / QT apps will use xwayland by default - override
     QT_QPA_PLATFORM = "wayland";
-    # Ensure Electron / "Ozone platform" apps enable using wayland in NixOS
-    # NIXOS_OZONE_WL = "1";
   };
 
   # Force gnome-keyring to disable, because it likes to bully gpg-agent

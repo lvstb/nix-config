@@ -46,3 +46,7 @@ palette = 14=#89b482
 # white
 palette = 7=#E5E9F0
 palette = 15=#ECEFF4
+
+# Enable shell integration for right prompt support
+shell-integration = zsh
+shell-integration-features = sudo,title

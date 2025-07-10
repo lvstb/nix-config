@@ -4,10 +4,7 @@
 #   # useremail,
 #   ...
 # }
-{lib, ...}: let
-  userfullname = "Lars Van Steenbergen";
-  useremail = "lars@wingu.dev";
-in {
+{lib, config, ...}: {
   # `programs.git` will generate the config file: ~/.config/git/config
   # to make git use this config file, `~/.gitconfig` should not exist!
   #
@@ -20,13 +17,13 @@ in {
     enable = true;
     lfs.enable = true;
 
-    userName = userfullname;
-    userEmail = useremail;
+    userName = builtins.readFile "/run/secrets/user_full_name";
+    userEmail = builtins.readFile "/run/secrets/email_wingu_address";
 
     includes = [
       {
         # use a different config for work
-        path = "~/DPG/.ssh/.gitconfig";
+        path = "~/DPG/.gitconfig";
         condition = "gitdir:~/DPG/";
       }
     ];
@@ -34,7 +31,7 @@ in {
     extraConfig = {
       core.editor = "nvim";
       core.excludesfile = "~/.gitignore_global";
-      core.sshCommand = "ssh -i ~/.ssh/id_ed25519";
+      core.sshCommand = "ssh -i ~/.ssh/id_ed25519_personal";
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
       pull.rebase = true;
@@ -42,7 +39,7 @@ in {
     };
 
     signing = {
-      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBwx7yjdiTjQbqjlkUyoSI7SI3SQmw1NQeQgLOaIMSaB";
+      key = "/run/secrets/personal_ssh_private_key";
       signByDefault = true;
     };
 
@@ -71,18 +68,17 @@ in {
     };
   };
 
-  home.file = {
-    "DPG/.ssh/.gitconfig" = {
-      text = ''
-        [core]
-          sshCommand = ssh -i ~/DPG/.ssh/id_ed25519
+    home.file = {
+      "DPG/.gitconfig" = {
+        text = ''
+          [core]
+            sshCommand = ssh -i /run/secrets/dpgmedia_ssh_private_key
 
-        [user]
-          email = lars.van.steenbergen@persgroep.net
-          signingkey = ~/DPG/.ssh/id_ed25519
-        [commit]
-          gpgSign = true
-      '';
-    };
-  };
-}
+          [user]
+            email = ${builtins.readFile "/run/secrets/email_work_address"}
+            signingkey = /run/secrets/dpgmedia_ssh_private_key
+          [commit]
+            gpgSign = true
+        '';
+      };
+    };}

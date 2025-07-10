@@ -4,7 +4,7 @@
 
 {
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   hardware.enableAllFirmware = true;
   boot.supportedFilesystems = [ "btrfs" "ntfs" ];
@@ -47,8 +47,9 @@
   # Must be enabled by hand - e.g.
   # sudo systemd-cryptenroll --wipe-slot=tpm2 /dev/nvme0n1p2 --tpm2-device=auto --tpm2-pcrs=0+2+7
   #
-  # security.tpm2.enable = true;
-  # security.tpm2.tctiEnvironment.enable = true;
+  # TPM2 is already configured and working (see: sudo systemd-cryptenroll /dev/nvme0n1p2)
+  security.tpm2.enable = true;
+  security.tpm2.tctiEnvironment.enable = true;
   #
   # environment.systemPackages = lib.mkBefore [ apply-tpm ];
 }

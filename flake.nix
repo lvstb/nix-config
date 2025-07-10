@@ -2,20 +2,25 @@
   description = "NixOS and Home Manager configuration";
 
   inputs = {
-    # Main nixpkgs channels
-    nixos-pkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # Main nixpkgs channel
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    # Secrets management with sops-nix
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Personal nvim config
     nvim-config = {
       url = "github:lvstb/nvim-config";
-      flake = false; # Treat as source, not a flake
+      flake = false;
     };
 
     # Secure Boot for NixOS
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
-      inputs.nixpkgs.follows = "nixos-pkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Home Manager for user configuration
@@ -42,7 +47,7 @@
     # Framework laptop ectool
     fw-ectool = {
       url = "github:tlvince/ectool.nix";
-      inputs.nixpkgs.follows = "nixos-pkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -52,44 +57,34 @@
     accept-flake-config = true;
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    nixos-pkgs,
-    ...
-  } @ inputs: let
+  outputs = { self, nixpkgs, ... } @ inputs: let
     system = "x86_64-linux";
-    lib = nixos-pkgs.lib;
+    lib = nixpkgs.lib;
 
     # Create pkgs with unfree enabled
     pkgs = import nixpkgs {
       inherit system;
+      config.allowUnfree = true;
     };
 
-    # OS overlays
-    osOverlays = [
+    # Simple overlays
+    overlays = [
       (_: _: {fw-ectool = inputs.fw-ectool.packages.${system}.ectool;})
       (final: prev: {dagger = inputs.dagger.packages.${system}.dagger;})
     ];
 
     # Base user config modules
     homeModules = [
-      ./home/applications.nix
+      ./home/apps.nix
       ./home/git.nix
       ./home/lazygit.nix
-      ./home/starship.nix
+      ./home/terminal.nix
       ./home/vscode.nix
-      ./home/shell.nix
       ./home/firefox.nix
-      ./home/tmux.nix
       ./home/thunderbird.nix
       ./home/nvim.nix
-    ];
-
-    # GUI-specific modules
-    guiModules = [
       ./home/gnome.nix
-      # ./home/stylix.nix
+      ./home/development.nix
     ];
 
     # Base OS configs
@@ -97,56 +92,70 @@
       inputs.lanzaboote.nixosModules.lanzaboote
       inputs.nixos-hardware.nixosModules.common-hidpi
       inputs.stylix.nixosModules.stylix
+      inputs.sops-nix.nixosModules.sops
       ./system/boot.nix
       ./system/os.nix
       ./system/global.nix
+      ./system/performance.nix
+      ./system/security.nix
+      ./system/monitoring.nix
       ./home/stylix.nix
-      {
-        nixpkgs.overlays = osOverlays;
-      }
+      { nixpkgs.overlays = overlays; }
     ];
-
-    # Function to build a home configuration
-    homeUser = userModules:
-      inputs.home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules =
-          homeModules
-          ++ guiModules
-          ++ userModules;
-        extraSpecialArgs = {
-          inherit inputs;
-          # Pass VSCode extensions with proper unfree handling
-          vscode-extensions = inputs.nix-vscode-extensions.extensions.${system};
-        };
-      };
-
-    # Function to build a NixOS configuration
-    nixosSystem = systemModules:
-      lib.nixosSystem {
-        inherit system;
-        modules =
-          systemModules
-          ++ osModules;
-        specialArgs = {
-          inherit inputs;
-        };
-      };
   in {
     # Home Manager configurations
     homeConfigurations = {
-      lars = homeUser [./users/lvstb.nix];
+      lars = inputs.home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = homeModules ++ [./users/lvstb.nix] ++ [{
+          nixpkgs.config.allowUnfree = true;
+        }];
+        extraSpecialArgs = {
+          inherit inputs;
+          vscode-extensions = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
+        };
+      };
+      
+      beelink = inputs.home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = homeModules ++ [./users/beelink.nix] ++ [{
+          nixpkgs.config.allowUnfree = true;
+        }];
+        extraSpecialArgs = {
+          inherit inputs;
+          vscode-extensions = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
+        };
+      };
     };
 
     # NixOS configurations
     nixosConfigurations = {
-      framework = nixosSystem [
-        inputs.nixos-hardware.nixosModules.framework-13-7040-amd
-        ./hosts/framework/configuration.nix
-      ];
+      framework = lib.nixosSystem {
+        inherit system;
+        modules = osModules ++ [
+          inputs.nixos-hardware.nixosModules.framework-13-7040-amd
+          ./hosts/framework/configuration.nix
+          { nixpkgs.config.allowUnfree = true; }
+        ];
+        specialArgs = { inherit inputs; };
+      };
+      
+      beelink = lib.nixosSystem {
+        inherit system;
+        modules = osModules ++ [
+          ./hosts/beelink/configuration.nix
+          { nixpkgs.config.allowUnfree = true; }
+        ];
+        specialArgs = { inherit inputs; };
+      };
     };
 
     # Formatter
     formatter.${system} = pkgs.alejandra;
+
+    # Custom packages
+    packages.${system} = {
+      dagger = inputs.dagger.packages.${system}.dagger;
+    };
   };
 }
