@@ -9,6 +9,7 @@ in {
   imports = [
     ./hardware-configuration.nix
     ../../system/secrets-beelink.nix
+    ../../system/boot-simple.nix
   ];
 
   # Specific boot config for the device

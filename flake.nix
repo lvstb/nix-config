@@ -57,7 +57,11 @@
     accept-flake-config = true;
   };
 
-  outputs = { self, nixpkgs, ... } @ inputs: let
+  outputs = {
+    self,
+    nixpkgs,
+    ...
+  } @ inputs: let
     system = "x86_64-linux";
     lib = nixpkgs.lib;
 
@@ -100,27 +104,51 @@
       ./system/security.nix
       ./system/monitoring.nix
       ./home/stylix.nix
-      { nixpkgs.overlays = overlays; }
+      {nixpkgs.overlays = overlays;}
+    ];
+
+    # Simple OS configs for desktop systems without Framework-specific hardware
+    desktopModules = [
+      inputs.nixos-hardware.nixosModules.common-hidpi
+      inputs.stylix.nixosModules.stylix
+      inputs.sops-nix.nixosModules.sops
+      ./system/os.nix
+      ./system/global.nix
+      ./system/performance.nix
+      ./system/security.nix
+      ./system/monitoring.nix
+      ./home/stylix.nix
+      {nixpkgs.overlays = overlays;}
     ];
   in {
     # Home Manager configurations
     homeConfigurations = {
       lars = inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = homeModules ++ [./users/lvstb.nix] ++ [{
-          nixpkgs.config.allowUnfree = true;
-        }];
+        modules =
+          homeModules
+          ++ [./users/lvstb.nix]
+          ++ [
+            {
+              nixpkgs.config.allowUnfree = true;
+            }
+          ];
         extraSpecialArgs = {
           inherit inputs;
           vscode-extensions = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
         };
       };
-      
+
       beelink = inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = homeModules ++ [./users/beelink.nix] ++ [{
-          nixpkgs.config.allowUnfree = true;
-        }];
+        modules =
+          homeModules
+          ++ [./users/beelink.nix]
+          ++ [
+            {
+              nixpkgs.config.allowUnfree = true;
+            }
+          ];
         extraSpecialArgs = {
           inherit inputs;
           vscode-extensions = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
@@ -132,21 +160,25 @@
     nixosConfigurations = {
       framework = lib.nixosSystem {
         inherit system;
-        modules = osModules ++ [
-          inputs.nixos-hardware.nixosModules.framework-13-7040-amd
-          ./hosts/framework/configuration.nix
-          { nixpkgs.config.allowUnfree = true; }
-        ];
-        specialArgs = { inherit inputs; };
+        modules =
+          osModules
+          ++ [
+            inputs.nixos-hardware.nixosModules.framework-13-7040-amd
+            ./hosts/framework/configuration.nix
+            {nixpkgs.config.allowUnfree = true;}
+          ];
+        specialArgs = {inherit inputs;};
       };
-      
+
       beelink = lib.nixosSystem {
         inherit system;
-        modules = osModules ++ [
-          ./hosts/beelink/configuration.nix
-          { nixpkgs.config.allowUnfree = true; }
-        ];
-        specialArgs = { inherit inputs; };
+        modules =
+          desktopModules
+          ++ [
+            ./hosts/beelink/configuration.nix
+            {nixpkgs.config.allowUnfree = true;}
+          ];
+        specialArgs = {inherit inputs;};
       };
     };
 
