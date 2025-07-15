@@ -1,8 +1,6 @@
 keys:
-  # Framework laptop key
   - &framework age176e8uyk9wdhszj8qghksmz73vfu0pwdcw9p4pg65l4e05v56s4lqr7eukm
-  # Beelink mini PC key (generate with: ./scripts/bootstrap-secrets.sh beelink)
-  # - &beelink age1REPLACE_WITH_ACTUAL_BEELINK_KEY
+  - &beelink age1cz3hmpxd9af4tms7g5zak0zmrj7xv7g3dwnjvcewevhnggcnkugqa63pqx
 
 creation_rules:
   # Shared secrets (accessible by all systems)
@@ -10,7 +8,7 @@ creation_rules:
     key_groups:
       - age:
           - *framework
-          # - *beelink
+          - *beelink
 
   # Framework-specific secrets
   - path_regex: secrets/framework\.yaml$
@@ -19,7 +17,7 @@ creation_rules:
           - *framework
 
   # Beelink-specific secrets
-  # - path_regex: secrets/beelink\.yaml$
-  #   key_groups:
-  #     - age:
-  #         - *beelink
+  - path_regex: secrets/beelink\.yaml$
+    key_groups:
+      - age:
+          - *beelink
