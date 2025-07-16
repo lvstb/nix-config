@@ -31,7 +31,7 @@
     extraConfig = {
       core.editor = "nvim";
       core.excludesfile = "~/.gitignore_global";
-      core.sshCommand = "ssh -i ~/.ssh/id_ed25519_personal";
+      core.sshCommand = "ssh -i /run/secrets/personal_ssh_private_key";
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
       pull.rebase = true;

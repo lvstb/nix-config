@@ -1,4 +1,4 @@
-# Lars' Nix Configuration
+# NixOS Configuration
 
 A comprehensive NixOS and Home Manager configuration designed for multi-system deployment with secure secrets management.
 
@@ -29,11 +29,11 @@ nix-config/
 ### Deploy to Framework Laptop
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/nix-config
+git clone <repository-url>
 cd nix-config
 
 # Deploy system configuration
-sudo nixos-rebuild switch --flake .#framework
+just deploy framework
 
 # Deploy user configuration
 just user lars
@@ -43,9 +43,11 @@ just user lars
 
 ### Current Systems
 - **framework**: Framework 13 AMD laptop with GNOME desktop
+- **beelink**: Beelink desktop system
 
-### Planned Systems
-- **macbook**: Apple Silicon macOS (ready for deployment)
+### Features by System
+- **Framework**: Full laptop setup with WiFi secrets, secure boot, hardware optimizations
+- **Beelink**: Desktop configuration with simplified boot setup
 
 ## 🏠 Home Manager
 
@@ -54,7 +56,7 @@ The configuration uses Home Manager for user-specific settings:
 - **Shell**: Zsh with Starship prompt
 - **Editor**: Neovim with custom configuration
 - **Terminal**: Ghostty
-- **Development**: VSCode, Go, Node.js, Python
+- **Development**: VSCode, Go, Node.js, Python, OpenCode AI
 - **Applications**: Firefox, Thunderbird, Slack, Discord
 
 ### Key Features
@@ -62,6 +64,7 @@ The configuration uses Home Manager for user-specific settings:
 - Consistent shell environment
 - Development tools and language servers
 - GUI applications with themes
+- Custom packages (OpenCode AI with latest version support)
 
 ## 🔐 Secrets Management
 
@@ -87,18 +90,19 @@ This configuration uses [sops-nix](https://github.com/Mic92/sops-nix) for secure
 
 3. **Deploy with secrets**:
    ```bash
-   sudo nixos-rebuild switch --flake .#framework
+   just deploy framework
    ```
 
 ### Available Secrets
-- **Common**: GitHub tokens, SSH keys, API keys
-- **Framework**: WiFi passwords, VPN configs, work credentials
+- **Common**: User info, email credentials, SSH keys, GitHub tokens
+- **Framework**: WiFi passwords, hardware-specific configs
 
 ### Access Secrets
 ```bash
 # Secrets are available at runtime
-sudo cat /run/secrets/github_token
-sudo cat /run/secrets/wifi_password
+sudo cat /run/secrets/user_full_name
+sudo cat /run/secrets/email_wingu_address
+sudo cat /run/secrets/wifi_home_password
 ```
 
 ## 🔧 Development
@@ -117,20 +121,23 @@ just deploy framework
 # Deploy user config
 just user lars
 
-# Show system differences
-just diff
-
 # Clean old generations
 just clean
+
+# Update OpenCode to latest version
+./scripts/update-opencode.sh
+
+# Refresh WiFi connection with secrets
+./scripts/refresh-wifi.sh
 ```
 
-### Development Shell
-```bash
-# Enter development environment
-nix develop
+### Helper Scripts
+- `scripts/update-opencode.sh` - Updates OpenCode package hash for latest version
+- `scripts/refresh-wifi.sh` - Refreshes WiFi connection with updated secrets
+- `scripts/setup-secrets.sh` - Helps configure secrets for Thunderbird and Git
 
-# Available tools: nixd, alejandra, just
-```
+### Development Tools
+This configuration uses [just](https://github.com/casey/just) as a command runner for common tasks. All commands are defined in the `justfile` at the root of the repository.
 
 ## 🌐 Multi-System Support
 
@@ -153,7 +160,7 @@ nix develop
 
 5. **Deploy**:
    ```bash
-   sudo nixos-rebuild switch --flake .#newsystem
+   just deploy newsystem
    ```
 
 ### macOS Support
@@ -173,11 +180,13 @@ The configuration is ready for macOS deployment using nix-darwin:
 - **Secure Boot**: Lanzaboote integration
 - **Encrypted secrets**: sops-nix with age encryption
 - **Per-system keys**: Isolated secret access
+- **WiFi password management**: Secure WiFi credentials via secrets
 
 ### Developer Experience
-- **Flake-utils**: Multi-system support
-- **lib.mkDefault**: Composable configurations
+- **Custom packages**: OpenCode AI with automatic latest version fetching
+- **Secrets integration**: Git, Thunderbird, and system services use encrypted secrets
 - **Modular design**: Easy to customize and extend
+- **Multi-system support**: Framework laptop and Beelink desktop configurations
 
 ## 🎨 Customization
 
@@ -211,22 +220,38 @@ ls -la ~/.config/sops/age/keys.txt
 
 # Verify key in .sops.yaml
 age-keygen -y ~/.config/sops/age/keys.txt
+
+# Check if secrets are available
+sudo ls -la /run/secrets/
 ```
 
-**Build failures**:
+**WiFi not connecting with secret**:
 ```bash
-# Check flake syntax
-nix flake check
+# Refresh WiFi connection
+./scripts/refresh-wifi.sh
 
-# Build with verbose output
-nixos-rebuild switch --flake .#framework --show-trace
+# Or manually refresh
+sudo nmcli connection delete "2Fly4MyWifi"
+sudo systemctl restart NetworkManager
+```
+
+**OpenCode package issues**:
+```bash
+# Update to latest version
+./scripts/update-opencode.sh
+
+# Or build with impure flag
+nix build .#opencode --impure
 ```
 
 **Home Manager conflicts**:
 ```bash
-# Backup conflicting files
-mv ~/.config/conflicting-file ~/.config/conflicting-file.backup
-home-manager switch --flake .#lars
+# Remove conflicting packages
+nix profile list
+nix profile remove <package-name>
+
+# Then rebuild
+just user lars
 ```
 
 ## 📚 Resources

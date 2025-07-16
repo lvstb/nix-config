@@ -65,17 +65,19 @@
     system = "x86_64-linux";
     lib = nixpkgs.lib;
 
-    # Create pkgs with unfree enabled
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
-
     # Simple overlays
     overlays = [
       (_: _: {fw-ectool = inputs.fw-ectool.packages.${system}.ectool;})
       (final: prev: {dagger = inputs.dagger.packages.${system}.dagger;})
+      (final: prev: import ./pkgs prev)
     ];
+
+    # Create pkgs with unfree enabled and overlays applied
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+      overlays = overlays;
+    };
 
     # Base user config modules
     homeModules = [
@@ -188,6 +190,6 @@
     # Custom packages
     packages.${system} = {
       dagger = inputs.dagger.packages.${system}.dagger;
-    };
+    } // (import ./pkgs pkgs);
   };
 }

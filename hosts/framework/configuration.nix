@@ -35,7 +35,10 @@ in {
     # };
   };
 
-  # NetworkManager WiFi configuration - simplified
+  # NetworkManager WiFi configuration
+  # Note: NetworkManager reads the password from psk-file and stores it in the connection
+  # If the secret changes, you may need to delete and recreate the connection:
+  # sudo nmcli connection delete "2Fly4MyWifi" && sudo systemctl restart NetworkManager
   networking.networkmanager.ensureProfiles.profiles = {
     "2Fly4MyWifi" = {
       connection = {
