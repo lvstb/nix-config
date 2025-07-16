@@ -66,10 +66,11 @@
       update = "submodule update --init --recursive";
       foreach = "submodule foreach";
     };
-  };
+    };
 
-    home.file = {
-      "DPG/.gitconfig" = {
+  home.activation.createDPGDir = lib.hm.dag.entryBefore ["writeBoundary"] ''mkdir -p $HOME/DPG'';
+
+    home.file = {      "DPG/.gitconfig" = {
         text = ''
           [core]
             sshCommand = ssh -i /run/secrets/dpgmedia_ssh_private_key
