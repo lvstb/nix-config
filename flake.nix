@@ -91,6 +91,7 @@
       ./home/nvim.nix
       ./home/gnome.nix
       ./home/development.nix
+      ./home/stylix.nix
     ];
 
     # Base OS configs
@@ -105,7 +106,6 @@
       ./system/performance.nix
       ./system/security.nix
       ./system/monitoring.nix
-      ./home/stylix.nix
       {nixpkgs.overlays = overlays;}
     ];
 
@@ -119,7 +119,6 @@
       ./system/performance.nix
       ./system/security.nix
       ./system/monitoring.nix
-      ./home/stylix.nix
       {nixpkgs.overlays = overlays;}
     ];
   in {
@@ -129,6 +128,7 @@
         inherit pkgs;
         modules =
           homeModules
+          ++ [inputs.stylix.homeModules.stylix]
           ++ [./users/lvstb.nix]
           ++ [
             {
@@ -145,6 +145,7 @@
         inherit pkgs;
         modules =
           homeModules
+          ++ [inputs.stylix.homeModules.stylix]
           ++ [./users/beelink.nix]
           ++ [
             {

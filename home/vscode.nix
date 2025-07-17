@@ -1,4 +1,4 @@
-{ pkgs, vscode-extensions, ... }: {
+{ pkgs, vscode-extensions, lib, ... }: {
   programs.vscode = {
     enable = true;
     
@@ -45,9 +45,9 @@
       # GitLens settings
       "gitlens.codeLens.enabled" = false;
       
-      # Catppuccin theme
-      "workbench.colorTheme" = "Catppuccin Macchiato";
-      "workbench.iconTheme" = "catppuccin-macchiato";
+      # Catppuccin theme (allow stylix to override)
+      "workbench.colorTheme" = lib.mkDefault "Catppuccin Macchiato";
+      "workbench.iconTheme" = lib.mkDefault "catppuccin-macchiato";
       
       # Nix language server
       "nix.enableLanguageServer" = true;

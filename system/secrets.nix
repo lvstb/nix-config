@@ -9,19 +9,19 @@
       # Personal SSH private key
       personal_ssh_private_key = {
         sopsFile = ../secrets/common.yaml;
-        path = "/home/lars/.ssh/id_ed25519_personal";
         owner = config.users.users.lars.name;
         group = config.users.users.lars.group;
         mode = "0600";
+        path = "/home/lars/.ssh/id_personal";
       };
       
       # Work SSH private key
       dpgmedia_ssh_private_key = {
         sopsFile = ../secrets/common.yaml;
-        path = "/home/lars/DPG/.ssh/id_ed25519";
         owner = config.users.users.lars.name;
         group = config.users.users.lars.group;
         mode = "0600";
+        path = "/home/lars/.ssh/id_dpgmedia";
       };
 
       # Email configuration

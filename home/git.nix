@@ -17,8 +17,8 @@
     enable = true;
     lfs.enable = true;
 
-    userName = builtins.readFile "/run/secrets/user_full_name";
-    userEmail = builtins.readFile "/run/secrets/email_wingu_address";
+    userName = builtins.readFile config.sops.secrets.user_full_name.path;
+    userEmail = builtins.readFile config.sops.secrets.email_wingu_address.path;
 
     includes = [
       {
@@ -31,7 +31,7 @@
     extraConfig = {
       core.editor = "nvim";
       core.excludesfile = "~/.gitignore_global";
-      core.sshCommand = "ssh -i /run/secrets/personal_ssh_private_key";
+      core.sshCommand = "ssh -i ${config.sops.secrets.personal_ssh_private_key.path}";
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
       pull.rebase = true;
@@ -39,7 +39,7 @@
     };
 
     signing = {
-      key = "/run/secrets/personal_ssh_private_key";
+      key = config.sops.secrets.personal_ssh_private_key.path;
       signByDefault = true;
     };
 
@@ -73,11 +73,11 @@
     home.file = {      "DPG/.gitconfig" = {
         text = ''
           [core]
-            sshCommand = ssh -i /run/secrets/dpgmedia_ssh_private_key
+            sshCommand = ssh -i ${config.sops.secrets.dpgmedia_ssh_private_key.path}
 
           [user]
-            email = ${builtins.readFile "/run/secrets/email_work_address"}
-            signingkey = /run/secrets/dpgmedia_ssh_private_key
+            email = ${builtins.readFile config.sops.secrets.email_work_address.path}
+            signingkey = ${config.sops.secrets.dpgmedia_ssh_private_key.path}
           [commit]
             gpgSign = true
         '';

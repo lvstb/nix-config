@@ -102,4 +102,7 @@ in {
       };
     };
   };
+
+  # Fix stylix warning about Firefox profile names
+  stylix.targets.firefox.profileNames = [ "default" ];
 }

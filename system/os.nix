@@ -111,31 +111,16 @@
     git
   ];
 
-  fonts = {
-    enableDefaultPackages = true;
-    packages = with pkgs; [
-      ibm-plex
-      merriweather
-      noto-fonts-emoji
-      nerd-fonts.fira-code
-    ];
-
-    fontconfig = {
-      defaultFonts = {
-        serif = ["Merriweather"];
-        sansSerif = ["IBM Plex Sans"];
-        monospace = ["FiraCode" "CascadiaCode"];
-      };
-
-      antialias = true;
-      #More crisp text on 4k displays
-      subpixel = {
-        rgba = "none";
-        lcdfilter = "none";
-      };
-    };
-  };
-
+fonts = {
+     fontconfig = {
+       antialias = true;
+       #More crisp text on 4k displays
+       subpixel = {
+         rgba = "none";
+         lcdfilter = "none";
+       };
+     };
+   };
   # OCI engine
   virtualisation.podman = {
     enable = true;
@@ -169,8 +154,8 @@
     QT_QPA_PLATFORM = "wayland";
   };
 
-  # Force gnome-keyring to disable, because it likes to bully gpg-agent
-  services.gnome.gnome-keyring.enable = lib.mkForce false;
+  # Enable gnome-keyring for keyring and SSH agent functionality
+  services.gnome.gnome-keyring.enable = true;
 
   services.fwupd.enable = true;
   services.flatpak.enable = true;
