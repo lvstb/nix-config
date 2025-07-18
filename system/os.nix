@@ -89,8 +89,8 @@
     ++ (with pkgs.gnomeExtensions; [
       blur-my-shell
       # gsconnect
-      # luminus-shell-y
-      # night-theme-switcher
+      luminus-shell-y
+      night-theme-switcher
       caffeine
     ]);
 
@@ -148,11 +148,6 @@
       };
     };
   };
-
-  # # Start libvirt default network on boot
-  # systemd.services.libvirtd.postStart = ''
-  #   ${pkgs.libvirt}/bin/virsh net-start default || true
-  # '';
 
   # Wayland-specific configuration
   environment.sessionVariables = {

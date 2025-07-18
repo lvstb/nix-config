@@ -1,9 +1,11 @@
-{ lib, pkgs, ... }:
-let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   # mkUint32 = lib.hm.gvariant.mkUint32;
-  mkTuple = lib.hm.gvariant.mkTuple; 
-in 
-    {
+  mkTuple = lib.hm.gvariant.mkTuple;
+in {
   # Styling
   gtk = {
     iconTheme = {
@@ -36,7 +38,7 @@ in
       # icon-theme = "Adwaita";
       # monospace-font-name = "FiraCode Nerd Font 10";
     };
-    # custom icon size in the dock 
+    # custom icon size in the dock
     "org/gnome/nautilus/icon-view/default-zoom-level" = {
       value = "'small'";
     };
@@ -44,17 +46,17 @@ in
     "org/gnome/shell/extensions/blur-my-shell" = {
       sigma = 55;
       brightness = 0.60;
-      color = mkTuple [ 0.0 0.0 0.0 0.31 ];
+      color = mkTuple [0.0 0.0 0.0 0.31];
       noise-amount = 0.55;
       noise-lightness = 1.25;
     };
-    # "org/gnome/shell/extensions/blur-my-shell/applications" = {
-    #   dynamic-opacity = false;
-    #   blur = true;
-    #   blur-on-overview = true;
-    #   opacity = 210;
-    #   whitelist = [ "com.raggesilver.BlackBox" ];
-    # };
+    "org/gnome/shell/extensions/blur-my-shell/applications" = {
+      dynamic-opacity = false;
+      blur = true;
+      blur-on-overview = true;
+      opacity = 210;
+      whitelist = ["com.raggesilver.BlackBox"];
+    };
   };
 
   # Enable gnome-keyring - omit gnome-keyring-ssh
@@ -62,7 +64,6 @@ in
   # security.pam.services.sddm.enableGnomeKeyring = true;
   services.gnome-keyring = {
     enable = true;
-    components = [ "pkcs11" "secrets" "ssh" ];
+    components = ["pkcs11" "secrets" "ssh"];
   };
-
 }

@@ -27,7 +27,6 @@
       # Email configuration
       email_wingu_address = {
         sopsFile = ../secrets/common.yaml;
-        key = "email_wingu_address";
         owner = config.users.users.lars.name;
         group = config.users.users.lars.group;
         mode = "0400";
@@ -35,7 +34,6 @@
 
       email_wingu_password = {
         sopsFile = ../secrets/common.yaml;
-        key = "email_wingu_password";
         owner = config.users.users.lars.name;
         group = config.users.users.lars.group;
         mode = "0400";
@@ -43,7 +41,13 @@
 
       email_work_address = {
         sopsFile = ../secrets/common.yaml;
-        key = "email_work_address";
+        owner = config.users.users.lars.name;
+        group = config.users.users.lars.group;
+        mode = "0400";
+      };
+
+      user_full_name = {
+        sopsFile = ../secrets/common.yaml;
         owner = config.users.users.lars.name;
         group = config.users.users.lars.group;
         mode = "0400";
@@ -57,14 +61,7 @@
       #   mode = "0400";
       # };
 
-      # User information
-      user_full_name = {
-        sopsFile = ../secrets/common.yaml;
-        key = "user_full_name";
-        owner = config.users.users.lars.name;
-        group = config.users.users.lars.group;
-        mode = "0400";
-      };
+
       
       # GitHub token for development (uncomment when needed)
       # github_token = {
@@ -97,8 +94,8 @@
       "git-config-secrets" = {
         content = ''
           [user]
-            name = ${config.sops.placeholder.user_full_name}
-            email = ${config.sops.placeholder.email_wingu_address}
+            name = ${config.sops.placeholder."user_full_name"}
+            email = ${config.sops.placeholder."email_wingu_address"}
           [core]
             sshCommand = ssh -i /home/lars/.ssh/id_personal
           [commit]
@@ -118,7 +115,7 @@
           [core]
             sshCommand = ssh -i /home/lars/.ssh/id_dpgmedia
           [user]
-            email = ${config.sops.placeholder.email_work_address}
+            email = ${config.sops.placeholder."email_work_address"}
             signingkey = /home/lars/.ssh/id_dpgmedia
           [commit]
             gpgSign = true
