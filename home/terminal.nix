@@ -91,7 +91,10 @@
       # Timeout for commands executed by starship (ms)
       command_timeout = 1000;
 
-      format = "$username$hostname$directory$git_branch$git_state$git_status$cmd_duration$aws$line_break$nix_shell$python$golang$nodejs$terraform$java$character";
+      format = "$username$hostname$directory$git_branch$git_state$git_status$cmd_duration$line_break$nix_shell$python$golang$nodejs$terraform$java$character";
+
+      # Right side of the prompt
+      right_format = "$aws$time";
 
       nix_shell = {
         disabled = false;
@@ -116,9 +119,6 @@
         # Force display even without valid credentials
         force_display = true;
       };
-
-      # Ghostty doesn't support right_format yet, so disable it
-      # right_format = "$aws$time";
 
       python = {
         format = "[$virtualenv]($style) ";

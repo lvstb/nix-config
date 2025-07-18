@@ -1,5 +1,5 @@
 # Common secrets configuration for all systems
-{ config, lib, ... }: {
+{ config, lib, pkgs, ... }: {
   sops = {
     # Path to age key file
     age.keyFile = "/home/lars/.config/sops/age/keys.txt";
@@ -90,6 +90,43 @@
       #   group = config.users.users.lars.group;
       #   mode = "0400";
       # };
+    };
+
+    # Create templates for configuration files that need secrets
+    templates = {
+      "git-config-secrets" = {
+        content = ''
+          [user]
+            name = ${config.sops.placeholder.user_full_name}
+            email = ${config.sops.placeholder.email_wingu_address}
+          [core]
+            sshCommand = ssh -i ${config.sops.placeholder.personal_ssh_private_key}
+          [commit]
+            gpgSign = true
+          [gpg]
+            format = ssh
+          [user]
+            signingkey = ${config.sops.placeholder.personal_ssh_private_key}
+        '';
+        owner = config.users.users.lars.name;
+        group = config.users.users.lars.group;
+        mode = "0400";
+      };
+
+      "git-config-work" = {
+        content = ''
+          [core]
+            sshCommand = ssh -i ${config.sops.placeholder.dpgmedia_ssh_private_key}
+          [user]
+            email = ${config.sops.placeholder.email_work_address}
+            signingkey = ${config.sops.placeholder.dpgmedia_ssh_private_key}
+          [commit]
+            gpgSign = true
+        '';
+        owner = config.users.users.lars.name;
+        group = config.users.users.lars.group;
+        mode = "0400";
+      };
     };
   };
 }

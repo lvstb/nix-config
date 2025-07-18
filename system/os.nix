@@ -111,16 +111,16 @@
     git
   ];
 
-fonts = {
-     fontconfig = {
-       antialias = true;
-       #More crisp text on 4k displays
-       subpixel = {
-         rgba = "none";
-         lcdfilter = "none";
-       };
-     };
-   };
+  fonts = {
+    fontconfig = {
+      antialias = true;
+      #More crisp text on 4k displays
+      subpixel = {
+        rgba = "none";
+        lcdfilter = "none";
+      };
+    };
+  };
   # OCI engine
   virtualisation.podman = {
     enable = true;
@@ -148,6 +148,11 @@ fonts = {
       };
     };
   };
+
+  # # Start libvirt default network on boot
+  # systemd.services.libvirtd.postStart = ''
+  #   ${pkgs.libvirt}/bin/virsh net-start default || true
+  # '';
 
   # Wayland-specific configuration
   environment.sessionVariables = {
