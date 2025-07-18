@@ -52,7 +52,6 @@
   };
 
   nixConfig = {
-    allowUnfree = true;
     # Also add this to make it work with --impure flag
     accept-flake-config = true;
   };
@@ -130,11 +129,7 @@
           homeModules
           ++ [inputs.stylix.homeModules.stylix]
           ++ [./users/lvstb.nix]
-          ++ [
-            {
-              nixpkgs.config.allowUnfree = true;
-            }
-          ];
+          ++ [{nixpkgs.config.allowUnfree = true;}];
         extraSpecialArgs = {
           inherit inputs;
           vscode-extensions = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
@@ -147,11 +142,7 @@
           homeModules
           ++ [inputs.stylix.homeModules.stylix]
           ++ [./users/beelink.nix]
-          ++ [
-            {
-              nixpkgs.config.allowUnfree = true;
-            }
-          ];
+          ++ [{nixpkgs.config.allowUnfree = true;}];
         extraSpecialArgs = {
           inherit inputs;
           vscode-extensions = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;

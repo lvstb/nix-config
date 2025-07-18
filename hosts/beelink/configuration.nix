@@ -22,25 +22,25 @@ in {
   };
 
   # NetworkManager WiFi configuration - simplified
-  networking.networkmanager.ensureProfiles.profiles = {
-    "2Fly4MyWifi" = {
-      connection = {
-        id = "2Fly4MyWifi";
-        type = "wifi";
-        autoconnect = true;
-      };
-      wifi = {
-        ssid = "2Fly4MyWifi";
-        mode = "infrastructure";
-      };
-      wifi-security = {
-        key-mgmt = "wpa-psk";
-        psk-file = config.sops.secrets.wifi_home_password.path;
-      };
-      ipv4.method = "auto";
-      ipv6.method = "auto";
-    };
-  };
+  # networking.networkmanager.ensureProfiles.profiles = {
+  #   "2Fly4MyWifi" = {
+  #     connection = {
+  #       id = "2Fly4MyWifi";
+  #       type = "wifi";
+  #       autoconnect = true;
+  #     };
+  #     wifi = {
+  #       ssid = "2Fly4MyWifi";
+  #       mode = "infrastructure";
+  #     };
+  #     wifi-security = {
+  #       key-mgmt = "wpa-psk";
+  #       psk-file = config.sops.secrets.wifi_home_password.path;
+  #     };
+  #     ipv4.method = "auto";
+  #     ipv6.method = "auto";
+  #   };
+  # };
 
   users.users.lars = {
     isNormalUser = true;
@@ -72,3 +72,4 @@ in {
   # this value at the release version of the first install of this system.
   system.stateVersion = "24.11";
 }
+

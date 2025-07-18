@@ -100,13 +100,13 @@
             name = ${config.sops.placeholder.user_full_name}
             email = ${config.sops.placeholder.email_wingu_address}
           [core]
-            sshCommand = ssh -i ${config.sops.placeholder.personal_ssh_private_key}
+            sshCommand = ssh -i /home/lars/.ssh/id_personal
           [commit]
             gpgSign = true
           [gpg]
             format = ssh
           [user]
-            signingkey = ${config.sops.placeholder.personal_ssh_private_key}
+            signingkey = /home/lars/.ssh/id_personal
         '';
         owner = config.users.users.lars.name;
         group = config.users.users.lars.group;
@@ -116,12 +116,14 @@
       "git-config-work" = {
         content = ''
           [core]
-            sshCommand = ssh -i ${config.sops.placeholder.dpgmedia_ssh_private_key}
+            sshCommand = ssh -i /home/lars/.ssh/id_dpgmedia
           [user]
             email = ${config.sops.placeholder.email_work_address}
-            signingkey = ${config.sops.placeholder.dpgmedia_ssh_private_key}
+            signingkey = /home/lars/.ssh/id_dpgmedia
           [commit]
             gpgSign = true
+          [gpg]
+            format = ssh
         '';
         owner = config.users.users.lars.name;
         group = config.users.users.lars.group;

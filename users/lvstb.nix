@@ -1,5 +1,5 @@
 # Main user configuration - framework laptop (full setup)
-{pkgs, ...}: {
+{pkgs, lib, ...}: {
   home.username = "lars";
   home.homeDirectory = "/home/lars";
   home.file = {
@@ -34,6 +34,12 @@
     enable = true;
     addKeysToAgent = "yes";
   };
+
+  # Ensure SSH directory exists with proper permissions
+  home.activation.setupSSHDirectory = lib.hm.dag.entryBefore ["writeBoundary"] ''
+    mkdir -p $HOME/.ssh
+    chmod 700 $HOME/.ssh
+  '';
   
   dconf.settings = {
     "org/gnome/shell" = {
