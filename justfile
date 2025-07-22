@@ -12,7 +12,7 @@ fmt:
 
 # Deploy system configuration
 deploy hostname:
-	sudo nixos-rebuild switch --flake .#{{hostname}}
+	NIXPKGS_ALLOW_UNFREE=1 sudo -E nixos-rebuild switch --flake .#{{hostname}} --impure
 
 # Deploy user configuration
 user username:
