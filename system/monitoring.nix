@@ -17,14 +17,11 @@
     MaxRetentionSec=1month
   '';
 
-  # Automatic cleanup
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
-  };
+  # Automatic cleanup moved to nix-settings.nix
 
   # Store optimization
+  # Note: Auto-optimization is handled in nix-settings.nix
+  # This provides additional scheduled optimization
   nix.optimise = {
     automatic = true;
     dates = [ "weekly" ];

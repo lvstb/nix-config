@@ -3,7 +3,7 @@
 
 {
   # Programs configuration
-  programs.vscode.enable = true;
+  # VSCode configuration moved to vscode.nix
   programs.chromium = {
     enable = true;
     package = pkgs.ungoogled-chromium;
@@ -31,12 +31,7 @@
   programs.gh.enable = true;
   programs.yazi.enable = true;
   programs.fd.enable = true;
-  programs.direnv = {
-    enable = true;
-    config = {
-      "load_dotenv" = true;
-    };
-  };
+  # direnv configuration moved to development.nix
 
   # Development languages and runtimes
   programs.go.enable = true;

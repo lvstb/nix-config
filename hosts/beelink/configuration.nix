@@ -10,14 +10,15 @@ in {
     ./hardware-configuration.nix
     ../../system/secrets-beelink.nix
     ../../system/boot-simple.nix
+    ../../system/core-services.nix
+    ../../system/desktop-services.nix
+    ../../system/nix-settings.nix
   ];
 
-  # Specific boot config for the device
-  boot.initrd.systemd.enable = true;
+  # Specific boot config for the device (moved to desktop-services.nix)
 
   networking = {
     hostName = hostName;
-    networkmanager.enable = true;
     timeServers = options.networking.timeServers.default ++ ["pool.ntp.org"];
   };
 
@@ -51,20 +52,10 @@ in {
   };
 
   # Beelink-specific packages (minimal for a mini PC)
-  environment.systemPackages = with pkgs; [
-    ghostty
-  ];
+  # Removed ghostty - now managed by home-manager
+  environment.systemPackages = with pkgs; [];
 
-  # Hardware specific settings
-  hardware = {
-    bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-    };
-    graphics.enable = true;
-  };
-
-  services.blueman.enable = true;
+  # Hardware specific settings moved to desktop-services.nix
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

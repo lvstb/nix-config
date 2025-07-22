@@ -10,16 +10,17 @@ in {
   imports = [
     ./hardware-configuration.nix
     ../../system/secrets-framework.nix
+    ../../system/core-services.nix
+    ../../system/desktop-services.nix
+    ../../system/nix-settings.nix
     inputs.home-manager.nixosModules.home-manager
   ];
 
   #Specific boot config for the device
-  boot.initrd.systemd.enable = true;
   # boot.initrd.kernelModules = ["kvm_amd"];
 
   networking = {
     hostName = hostName;
-    networkmanager.enable = true;
     timeServers = options.networking.timeServers.default ++ ["pool.ntp.org"];
     # firewall = {
     #   allowedTCPPortRanges = [
@@ -96,22 +97,13 @@ in {
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    ghostty
-  ];
+  # Framework-specific packages (removed ghostty - now in home-manager)
+  environment.systemPackages = with pkgs; [];
   # Enable LVFS testing to get UEFI updates
   services.fwupd.extraRemotes = ["lvfs-testing"];
   # programs.ssh.startAgent = true;
 
-  hardware = {
-    bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-    };
-    graphics.enable = true;
-  };
-  #
-  services.blueman.enable = true;
+  # Hardware settings moved to desktop-services.nix
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
