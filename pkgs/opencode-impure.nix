@@ -14,7 +14,7 @@ let
   src = builtins.fetchurl {
     url = "https://github.com/sst/opencode/releases/latest/download/opencode-${platform}-${arch}.zip";
     sha256 = if platform == "linux" then (
-      if arch == "x64" then "1bgwj950xn4kddz4vflkimg4ifgc6avmb0gxdn7b0sb8fkhriy0j" else "0h1d68wglzqckij2djrnlma93xnjz1a5avqpsj7icgiya2a5ydss"
+      if arch == "x64" then "1j3qggzz42wbffa5lcqhxccr5j2qdvfnznnax4wrf4vmw03r7sg0" else "0h1d68wglzqckij2djrnlma93xnjz1a5avqpsj7icgiya2a5ydss"
     ) else (
       if arch == "x64" then "146zr3x12dhn9wik9h5799agb50vlq7j8p87x8hlw90lx94minpd" else "0xvq8k377a7y4n3xgcfgnz9cnxs5gka5r33d0nr9mcdw6pdnqa09"
     );
