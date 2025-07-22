@@ -19,11 +19,7 @@ in {
       gtk-application-prefer-dark-theme = 1;
     };
   };
-  qt = {
-    enable = true;
-    style.name = "adwaita-dark";
-    platformTheme.name = lib.mkForce "gtk3";
-  };
+  # QT configuration is handled by stylix
 
   dconf.settings = {
     # shell configuration depends on the user
