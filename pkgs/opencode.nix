@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url = "https://github.com/sst/opencode/releases/latest/download/opencode-${platform}-${arch}.zip";
-    sha256 = "sha256-WkKTbRsAnuzCufHv2WFzpwj+BX+2HCbY5L8wrad5iG8=";
+    sha256 = "sha256-aOJJJOKL+/pV8KHMzKXJOUqfn5s6xUL9Uu3A9+yA=";
     stripRoot = false;
   };
 
