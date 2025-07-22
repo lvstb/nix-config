@@ -17,25 +17,44 @@
     enable = true;
     lfs.enable = true;
 
-    # Include the main git config from SOPS template
-    includes = [
-      {
-        path = "/run/secrets/git-config-secrets";
-      }
-      {
-        # use a different config for work
-        path = "/run/secrets/git-config-work";
-        condition = "gitdir:~/DPG/";
-      }
-    ];
+    # Main user configuration
+    userName = "Lars Van Steenbergen";
+    userEmail = "lars@wingu.dev";
+    
+    # Signing configuration for personal commits
+    signing = {
+      key = "~/.ssh/id_personal";
+      signByDefault = true;
+    };
 
     extraConfig = {
-      core.editor = "nvim";
-      core.excludesfile = "~/.gitignore_global";
+      core = {
+        editor = "nvim";
+        excludesfile = "~/.gitignore_global";
+        sshCommand = "ssh -i ~/.ssh/id_personal";
+      };
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
       pull.rebase = true;
+      gpg.format = "ssh";
     };
+
+    # Work-specific configuration when in DPG directory
+    includes = [
+      {
+        condition = "gitdir:~/DPG/";
+        contents = {
+          user = {
+            name = "Lars Van Steenbergen";
+            email = "lars.van.steenbergen@persgroep.net";
+            signingkey = "~/DPG/.ssh/id_ed25519_dpg";
+          };
+          core.sshCommand = "ssh -i ~/DPG/.ssh/id_ed25519_dpg";
+          commit.gpgSign = true;
+          gpg.format = "ssh";
+        };
+      }
+    ];
 
     delta = {
       enable = true;

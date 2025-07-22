@@ -107,7 +107,7 @@
     awscli2
     distrobox
     snyk
-    opencode
+    opencode-impure
 
     # Office and productivity
     libreoffice-qt6-fresh

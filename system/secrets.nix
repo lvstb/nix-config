@@ -1,9 +1,9 @@
 # Common secrets configuration for all systems
-{ config, lib, pkgs, ... }: {
+{config, ...}: {
   sops = {
     # Path to age key file
     age.keyFile = "/home/lars/.config/sops/age/keys.txt";
-    
+
     # Common secrets available on all systems
     secrets = {
       # Personal SSH private key
@@ -14,14 +14,14 @@
         mode = "0600";
         path = "/home/lars/.ssh/id_personal";
       };
-      
+
       # Work SSH private key
       dpgmedia_ssh_private_key = {
         sopsFile = ../secrets/common.yaml;
         owner = config.users.users.lars.name;
         group = config.users.users.lars.group;
         mode = "0600";
-        path = "/home/lars/.ssh/id_dpgmedia";
+        path = "/home/lars/DPG/.ssh/id_ed25519_dpg";
       };
 
       # Email configuration
@@ -61,8 +61,6 @@
       #   mode = "0400";
       # };
 
-
-      
       # GitHub token for development (uncomment when needed)
       # github_token = {
       #   sopsFile = ../secrets/common.yaml;
@@ -70,7 +68,7 @@
       #   group = config.users.users.lars.group;
       #   mode = "0400";
       # };
-      
+
       # API keys (uncomment when needed)
       # openai_api_key = {
       #   sopsFile = ../secrets/common.yaml;
@@ -79,7 +77,7 @@
       #   group = config.users.users.lars.group;
       #   mode = "0400";
       # };
-      
+
       # anthropic_api_key = {
       #   sopsFile = ../secrets/common.yaml;
       #   key = "api_keys.anthropic";
@@ -87,45 +85,6 @@
       #   group = config.users.users.lars.group;
       #   mode = "0400";
       # };
-    };
-
-    # Create templates for configuration files that need secrets
-    templates = {
-      "git-config-secrets" = {
-        content = ''
-          [user]
-            name = ${config.sops.placeholder."user_full_name"}
-            email = ${config.sops.placeholder."email_wingu_address"}
-          [core]
-            sshCommand = ssh -i /home/lars/.ssh/id_personal
-          [commit]
-            gpgSign = true
-          [gpg]
-            format = ssh
-          [user]
-            signingkey = /home/lars/.ssh/id_personal
-        '';
-        owner = config.users.users.lars.name;
-        group = config.users.users.lars.group;
-        mode = "0400";
-      };
-
-      "git-config-work" = {
-        content = ''
-          [core]
-            sshCommand = ssh -i /home/lars/.ssh/id_dpgmedia
-          [user]
-            email = ${config.sops.placeholder."email_work_address"}
-            signingkey = /home/lars/.ssh/id_dpgmedia
-          [commit]
-            gpgSign = true
-          [gpg]
-            format = ssh
-        '';
-        owner = config.users.users.lars.name;
-        group = config.users.users.lars.group;
-        mode = "0400";
-      };
     };
   };
 }
