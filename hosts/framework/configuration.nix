@@ -2,6 +2,7 @@
   pkgs,
   config,
   options,
+  inputs,
   ...
 }: let
   hostName = "framework";
@@ -9,6 +10,7 @@ in {
   imports = [
     ./hardware-configuration.nix
     ../../system/secrets-framework.nix
+    inputs.home-manager.nixosModules.home-manager
   ];
 
   #Specific boot config for the device
@@ -65,6 +67,33 @@ in {
     shell = pkgs.zsh;
     description = "Lars Van Steenbergen";
     extraGroups = ["networkmanager" "wheel" "libvirtd" "podman" "vboxusers"];
+  };
+
+  # Home Manager configuration
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.lars = {
+      imports = [
+        ../../users/lvstb.nix
+        ../../home/apps.nix
+        ../../home/git.nix
+        ../../home/lazygit.nix
+        ../../home/terminal.nix
+        ../../home/vscode.nix
+        ../../home/firefox.nix
+        ../../home/thunderbird.nix
+        ../../home/nvim.nix
+        ../../home/gnome.nix
+        ../../home/development.nix
+        ../../home/stylix.nix
+        inputs.stylix.homeModules.stylix
+      ];
+    };
+    extraSpecialArgs = {
+      inherit inputs;
+      vscode-extensions = inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace;
+    };
   };
 
   environment.systemPackages = with pkgs; [

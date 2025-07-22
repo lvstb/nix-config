@@ -1,5 +1,18 @@
 # Main user configuration - framework laptop (full setup)
-{pkgs, lib, ...}: {
+{pkgs, lib, inputs, vscode-extensions, ...}: {
+  imports = [
+    ../home/apps.nix
+    ../home/git.nix
+    ../home/lazygit.nix
+    ../home/terminal.nix
+    ../home/vscode.nix
+    ../home/firefox.nix
+    ../home/thunderbird.nix
+    ../home/nvim.nix
+    ../home/gnome.nix
+    ../home/development.nix
+  ];
+  
   home.username = "lars";
   home.homeDirectory = "/home/lars";
   home.file = {
