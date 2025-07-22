@@ -9,24 +9,7 @@
 
   # Starship is configured in terminal.nix
 
-  # Better git configuration
-  programs.git = {
-    delta = {
-      enable = true;
-      options = {
-        navigate = true;
-        light = false;
-        side-by-side = true;
-      };
-    };
-    extraConfig = {
-      merge.conflictstyle = "diff3";
-      diff.colorMoved = "default";
-      push.autoSetupRemote = true;
-      pull.rebase = true;
-      init.defaultBranch = "main";
-    };
-  };
+  # Git delta configuration moved to git.nix
 
   # Docker/Podman aliases
   home.shellAliases = {
