@@ -148,6 +148,34 @@
           vscode-extensions = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
         };
       };
+
+      lars-hyprland = inputs.home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules =
+          homeModules
+          ++ [inputs.stylix.homeModules.stylix]
+          ++ [./users/lvstb.nix]
+          ++ [./home/hyprland.nix]
+          ++ [{nixpkgs.config.allowUnfree = true;}];
+        extraSpecialArgs = {
+          inherit inputs;
+          vscode-extensions = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
+        };
+      };
+
+      beelink-hyprland = inputs.home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules =
+          homeModules
+          ++ [inputs.stylix.homeModules.stylix]
+          ++ [./users/beelink.nix]
+          ++ [./home/hyprland.nix]
+          ++ [{nixpkgs.config.allowUnfree = true;}];
+        extraSpecialArgs = {
+          inherit inputs;
+          vscode-extensions = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
+        };
+      };
     };
 
     # NixOS configurations

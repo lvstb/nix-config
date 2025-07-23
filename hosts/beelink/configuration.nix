@@ -2,6 +2,7 @@
   pkgs,
   config,
   options,
+  inputs,
   ...
 }: let
   hostName = "beelink";
@@ -14,6 +15,14 @@ in {
     ../../system/desktop-services.nix
     ../../system/nix-settings.nix
   ];
+
+  specialisation = {
+    hyprland.configuration = {
+      imports = [
+        ./../../system/hyprland.nix
+      ];
+    };
+  };
 
   # Specific boot config for the device (moved to desktop-services.nix)
 
@@ -50,6 +59,7 @@ in {
     description = "Lars Van Steenbergen";
     extraGroups = ["networkmanager" "wheel" "libvirtd" "podman"];
   };
+
 
   # Beelink-specific packages (minimal for a mini PC)
   # Removed ghostty - now managed by home-manager

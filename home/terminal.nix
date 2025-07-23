@@ -94,7 +94,7 @@
       format = "$username$hostname$directory$git_branch$git_state$git_status$cmd_duration$line_break$nix_shell$python$golang$nodejs$terraform$java$character";
 
       # Right side of the prompt
-      right_format = "$aws$time";
+      right_format = "$aws";
 
       nix_shell = {
         disabled = false;
@@ -188,60 +188,59 @@
     shell = "${pkgs.zsh}/bin/zsh";
     terminal = "tmux-256color";
     historyLimit = 100000;
-    plugins = with pkgs;
-      [
-        # tmux-nvim
-        # tmuxPlugins.tmux-thumbs
-        # # TODO: why do I have to manually set this
-        # {
-        #   plugin = t-smart-manager;
-        #   extraConfig = ''
-        #     set -g @t-fzf-prompt '  '
-        #     set -g @t-bind "T"
-        #   '';
-        # }
-        # {
-        #   plugin = tmux-super-fingers;
-        #   extraConfig = "set -g @super-fingers-key f";
-        # }
-        # {
-        #   plugin = tmux-browser;
-        #   extraConfig = ''
-        #     set -g @browser_close_on_deattach '1'
-        #   '';
-        # }
-        #
-        # tmuxPlugins.sensible
-        # # must be before continuum edits right status bar
-        # {
-        #   plugin = tmuxPlugins.catppuccin;
-        #   extraConfig = '' 
-        #     set -g @catppuccin_flavour 'frappe'
-        #     set -g @catppuccin_window_tabs_enabled on
-        #     set -g @catppuccin_date_time "%H:%M"
-        #   '';
-        # }
-        {
-          plugin = tmuxPlugins.resurrect;
-          extraConfig = ''
-            set -g @resurrect-strategy-vim 'session'
-            set -g @resurrect-save 'C-s'
-            set -g @resurrect-restore 'C-r'
-            set -g @resurrect-strategy-nvim 'session'
-            set -g @resurrect-capture-pane-contents 'on'
-          '';
-        }
-        # {
-        #   plugin = tmuxPlugins.continuum;
-        #   extraConfig = ''
-        #     set -g @continuum-restore 'on'
-        #     set -g @continuum-boot 'on'
-        #     set -g @continuum-save-interval '10'
-        #   '';
-        # }
-        # tmuxPlugins.better-mouse-mode
-        # tmuxPlugins.yank
-      ];
+    plugins = with pkgs; [
+      # tmux-nvim
+      # tmuxPlugins.tmux-thumbs
+      # # TODO: why do I have to manually set this
+      # {
+      #   plugin = t-smart-manager;
+      #   extraConfig = ''
+      #     set -g @t-fzf-prompt '  '
+      #     set -g @t-bind "T"
+      #   '';
+      # }
+      # {
+      #   plugin = tmux-super-fingers;
+      #   extraConfig = "set -g @super-fingers-key f";
+      # }
+      # {
+      #   plugin = tmux-browser;
+      #   extraConfig = ''
+      #     set -g @browser_close_on_deattach '1'
+      #   '';
+      # }
+      #
+      # tmuxPlugins.sensible
+      # # must be before continuum edits right status bar
+      # {
+      #   plugin = tmuxPlugins.catppuccin;
+      #   extraConfig = ''
+      #     set -g @catppuccin_flavour 'frappe'
+      #     set -g @catppuccin_window_tabs_enabled on
+      #     set -g @catppuccin_date_time "%H:%M"
+      #   '';
+      # }
+      {
+        plugin = tmuxPlugins.resurrect;
+        extraConfig = ''
+          set -g @resurrect-strategy-vim 'session'
+          set -g @resurrect-save 'C-s'
+          set -g @resurrect-restore 'C-r'
+          set -g @resurrect-strategy-nvim 'session'
+          set -g @resurrect-capture-pane-contents 'on'
+        '';
+      }
+      # {
+      #   plugin = tmuxPlugins.continuum;
+      #   extraConfig = ''
+      #     set -g @continuum-restore 'on'
+      #     set -g @continuum-boot 'on'
+      #     set -g @continuum-save-interval '10'
+      #   '';
+      # }
+      # tmuxPlugins.better-mouse-mode
+      # tmuxPlugins.yank
+    ];
     extraConfig = ''
       set -g default-terminal "tmux-256color"
       set -ag terminal-overrides ",xterm-256color:RGB"
@@ -278,7 +277,7 @@
       ## make Prefix p paste the buffer.
       unbind p
       bind p paste-buffer
-      
+
       ## pane navigation
       bind -r h select-pane -l  # move left
       bind -r j select-pane -d  # move down
@@ -289,7 +288,7 @@
 
       # Bind Keys
       bind-key e send-keys "tmux capture-pane -p -S - | nvim -c 'set buftype=nofile' +" Enter
-      
+
       # panes
       set -g pane-border-style fg=black
       set -g pane-active-border-style fg=brightred
@@ -300,11 +299,11 @@
       set -g status-style fg=colour12,bg=default
       set -g status-interval 2
       ###
-      
+
       ####window mode
       setw -g mode-style bg=colour6,fg=colour0
       ###
-      
+
       #### window status
       set -g status-style bg=black
       set -g status-style fg=white
@@ -319,4 +318,3 @@
     '';
   };
 }
-

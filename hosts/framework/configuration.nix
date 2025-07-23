@@ -13,8 +13,15 @@ in {
     ../../system/core-services.nix
     ../../system/desktop-services.nix
     ../../system/nix-settings.nix
-    inputs.home-manager.nixosModules.home-manager
   ];
+
+  specialisation = {
+    hyprland.configuration = {
+      imports = [
+        ./../../system/hyprland.nix
+      ];
+    };
+  };
 
   #Specific boot config for the device
   # boot.initrd.kernelModules = ["kvm_amd"];
@@ -70,32 +77,6 @@ in {
     extraGroups = ["networkmanager" "wheel" "libvirtd" "podman" "vboxusers"];
   };
 
-  # Home Manager configuration
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    users.lars = {
-      imports = [
-        ../../users/lvstb.nix
-        ../../home/apps.nix
-        ../../home/git.nix
-        ../../home/lazygit.nix
-        ../../home/terminal.nix
-        ../../home/vscode.nix
-        ../../home/firefox.nix
-        ../../home/thunderbird.nix
-        ../../home/nvim.nix
-        ../../home/gnome.nix
-        ../../home/development.nix
-        ../../home/stylix.nix
-        inputs.stylix.homeModules.stylix
-      ];
-    };
-    extraSpecialArgs = {
-      inherit inputs;
-      vscode-extensions = inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace;
-    };
-  };
 
   # Framework-specific packages (removed ghostty - now in home-manager)
   environment.systemPackages = with pkgs; [];
