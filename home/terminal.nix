@@ -20,7 +20,6 @@
     };
 
     initContent = ''
-        export PATH=/home/lars/.opencode/bin:$PATH
         any-nix-shell zsh --info-right | source /dev/stdin
         # Ensure COLUMNS is set for starship right prompt
         export COLUMNS=$(tput cols 2>/dev/null || echo 80)
@@ -73,7 +72,6 @@
 
     sessionVariables = {
       JAVA_HOME = "/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home";
-      PATH = "/home/lars/.opencode/bin:$PATH";
     };
     plugins = [
       {

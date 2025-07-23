@@ -56,7 +56,7 @@ The configuration uses Home Manager for user-specific settings:
 - **Shell**: Zsh with Starship prompt
 - **Editor**: Neovim with custom configuration
 - **Terminal**: Ghostty
-- **Development**: VSCode, Go, Node.js, Python, OpenCode AI
+- **Development**: VSCode, Go, Node.js, Python
 - **Applications**: Firefox, Thunderbird, Slack, Discord
 
 ### Key Features
@@ -64,7 +64,6 @@ The configuration uses Home Manager for user-specific settings:
 - Consistent shell environment
 - Development tools and language servers
 - GUI applications with themes
-- Custom packages (OpenCode AI with latest version support)
 
 ## 🔐 Secrets Management
 
@@ -124,15 +123,11 @@ just user lars
 # Clean old generations
 just clean
 
-# Update OpenCode to latest version
-./scripts/update-opencode.sh
-
 # Refresh WiFi connection with secrets
 ./scripts/refresh-wifi.sh
 ```
 
 ### Helper Scripts
-- `scripts/update-opencode.sh` - Updates OpenCode package hash for latest version
 - `scripts/refresh-wifi.sh` - Refreshes WiFi connection with updated secrets
 - `scripts/setup-secrets.sh` - Helps configure secrets for Thunderbird and Git
 
@@ -183,7 +178,6 @@ The configuration is ready for macOS deployment using nix-darwin:
 - **WiFi password management**: Secure WiFi credentials via secrets
 
 ### Developer Experience
-- **Custom packages**: OpenCode AI with automatic latest version fetching
 - **Secrets integration**: Git, Thunderbird, and system services use encrypted secrets
 - **Modular design**: Easy to customize and extend
 - **Multi-system support**: Framework laptop and Beelink desktop configurations
@@ -233,15 +227,6 @@ sudo ls -la /run/secrets/
 # Or manually refresh
 sudo nmcli connection delete "2Fly4MyWifi"
 sudo systemctl restart NetworkManager
-```
-
-**OpenCode package issues**:
-```bash
-# Update to latest version
-./scripts/update-opencode.sh
-
-# Or build with impure flag
-nix build .#opencode --impure
 ```
 
 **Home Manager conflicts**:

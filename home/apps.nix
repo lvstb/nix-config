@@ -102,7 +102,6 @@
     awscli2
     distrobox
     snyk
-    opencode-impure
 
     # Office and productivity
     libreoffice-qt6-fresh
@@ -132,5 +131,6 @@
   home.sessionPath = [
     "$HOME/.local/bin"
     "$HOME/go/bin"
+    "$HOME/.opencode/bin"
   ];
 }
