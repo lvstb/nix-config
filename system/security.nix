@@ -1,13 +1,18 @@
 # Security hardening
-{ lib, pkgs, ... }: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   # Firewall configuration
   networking.firewall = {
     enable = true;
     allowPing = false;
     logReversePathDrops = true;
     # Only allow specific ports when needed
-    allowedTCPPorts = [ ];
-    allowedUDPPorts = [ ];
+    allowedTCPPorts = [];
+    allowedUDPPorts = [];
+    trustedInterfaces = ["virbr0"];
   };
 
   # Kernel security
@@ -16,7 +21,7 @@
     "debugfs=off"
     "kptr_restrict=2"
     "kernel.yama.ptrace_scope=2"
-    
+
     # Memory protection
     "slab_nomerge"
     "init_on_alloc=1"
@@ -31,7 +36,7 @@
       enable = true;
       killUnconfinedConfinables = true;
     };
-    
+
     # Audit system
     audit = {
       enable = true;
@@ -64,3 +69,4 @@
     allowReboot = false;
   };
 }
+
