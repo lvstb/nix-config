@@ -30,6 +30,8 @@
     XDG_SCREENSHOTS_DIR = "$HOME/Pictures/screenshots";
   };
 
+  home.sessionPath = [ "/home/lars/.opencode/bin" ];
+
   xdg.mimeApps.enable = true;
   xdg.mimeApps.associations.added = {
     "text/html" = "firefox.desktop";
