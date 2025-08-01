@@ -53,6 +53,19 @@ in {
       opacity = 210;
       whitelist = ["com.raggesilver.BlackBox"];
     };
+    
+    # Custom keybindings for walker
+    "org/gnome/settings-daemon/plugins/media-keys" = {
+      custom-keybindings = [
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+      ];
+    };
+    
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+      binding = "<Super>space";
+      command = "walker";
+      name = "Walker Launcher";
+    };
   };
 
   # Enable gnome-keyring - omit gnome-keyring-ssh
@@ -62,4 +75,9 @@ in {
     enable = true;
     components = ["pkcs11" "secrets" "ssh"];
   };
+  
+  # Add walker launcher
+  home.packages = with pkgs; [
+    walker
+  ];
 }

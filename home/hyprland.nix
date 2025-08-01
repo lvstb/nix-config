@@ -30,4 +30,8 @@
     };
     style = builtins.readFile ../config/wofi/style.css;
   };
+  
+  home.packages = with pkgs; [
+    walker
+  ];
 }
