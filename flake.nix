@@ -69,6 +69,10 @@
       (_: _: {fw-ectool = inputs.fw-ectool.packages.${system}.ectool;})
       (final: prev: {dagger = inputs.dagger.packages.${system}.dagger;})
       (final: prev: import ./pkgs prev)
+      (final: prev: {
+        vscode-marketplace = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
+        vscode-marketplace-release = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace-release;
+      })
     ];
 
     # Create pkgs with unfree enabled and overlays applied
@@ -132,7 +136,6 @@
           ++ [{nixpkgs.config.allowUnfree = true;}];
         extraSpecialArgs = {
           inherit inputs;
-          vscode-extensions = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
         };
       };
 
@@ -145,7 +148,6 @@
           ++ [{nixpkgs.config.allowUnfree = true;}];
         extraSpecialArgs = {
           inherit inputs;
-          vscode-extensions = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
         };
       };
 
@@ -159,7 +161,6 @@
           ++ [{nixpkgs.config.allowUnfree = true;}];
         extraSpecialArgs = {
           inherit inputs;
-          vscode-extensions = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
         };
       };
 
@@ -173,7 +174,6 @@
           ++ [{nixpkgs.config.allowUnfree = true;}];
         extraSpecialArgs = {
           inherit inputs;
-          vscode-extensions = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
         };
       };
     };
