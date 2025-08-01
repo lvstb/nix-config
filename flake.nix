@@ -132,7 +132,7 @@
         modules =
           homeModules
           ++ [inputs.stylix.homeModules.stylix]
-          ++ [./users/lvstb.nix]
+          ++ [./users/lars.nix]
           ++ [{nixpkgs.config.allowUnfree = true;}];
         extraSpecialArgs = {
           inherit inputs;
@@ -156,7 +156,7 @@
         modules =
           homeModules
           ++ [inputs.stylix.homeModules.stylix]
-          ++ [./users/lvstb.nix]
+          ++ [./users/lars.nix]
           ++ [./home/hyprland.nix]
           ++ [{nixpkgs.config.allowUnfree = true;}];
         extraSpecialArgs = {
@@ -208,8 +208,10 @@
     formatter.${system} = pkgs.alejandra;
 
     # Custom packages
-    packages.${system} = {
-      dagger = inputs.dagger.packages.${system}.dagger;
-    } // (import ./pkgs pkgs);
+    packages.${system} =
+      {
+        dagger = inputs.dagger.packages.${system}.dagger;
+      }
+      // (import ./pkgs pkgs);
   };
 }

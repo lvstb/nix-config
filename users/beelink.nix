@@ -1,7 +1,7 @@
 # Beelink user configuration - minimal setup
 {pkgs, lib, ...}: {
   # Import base user config
-  imports = [ ./lvstb.nix ];
+  imports = [ ./lars.nix ];
 
   # Override for minimal system
   home.packages = lib.mkForce (with pkgs; [
