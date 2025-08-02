@@ -80,4 +80,8 @@ in {
   home.packages = with pkgs; [
     walker
   ];
+  
+  # Walker configuration
+  xdg.configFile."walker/config.json".source = ../config/walker/config.json;
+  xdg.configFile."walker/style.css".source = ../config/walker/style.css;
 }
