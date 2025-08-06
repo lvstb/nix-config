@@ -1,5 +1,5 @@
 # Enhanced development environment
-{ pkgs, ... }: {
+{pkgs, ...}: {
   # Development shells with direnv (consolidated from apps.nix)
   programs.direnv = {
     enable = true;
@@ -25,19 +25,20 @@
     # Container tools
     dive # Docker image analyzer
     lazydocker # Docker TUI
-    
+
     # Network tools
     nmap
     wireshark
-    
+
     # Database tools
     postgresql
     redis
-    
+    nosql-workbench
+
     # Cloud tools
     google-cloud-sdk
     azure-cli
-    
+
     # Monitoring
     htop
     iotop

@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   ...
@@ -63,7 +64,7 @@ in {
     
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
       binding = "<Super>space";
-      command = "walker";
+      command = "${config.home.homeDirectory}/nix-config/scripts/walker-launcher.sh";
       name = "Walker Launcher";
     };
   };
