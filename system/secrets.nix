@@ -1,8 +1,8 @@
 # Common secrets configuration for all systems
 {config, ...}: {
   sops = {
-    # Path to age key file
-    age.keyFile = "/home/lars/.config/sops/age/keys.txt";
+    # Path to age key file - must be on root filesystem for boot decryption
+    age.keyFile = "/var/lib/sops-nix/key.txt";
 
     # Common secrets available on all systems
     secrets = {

@@ -10,6 +10,7 @@
       owner = "root";
       group = "wheel";
       mode = "0400";
+      neededForUsers = true;
     };
     
     # Add other secrets here when actually needed
