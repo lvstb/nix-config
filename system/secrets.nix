@@ -21,7 +21,7 @@
         owner = config.users.users.lars.name;
         group = config.users.users.lars.group;
         mode = "0600";
-        path = "/home/lars/DPG/.ssh/id_ed25519_dpg";
+        path = "/home/lars/DPG/.ssh/id_dpgmedia";
       };
 
       # Email configuration
