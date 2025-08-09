@@ -1,14 +1,15 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
-    ./hyprland.nix  # Keep existing base configuration
-    ./mako.nix      # Notification daemon
-    ./ghostty.nix   # Terminal emulator
-    ./btop.nix      # System monitor
-    ./zoxide.nix    # Directory navigation
-    ./direnv.nix    # Project environments
-    ./clipse.nix    # Clipboard manager
+    ./mako.nix # Notification daemon
+    ./btop.nix # System monitor
+    ./zoxide.nix # Directory navigation
+    ./direnv.nix # Project environments
+    ./clipse.nix # Clipboard manager
   ];
 
   # Enhanced Hyprland configuration
@@ -36,16 +37,16 @@
       ];
 
       # General settings
-      general = {
-        gaps_in = 5;
-        gaps_out = 10;
-        border_size = 2;
-        "col.active_border" = "rgba(${config.lib.stylix.colors.base0D}ff)";
-        "col.inactive_border" = "rgba(${config.lib.stylix.colors.base03}ff)";
-        layout = "dwindle";
-        allow_tearing = false;
-      };
-
+      # general = {
+      #   gaps_in = 5;
+      #   gaps_out = 10;
+      #   border_size = 2;
+      #   "col.active_border" = lib.mkForce "rgba(${config.lib.stylix.colors.base0D}ff)";
+      #   "col.inactive_border" = lib.mkForce "rgba(${config.lib.stylix.colors.base03}ff)";
+      #   layout = "dwindle";
+      #   allow_tearing = false;
+      # };
+      #
       # Decoration settings
       decoration = {
         rounding = 10;
@@ -134,31 +135,31 @@
         "float, class:^(firefox)$, title:^(Firefox — Sharing Indicator)$"
         "float, class:^(clipse)$"
         "float, class:^(1Password)$"
-        
+
         # Size rules
         "size 800 600, class:^(pavucontrol)$"
         "size 800 600, class:^(blueberry.py)$"
         "size 622 652, class:^(clipse)$"
-        
+
         # Position rules
         "center, class:^(pavucontrol)$"
         "center, class:^(blueberry.py)$"
         "center, class:^(clipse)$"
-        
+
         # Opacity rules
         "opacity 0.9 0.9, class:^(ghostty)$"
         "opacity 0.9 0.9, class:^(Code)$"
-        
+
         # Workspace rules
         "workspace 2, class:^(firefox)$"
         "workspace 3, class:^(Code)$"
         "workspace 4, class:^(obsidian)$"
         "workspace 5, class:^(Spotify)$"
-        
+
         # Inhibit idle
         "idleinhibit focus, class:^(firefox)$, title:^(.*YouTube.*)$"
         "idleinhibit fullscreen, class:^(firefox)$"
-        
+
         # Immediate rules
         "immediate, class:^(cs2)$"
       ];
@@ -181,8 +182,8 @@
   services.hyprpaper = {
     enable = true;
     settings = {
-      preload = [ config.stylix.image ];
-      wallpaper = [ ",${config.stylix.image}" ];
+      preload = [config.stylix.image];
+      wallpaper = [",${config.stylix.image}"];
     };
   };
 
@@ -195,24 +196,24 @@
         before_sleep_cmd = "loginctl lock-session";
         after_sleep_cmd = "hyprctl dispatch dpms on";
       };
-      
+
       listener = [
         {
-          timeout = 300;  # 5 minutes
+          timeout = 300; # 5 minutes
           on-timeout = "brightnessctl -s set 10";
           on-resume = "brightnessctl -r";
         }
         {
-          timeout = 600;  # 10 minutes
+          timeout = 600; # 10 minutes
           on-timeout = "loginctl lock-session";
         }
         {
-          timeout = 900;  # 15 minutes
+          timeout = 900; # 15 minutes
           on-timeout = "hyprctl dispatch dpms off";
           on-resume = "hyprctl dispatch dpms on";
         }
         {
-          timeout = 1800;  # 30 minutes
+          timeout = 1800; # 30 minutes
           on-timeout = "systemctl suspend";
         }
       ];
@@ -230,7 +231,7 @@
         no_fade_in = false;
       };
 
-      background = [
+      background = lib.mkForce [
         {
           path = "${config.stylix.image}";
           blur_passes = 3;
@@ -238,7 +239,7 @@
         }
       ];
 
-      input-field = [
+      input-field = lib.mkForce [
         {
           size = "200, 50";
           position = "0, -80";
@@ -254,7 +255,7 @@
         }
       ];
 
-      label = [
+      label = lib.mkForce [
         {
           text = "$TIME";
           color = "rgb(${config.lib.stylix.colors.base05})";
@@ -282,32 +283,20 @@
     # Hyprland specific tools
     hyprshot
     hyprsunset
-    
+
     # GUI applications
-    firefox
     obsidian
     spotify
     signal-desktop
-    
+    ghostty
+
     # Development tools
     github-desktop
-    
+
     # Utilities
     wl-clipboard
     wtype
     wlr-randr
-    jq  # For scripts
+    jq # For scripts
   ];
-  
-  # Install utility scripts
-  home.file = {
-    ".local/bin/hypr-keybindings" = {
-      source = ../scripts/hypr-keybindings.sh;
-      executable = true;
-    };
-    ".local/bin/hypr-screenshot" = {
-      source = ../scripts/hypr-screenshot.sh;
-      executable = true;
-    };
-  };
 }

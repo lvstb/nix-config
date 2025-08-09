@@ -46,7 +46,6 @@
     # Core applications
     any-nix-shell
     nextcloud-client
-    ghostty
     
     # Communication apps
     telegram-desktop

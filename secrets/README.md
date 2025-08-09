@@ -150,6 +150,25 @@ sudo ls -la /run/secrets/
 sudo cat /run/secrets/github_token
 ```
 
+### Secrets not decrypted after reboot
+This is a common issue when the age key is stored on a filesystem that isn't mounted during early boot (e.g., separate /home partition, ZFS dataset).
+
+**Solution**: Store the age key on the root filesystem:
+```bash
+# Copy age key to root filesystem
+sudo mkdir -p /var/lib/sops-nix
+sudo cp ~/.config/sops/age/keys.txt /var/lib/sops-nix/key.txt
+sudo chmod 600 /var/lib/sops-nix/key.txt
+sudo chown root:root /var/lib/sops-nix/key.txt
+```
+
+Then update your NixOS configuration:
+```nix
+sops.age.keyFile = "/var/lib/sops-nix/key.txt";
+```
+
+This ensures the key is available when sops-nix runs during boot activation.
+
 ## 📚 Resources
 
 - [sops-nix Documentation](https://github.com/Mic92/sops-nix)

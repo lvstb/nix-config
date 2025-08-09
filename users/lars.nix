@@ -16,7 +16,7 @@
   home.username = "lars";
   home.homeDirectory = "/home/lars";
   home.file = {
-    ".config/ghostty".source = ../dotfiles/.config/ghostty;
+    # Ghostty config is now managed by programs.ghostty in ghostty.nix
   };
 
   home.sessionVariables = {

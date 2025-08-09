@@ -77,9 +77,8 @@ in {
     extraGroups = ["networkmanager" "wheel" "libvirtd" "podman" "vboxusers"];
   };
 
-
   # Framework-specific packages (removed ghostty - now in home-manager)
-  environment.systemPackages = with pkgs; [];
+  # environment.systemPackages = with pkgs; [];
   # Enable LVFS testing to get UEFI updates
   services.fwupd.extraRemotes = ["lvfs-testing"];
   # programs.ssh.startAgent = true;

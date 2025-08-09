@@ -139,37 +139,12 @@
         };
       };
 
-      beelink = inputs.home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules =
-          homeModules
-          ++ [inputs.stylix.homeModules.stylix]
-          ++ [./users/beelink.nix]
-          ++ [{nixpkgs.config.allowUnfree = true;}];
-        extraSpecialArgs = {
-          inherit inputs;
-        };
-      };
-
       lars-hyprland = inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules =
           homeModules
           ++ [inputs.stylix.homeModules.stylix]
           ++ [./users/lars.nix]
-          ++ [./home/hyprland.nix]
-          ++ [{nixpkgs.config.allowUnfree = true;}];
-        extraSpecialArgs = {
-          inherit inputs;
-        };
-      };
-
-      beelink-hyprland = inputs.home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules =
-          homeModules
-          ++ [inputs.stylix.homeModules.stylix]
-          ++ [./users/beelink.nix]
           ++ [./home/hyprland.nix]
           ++ [{nixpkgs.config.allowUnfree = true;}];
         extraSpecialArgs = {

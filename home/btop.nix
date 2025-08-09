@@ -5,8 +5,7 @@
     enable = true;
     
     settings = {
-      # Color theme - will use stylix theme
-      color_theme = "Default";
+      # Color theme - let stylix handle this
       theme_background = false;
       truecolor = true;
       

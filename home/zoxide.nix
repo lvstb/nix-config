@@ -17,21 +17,7 @@
     enableZshIntegration = true;
     enableBashIntegration = true;
     
-    # Stylix-based colors
-    colors = {
-      bg = "#${config.lib.stylix.colors.base00}";
-      "bg+" = "#${config.lib.stylix.colors.base01}";
-      fg = "#${config.lib.stylix.colors.base05}";
-      "fg+" = "#${config.lib.stylix.colors.base06}";
-      header = "#${config.lib.stylix.colors.base0D}";
-      hl = "#${config.lib.stylix.colors.base0D}";
-      "hl+" = "#${config.lib.stylix.colors.base0D}";
-      info = "#${config.lib.stylix.colors.base0A}";
-      marker = "#${config.lib.stylix.colors.base0C}";
-      pointer = "#${config.lib.stylix.colors.base0C}";
-      prompt = "#${config.lib.stylix.colors.base0A}";
-      spinner = "#${config.lib.stylix.colors.base0C}";
-    };
+    # Let stylix handle the colors
     
     defaultCommand = "fd --type f --hidden --follow --exclude .git";
     defaultOptions = [
