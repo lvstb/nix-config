@@ -2,7 +2,6 @@
   pkgs,
   config,
   options,
-  inputs,
   ...
 }: let
   hostName = "framework";
@@ -15,15 +14,17 @@ in {
     ../../system/nix-settings.nix
   ];
 
+  # Enable secure boot for Framework
+  boot.secureBootEnabled = true;
+
   specialisation = {
     hyprland.configuration = {
       system.nixos.tags = ["hyprland"];
       imports = [
-        ./../../system/hyprland.nix
+        ../../modules/hyprland/hyprland.nix
       ];
     };
   };
-
 
   #Specific boot config for the device
   # boot.initrd.kernelModules = ["kvm_amd"];

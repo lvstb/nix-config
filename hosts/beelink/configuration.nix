@@ -10,16 +10,18 @@ in {
   imports = [
     ./hardware-configuration.nix
     ../../system/secrets-beelink.nix
-    ../../system/boot-simple.nix
     ../../system/core-services.nix
     ../../system/desktop-services.nix
     ../../system/nix-settings.nix
   ];
 
+  # Use simple boot for Beelink (default is false, but explicit for clarity)
+  boot.secureBootEnabled = false;
+
   specialisation = {
     hyprland.configuration = {
       imports = [
-        ./../../system/hyprland.nix
+        ../../modules/hyprland/hyprland.nix
       ];
     };
   };
