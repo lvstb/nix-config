@@ -7,6 +7,30 @@
   home.username = "lars";
   home.homeDirectory = "/home/lars";
 
+  # Enable modules
+  # CLI Applications
+  ghostty.enable = true;
+  terminal.enable = true;
+  shell.enable = true;
+  direnv.enable = true;
+  containers.enable = true;
+
+  # Development tools
+  git.enable = true;
+  lazygit.enable = true;
+  nvim.enable = true;
+  vscode.enable = true;
+  devtools.enable = true;
+
+  # GUI Applications
+  firefox.enable = true;
+  apps.enable = true;
+  mail.enable = true;
+  stylix.enable = true;
+
+  # Desktop environments
+  gnome.enable = true;
+
   home.sessionVariables = {
     EDITOR = "nvim";
     TERMINAL = "ghostty";

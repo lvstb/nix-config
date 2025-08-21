@@ -56,11 +56,7 @@
     accept-flake-config = true;
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    ...
-  } @ inputs: let
+  outputs = {nixpkgs, ...} @ inputs: let
     system = "x86_64-linux";
     lib = nixpkgs.lib;
 
@@ -82,20 +78,12 @@
       overlays = overlays;
     };
 
-    # Base user config modules
+    # Base user config modules - using aggregators for auto-discovery
     homeModules = [
-      ./home/apps.nix
-      ./home/git.nix
-      ./home/lazygit.nix
-      ./home/terminal.nix
-      ./home/vscode.nix
-      ./home/firefox.nix
-      ./home/thunderbird.nix
-      ./home/nvim.nix
-      ./home/gnome.nix
-      ./home/development.nix
-      ./home/stylix.nix
-      ./home/ghostty.nix
+      ./modules/cliApps/cliApps.nix
+      ./modules/development/development.nix
+      ./modules/guiApps/guiApps.nix
+      ./modules/gnome/gnome.nix
     ];
 
     # Base OS configs
@@ -104,7 +92,7 @@
       inputs.nixos-hardware.nixosModules.common-hidpi
       inputs.stylix.nixosModules.stylix
       inputs.sops-nix.nixosModules.sops
-      ./system/boot.nix
+      ./modules/nixos/boot.nix
       ./system/os.nix
       ./system/global.nix
       ./system/performance.nix
@@ -118,6 +106,7 @@
       inputs.nixos-hardware.nixosModules.common-hidpi
       inputs.stylix.nixosModules.stylix
       inputs.sops-nix.nixosModules.sops
+      ./modules/nixos/boot.nix
       ./system/os.nix
       ./system/global.nix
       ./system/performance.nix
@@ -140,13 +129,13 @@
         };
       };
 
-      lars-hyprland = inputs.home-manager.lib.homeManagerConfiguration {
+      lars-hypr = inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules =
           homeModules
           ++ [inputs.stylix.homeModules.stylix]
-          ++ [./users/lars.nix]
-          ++ [./home/hyprland.nix]
+          ++ [./users/lars-hypr.nix]
+          ++ [./modules/hyprland/hypr.nix]
           ++ [{nixpkgs.config.allowUnfree = true;}];
         extraSpecialArgs = {
           inherit inputs;
