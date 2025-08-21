@@ -8,9 +8,6 @@
   "fullscreen": false,
   "width": 600,
   "height": 500,
-  "theme": {
-    "style_sheet": "style.css"
-  },
   "modules": [
     {
       "name": "applications",
@@ -49,7 +46,7 @@
           "url": "https://www.google.com/search?q=%s"
         },
         {
-          "name": "DuckDuckGo", 
+          "name": "DuckDuckGo",
           "url": "https://duckduckgo.com/?q=%s"
         },
         {
@@ -97,12 +94,7 @@
     "hide_spinner": false
   },
   "runner": {
-    "excludes": [
-      ".git",
-      ".svn",
-      "node_modules",
-      "__pycache__"
-    ]
+    "excludes": [".git", ".svn", "node_modules", "__pycache__"]
   },
   "activation_mode": {
     "disabled": false,
@@ -127,3 +119,4 @@
     }
   }
 }
+

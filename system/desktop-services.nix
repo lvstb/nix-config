@@ -1,10 +1,6 @@
 # desktop-services.nix
 # Desktop environment and hardware services for GUI systems
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # X11 and display management
   services.xserver = {
     enable = true;
@@ -46,21 +42,10 @@
     enable = true;
     powerOnBoot = true;
   };
-  services.blueman.enable = true;
   hardware.graphics.enable = true;
 
   # Desktop applications and utilities
-  services.flatpak.enable = true;
-  services.gnome.gnome-keyring.enable = true;
-  programs.gpaste.enable = true;
 
-  # Virtualization for desktop use
-  virtualisation.podman = {
-    enable = true;
-    dockerSocket.enable = true;
-    dockerCompat = true;
-    defaultNetwork.settings.dns_enabled = true;
-  };
 
   virtualisation.libvirtd = {
     enable = true;
@@ -86,44 +71,6 @@
     QT_QPA_PLATFORM = "wayland";
   };
 
-  # Desktop packages
-  environment.systemPackages = with pkgs; [
-    # Desktop applications
-    gnome-tweaks
-    gnome-boxes
-    vlc
-    virt-manager
-    
-    # Development tools for desktop use
-    nix-output-monitor
-    dagger
-    appimage-run
-    yubikey-personalization
-    gcc
-    gnumake
-    just
-    lshw
-    sbctl
-    podman-compose
-    podman-desktop
-    delve
-    go
-  ] ++ (with pkgs.gnomeExtensions; [
-    blur-my-shell
-    luminus-shell-y
-    night-theme-switcher
-    caffeine
-  ]);
-
-  # Remove unwanted GNOME packages
-  environment.gnome.excludePackages = with pkgs; [
-    epiphany
-    geary
-    gedit
-    gnome-contacts
-    gnome-music
-  ];
-
   # Font configuration for desktop
   fonts = {
     fontconfig = {
@@ -135,9 +82,6 @@
       };
     };
   };
-
-  # Boot configuration for desktop systems
-  boot.initrd.systemd.enable = true;
 
   # Root user packages (minimal for desktop systems)
   users.users.root.packages = with pkgs; [

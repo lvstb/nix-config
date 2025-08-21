@@ -95,6 +95,7 @@
       ./home/gnome.nix
       ./home/development.nix
       ./home/stylix.nix
+      ./home/ghostty.nix
     ];
 
     # Base OS configs

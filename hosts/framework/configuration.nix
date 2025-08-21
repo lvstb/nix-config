@@ -17,11 +17,13 @@ in {
 
   specialisation = {
     hyprland.configuration = {
+      system.nixos.tags = ["hyprland"];
       imports = [
         ./../../system/hyprland.nix
       ];
     };
   };
+
 
   #Specific boot config for the device
   # boot.initrd.kernelModules = ["kvm_amd"];

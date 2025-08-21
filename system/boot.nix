@@ -1,13 +1,15 @@
 # secure-boot.nix
 # Requires lanzaboote flake
-{ lib, pkgs, ... }:
-
 {
+  lib,
+  pkgs,
+  ...
+}: {
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   hardware.enableAllFirmware = true;
-  boot.supportedFilesystems = [ "btrfs" "ntfs" ];
+  boot.supportedFilesystems = ["btrfs" "ntfs"];
 
   # Quiet boot with plymouth - supports LUKS passphrase entry if needed
   boot.kernelParams = [
@@ -19,6 +21,8 @@
   ];
   boot.consoleLogLevel = 0;
   boot.initrd.verbose = false;
+  boot.initrd.systemd.enable = true;
+
   boot.plymouth.enable = true;
 
   # Bootspec and Secure Boot using lanzaboote
@@ -53,4 +57,3 @@
   #
   # environment.systemPackages = lib.mkBefore [ apply-tpm ];
 }
-
