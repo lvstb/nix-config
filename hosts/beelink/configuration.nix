@@ -9,20 +9,25 @@
 in {
   imports = [
     ./hardware-configuration.nix
+    ../../modules/nixos/boot.nix
+    ../../modules/nixos/base-system.nix
+    ../../modules/nixos/desktop-environment.nix
     ../../system/secrets-beelink.nix
-    ../../system/core-services.nix
-    ../../system/desktop-services.nix
-    ../../system/nix-settings.nix
   ];
 
   # Use simple boot for Beelink (default is false, but explicit for clarity)
   boot.secureBootEnabled = false;
+  
+  # Enable base system configuration
+  services.baseSystem.enable = true;
+  
+  # Set default desktop environment
+  services.desktopEnvironment.type = "gnome";
 
   specialisation = {
     hyprland.configuration = {
-      imports = [
-        ../../modules/hyprland/hyprland.nix
-      ];
+      # Override the desktop environment to Hyprland
+      services.desktopEnvironment.type = "hyprland";
     };
   };
 
@@ -62,7 +67,6 @@ in {
     extraGroups = ["networkmanager" "wheel" "libvirtd" "podman"];
   };
 
-
   # Beelink-specific packages (minimal for a mini PC)
   # Removed ghostty - now managed by home-manager
   environment.systemPackages = with pkgs; [];
@@ -75,4 +79,3 @@ in {
   # this value at the release version of the first install of this system.
   system.stateVersion = "24.11";
 }
-

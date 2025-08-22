@@ -64,3 +64,4 @@
     security.tpm2.tctiEnvironment.enable = lib.mkIf config.boot.secureBootEnabled true;
   };
 }
+

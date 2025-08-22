@@ -8,21 +8,26 @@
 in {
   imports = [
     ./hardware-configuration.nix
+    ../../modules/nixos/boot.nix
+    ../../modules/nixos/base-system.nix
+    ../../modules/nixos/desktop-environment.nix
     ../../system/secrets-framework.nix
-    ../../system/core-services.nix
-    ../../system/desktop-services.nix
-    ../../system/nix-settings.nix
   ];
 
   # Enable secure boot for Framework
   boot.secureBootEnabled = true;
+  
+  # Enable base system configuration
+  services.baseSystem.enable = true;
+  
+  # Set default desktop environment
+  services.desktopEnvironment.type = "gnome";
 
   specialisation = {
     hyprland.configuration = {
       system.nixos.tags = ["hyprland"];
-      imports = [
-        ../../modules/hyprland/hyprland.nix
-      ];
+      # Override the desktop environment to Hyprland
+      services.desktopEnvironment.type = "hyprland";
     };
   };
 
