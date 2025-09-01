@@ -3,74 +3,95 @@
   config,
   options,
   inputs,
+  lib,
   ...
 }: let
   hostName = "beelink";
 in {
   imports = [
     ./hardware-configuration.nix
-    ../../system/secrets-beelink.nix
     ../../system/boot-simple.nix
     ../../system/core-services.nix
-    ../../system/desktop-services.nix
     ../../system/nix-settings.nix
+    ../../system/hyprland.nix
   ];
 
-  specialisation = {
-    hyprland.configuration = {
-      imports = [
-        ./../../system/hyprland.nix
-      ];
+  # Networking
+  networking.hostName = hostName;
+
+  # Override timezone to Amsterdam (different from Brussels in core-services)
+  time.timeZone = lib.mkForce "Europe/Amsterdam";
+  
+  # Additional locale settings for Netherlands
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "nl_NL.UTF-8";
+    LC_IDENTIFICATION = "nl_NL.UTF-8";
+    LC_MEASUREMENT = "nl_NL.UTF-8";
+    LC_MONETARY = "nl_NL.UTF-8";
+    LC_NAME = "nl_NL.UTF-8";
+    LC_NUMERIC = "nl_NL.UTF-8";
+    LC_PAPER = "nl_NL.UTF-8";
+    LC_TELEPHONE = "nl_NL.UTF-8";
+    LC_TIME = "nl_NL.UTF-8";
+  };
+
+  # Audio system
+  services.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
+  # Bluetooth - CRITICAL FOR YOUR ISSUE
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        Enable = "Source,Sink,Media,Socket";
+      };
+    };
+  };
+  services.blueman.enable = true;
+
+  # Hardware support
+  hardware.graphics.enable = true;
+
+  # SSH daemon
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
     };
   };
 
-  # Specific boot config for the device (moved to desktop-services.nix)
-
-  networking = {
-    hostName = hostName;
-    timeServers = options.networking.timeServers.default ++ ["pool.ntp.org"];
-  };
-
-  # NetworkManager WiFi configuration - simplified
-  # networking.networkmanager.ensureProfiles.profiles = {
-  #   "2Fly4MyWifi" = {
-  #     connection = {
-  #       id = "2Fly4MyWifi";
-  #       type = "wifi";
-  #       autoconnect = true;
-  #     };
-  #     wifi = {
-  #       ssid = "2Fly4MyWifi";
-  #       mode = "infrastructure";
-  #     };
-  #     wifi-security = {
-  #       key-mgmt = "wpa-psk";
-  #       psk-file = config.sops.secrets.wifi_home_password.path;
-  #     };
-  #     ipv4.method = "auto";
-  #     ipv6.method = "auto";
-  #   };
-  # };
-
+  # User configuration
   users.users.lars = {
     isNormalUser = true;
     initialPassword = "test";
     shell = pkgs.zsh;
     description = "Lars Van Steenbergen";
-    extraGroups = ["networkmanager" "wheel" "libvirtd" "podman"];
+    extraGroups = ["networkmanager" "wheel" "audio" "video" "input"];
   };
 
+  # Minimal additional packages for beelink
+  environment.systemPackages = with pkgs; [
+    vim
+    wget
+    curl
+    htop
+    neofetch
+    kitty  # Terminal emulator
+  ];
 
-  # Beelink-specific packages (minimal for a mini PC)
-  # Removed ghostty - now managed by home-manager
-  environment.systemPackages = with pkgs; [];
+  # Session variables
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";  # Enable Wayland for Electron apps
+  };
 
-  # Hardware specific settings moved to desktop-services.nix
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It's perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
   system.stateVersion = "24.11";
 }
-

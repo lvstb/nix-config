@@ -153,12 +153,13 @@
 
       lars-hyprland = inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules =
-          homeModules
-          ++ [inputs.stylix.homeModules.stylix]
-          ++ [./users/lars.nix]
-          ++ [./home/hyprland.nix]
-          ++ [{nixpkgs.config.allowUnfree = true;}];
+        modules = [
+          ./home/terminal.nix
+          ./home/git.nix
+          ./users/lars.nix
+          ./home/hyprland-minimal.nix
+          {nixpkgs.config.allowUnfree = true;}
+        ];
         extraSpecialArgs = {
           inherit inputs;
         };
