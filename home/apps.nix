@@ -1,7 +1,10 @@
 # All applications consolidated
-{ lib, pkgs, config, ... }:
-
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}: {
   # Programs configuration
   # VSCode configuration moved to vscode.nix
   programs.chromium = {
@@ -41,13 +44,13 @@
     enable = true;
     startInBackground = true;
   };
-  
+
   home.packages = with pkgs; [
     # Core applications
     any-nix-shell
     nextcloud-client
     ghostty
-    
+
     # Communication apps
     telegram-desktop
     discord
@@ -69,7 +72,7 @@
     rustc
     cargo
     gcc
-    
+
     # Development - Language servers (for nvim)
     gopls
     nixd
@@ -79,8 +82,9 @@
     terraform-ls
     marksman
     luajitPackages.luarocks
-    
+
     # Development - Formatters and linters
+    hadolint
     selene
     black
     prettier
@@ -92,7 +96,7 @@
     yamllint
     yamlfmt
     markdownlint-cli
-    
+
     # Development - Tools
     httpie-desktop
     sops
@@ -115,22 +119,23 @@
     ncdu
     file-roller
     unzip
-    
+
     # Terminal utilities
     wget
     file
     killall
     tree
   ];
-  
+
   # Development environment variables
   home.sessionVariables = {
     # JAVA_HOME will be set by the JDK package when needed
   };
-  
+
   home.sessionPath = [
     "$HOME/.local/bin"
     "$HOME/go/bin"
     "$HOME/.opencode/bin"
   ];
 }
+
