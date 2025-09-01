@@ -1,5 +1,11 @@
 # Main user configuration - framework laptop (full setup)
-{pkgs, lib, inputs, vscode-extensions, ...}: {
+{
+  pkgs,
+  lib,
+  inputs,
+  vscode-extensions,
+  ...
+}: {
   imports = [
     ../home/apps.nix
     ../home/git.nix
@@ -9,10 +15,10 @@
     ../home/firefox.nix
     ../home/thunderbird.nix
     ../home/nvim.nix
-    ../home/gnome.nix
+    # ../home/gnome.nix
     ../home/development.nix
   ];
-  
+
   home.username = "lars";
   home.homeDirectory = "/home/lars";
   home.file = {
@@ -30,7 +36,7 @@
     XDG_SCREENSHOTS_DIR = "$HOME/Pictures/screenshots";
   };
 
-  home.sessionPath = [ "/home/lars/.opencode/bin" ];
+  home.sessionPath = ["/home/lars/.opencode/bin"];
 
   xdg.mimeApps.enable = true;
   xdg.mimeApps.associations.added = {
@@ -55,26 +61,26 @@
     mkdir -p $HOME/.ssh
     chmod 700 $HOME/.ssh
   '';
-  
-  dconf.settings = {
-    "org/gnome/shell" = {
-      disable-user-extensions = false;
-      enabled-extensions = [
-        "gsconnect@andyholmes.github.io"
-        "caffeine@patapon.info"
-        "GPaste@gnome-shell-extensions.gnome.org"
-        "blur-my-shell@aunetx"
-      ];
-      favorite-apps = [
-        "firefox.desktop"
-        "thunderbird.desktop"
-        "slack.desktop"
-        "com.mitchellh.ghostty.desktop"
-        "code.desktop"
-        "org.gnome.Nautilus.desktop"
-      ];
-    };
-  };
 
+  # dconf.settings = {
+  #   "org/gnome/shell" = {
+  #     disable-user-extensions = false;
+  #     enabled-extensions = [
+  #       "gsconnect@andyholmes.github.io"
+  #       "caffeine@patapon.info"
+  #       "GPaste@gnome-shell-extensions.gnome.org"
+  #       "blur-my-shell@aunetx"
+  #     ];
+  #     favorite-apps = [
+  #       "firefox.desktop"
+  #       "thunderbird.desktop"
+  #       "slack.desktop"
+  #       "com.mitchellh.ghostty.desktop"
+  #       "code.desktop"
+  #       "org.gnome.Nautilus.desktop"
+  #     ];
+  #   };
+  # };
+  #
   home.stateVersion = "22.11";
 }

@@ -14,6 +14,7 @@ in {
     ../../system/core-services.nix
     ../../system/nix-settings.nix
     ../../system/hyprland.nix
+    ../../system/secrets-beelink.nix
   ];
 
   # Networking
@@ -21,7 +22,7 @@ in {
 
   # Override timezone to Amsterdam (different from Brussels in core-services)
   time.timeZone = lib.mkForce "Europe/Amsterdam";
-  
+
   # Additional locale settings for Netherlands
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "nl_NL.UTF-8";
@@ -85,13 +86,14 @@ in {
     curl
     htop
     neofetch
-    kitty  # Terminal emulator
+    kitty # Terminal emulator
   ];
 
   # Session variables
   environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1";  # Enable Wayland for Electron apps
+    NIXOS_OZONE_WL = "1"; # Enable Wayland for Electron apps
   };
 
   system.stateVersion = "24.11";
 }
+

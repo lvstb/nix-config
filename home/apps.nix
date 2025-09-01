@@ -33,6 +33,7 @@
   programs.gh.enable = true;
   programs.yazi.enable = true;
   programs.fd.enable = true;
+
   # direnv configuration moved to development.nix
 
   # Development languages and runtimes
@@ -106,6 +107,7 @@
     awscli2
     distrobox
     snyk
+    just
 
     # Office and productivity
     libreoffice-qt6-fresh

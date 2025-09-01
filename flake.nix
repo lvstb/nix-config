@@ -98,6 +98,20 @@
       ./home/stylix.nix
     ];
 
+    hyprModules = [
+      ./home/hyprland/hyprland-minimal.nix
+      ./home/hyprland/hyprland-keybindings.nix
+      ./home/apps.nix
+      ./home/git.nix
+      ./home/lazygit.nix
+      ./home/terminal.nix
+      ./home/vscode.nix
+      ./home/firefox.nix
+      ./home/thunderbird.nix
+      ./home/nvim.nix
+      ./home/development.nix
+      ./home/stylix.nix
+    ];
     # Base OS configs
     osModules = [
       inputs.lanzaboote.nixosModules.lanzaboote
@@ -140,39 +154,12 @@
         };
       };
 
-      beelink = inputs.home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules =
-          homeModules
-          ++ [inputs.stylix.homeModules.stylix]
-          ++ [./users/beelink.nix]
-          ++ [{nixpkgs.config.allowUnfree = true;}];
-        extraSpecialArgs = {
-          inherit inputs;
-        };
-      };
-
       lars-hyprland = inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [
-          ./home/terminal.nix
-          ./home/git.nix
-          ./users/lars.nix
-          ./home/hyprland-minimal.nix
-          {nixpkgs.config.allowUnfree = true;}
-        ];
-        extraSpecialArgs = {
-          inherit inputs;
-        };
-      };
-
-      beelink-hyprland = inputs.home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
         modules =
-          homeModules
+          hyprModules
           ++ [inputs.stylix.homeModules.stylix]
-          ++ [./users/beelink.nix]
-          ++ [./home/hyprland.nix]
+          ++ [./users/lars.nix]
           ++ [{nixpkgs.config.allowUnfree = true;}];
         extraSpecialArgs = {
           inherit inputs;

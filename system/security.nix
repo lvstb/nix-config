@@ -52,15 +52,6 @@
   };
 
   # Secure SSH configuration
-  services.openssh = {
-    enable = false; # Enable only if needed
-    settings = {
-      PasswordAuthentication = false;
-      PermitRootLogin = "no";
-      Protocol = 2;
-      X11Forwarding = false;
-    };
-  };
 
   # Automatic security updates
   system.autoUpgrade = {
@@ -69,4 +60,3 @@
     allowReboot = false;
   };
 }
-

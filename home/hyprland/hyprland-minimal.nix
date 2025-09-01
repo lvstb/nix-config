@@ -1,0 +1,230 @@
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
+  imports = [
+    ./windows.nix
+    ./hyprland-keybindings.nix
+    ./mako.nix # Notification daemon
+    ./walker.nix # App launcher
+  ];
+  # Enable Hyprland with minimal config
+  wayland.windowManager.hyprland = {
+    enable = true;
+    systemd.enable = false; # Disable systemd integration for UWSM
+    settings = {
+      # Basic monitor setup (auto-detect)
+      # monitor = ",preferred,auto,1";
+
+      # Good compromise for 27" or 32" 4K monitors (but fractional!)
+      monitor = ",preferred,auto,1.25";
+
+      # Default applications
+      "$terminal" = lib.mkDefault "ghostty";
+      "$fileManager" = lib.mkDefault "nautilus --new-window";
+      "$browser" = lib.mkDefault "chromium";
+      "$music" = lib.mkDefault "spotify";
+      "$passwordManager" = lib.mkDefault "1password";
+      "$messenger" = lib.mkDefault "signal-desktop";
+
+      # Import modular configurations
+      exec-once = [
+        "uwsm app -- waybar"
+        "uwsm app -- hyprpaper"
+        "uwsm app -- hypridle"
+        "uwsm app -- mako"
+        "uwsm app -- nm-applet --indicator"
+        "uwsm app -- blueman-applet"
+        "uwsm app -- clipse -listen"
+        "[workspace 1 silent] uwsm app -- $terminal"
+      ];
+
+      # General settings
+      general = {
+        gaps_in = 5;
+        gaps_out = 10;
+        border_size = 2;
+        "col.active_border" = lib.mkForce "rgba(${config.lib.stylix.colors.base0D}ff)";
+        "col.inactive_border" = lib.mkForce "rgba(${config.lib.stylix.colors.base03}ff)";
+        layout = "dwindle";
+        allow_tearing = false;
+      };
+      # https://wiki.hyprland.org/Configuring/Variables/#decoration
+      decoration = {
+        rounding = 0;
+
+        shadow = {
+          enabled = true;
+          range = 2;
+          render_power = 3;
+          color = lib.mkForce "rgba(${config.lib.stylix.colors.base00}ff)";
+        };
+      };
+
+      # Simple animations
+      animations = {
+        enabled = true;
+
+        # Default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
+
+        bezier = [
+          "easeOutQuint,0.23,1,0.32,1"
+          "easeInOutCubic,0.65,0.05,0.36,1"
+          "linear,0,0,1,1"
+          "almostLinear,0.5,0.5,0.75,1.0"
+          "quick,0.15,0,0.1,1"
+        ];
+
+        animation = [
+          "global, 1, 10, default"
+          "border, 1, 5.39, easeOutQuint"
+          "windows, 1, 4.79, easeOutQuint"
+          "windowsIn, 1, 4.1, easeOutQuint, popin 87%"
+          "windowsOut, 1, 1.49, linear, popin 87%"
+          "fadeIn, 1, 1.73, almostLinear"
+          "fadeOut, 1, 1.46, almostLinear"
+          "fade, 1, 3.03, quick"
+          "layers, 1, 3.81, easeOutQuint"
+          "layersIn, 1, 4, easeOutQuint, fade"
+          "layersOut, 1, 1.5, linear, fade"
+          "fadeLayersIn, 1, 1.79, almostLinear"
+          "fadeLayersOut, 1, 1.39, almostLinear"
+          "workspaces, 0, 0, ease"
+        ];
+      };
+      # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
+      dwindle = {
+        pseudotile = true; # Master switch for pseudotiling. Enabling is boundto mainMod + P in the keybinds section below
+        preserve_split = true; # You probably want this
+        force_split = 2; # Always split on the right
+      };
+
+      # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
+      master = {
+        new_status = "master";
+      };
+
+      # https://wiki.hyprland.org/Configuring/Variables/#misc
+      misc = {
+        disable_hyprland_logo = true;
+        disable_splash_rendering = true;
+        focus_on_activate = true;
+      };
+      # Input configuration
+      input = {
+        kb_layout = "us";
+        follow_mouse = 1;
+        touchpad = {
+          natural_scroll = true;
+          disable_while_typing = true;
+          tap-to-click = true;
+          scroll_factor = 0.5;
+        };
+        sensitivity = 10;
+      };
+
+      # envs
+      # Cursor size
+      env = [
+        # Display scaling for 4k screen
+        "GDK_SCALE,1.25"
+        "XCURSOR_SIZE,24"
+        "HYPRCURSOR_SIZE,24"
+
+        # Force all apps to use Wayland
+        "GDK_BACKEND,wayland,x11,*"
+        "QT_QPA_PLATFORM,wayland;xcb"
+        "QT_STYLE_OVERRIDE,kvantum"
+        "SDL_VIDEODRIVER,wayland"
+        "MOZ_ENABLE_WAYLAND,1"
+        "ELECTRON_OZONE_PLATFORM_HINT,wayland"
+        "OZONE_PLATFORM,wayland"
+
+        # Use XCompose file
+        "XCOMPOSEFILE,~/.XCompose"
+      ];
+
+      xwayland = {
+        force_zero_scaling = true;
+      };
+
+      # Don't show update on first launch
+      ecosystem = {
+        no_update_news = true;
+      };
+    };
+  };
+
+  # Minimal waybar config
+  programs.waybar = {
+    enable = true;
+    settings = {
+      mainBar = {
+        layer = "top";
+        position = "top";
+        height = 30;
+
+        modules-left = ["hyprland/workspaces"];
+        modules-center = ["clock"];
+        modules-right = ["network" "audio"];
+
+        "hyprland/workspaces" = {
+          format = "{id}";
+        };
+
+        clock = {
+          format = "{:%H:%M}";
+          format-alt = "{:%Y-%m-%d}";
+        };
+
+        network = {
+          format-wifi = "{essid}";
+          format-ethernet = "ETH";
+          format-disconnected = "Disconnected";
+        };
+
+        audio = {
+          format = "{volume}%";
+          format-muted = "MUTE";
+          on-click = "pavucontrol";
+        };
+      };
+    };
+    style = ''
+      * {
+        font-family: monospace;
+        font-size: 12px;
+      }
+
+      window#waybar {
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+      }
+
+      #workspaces button {
+        padding: 0 5px;
+        background-color: transparent;
+        color: white;
+      }
+
+      #workspaces button.active {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      #clock, #battery, #network, #audio {
+        padding: 0 10px;
+      }
+    '';
+  };
+
+  # Walker launcher with minimal config
+
+  # Minimal packages
+  home.packages = with pkgs; [
+    kitty
+    walker
+    ghostty
+  ];
+}
