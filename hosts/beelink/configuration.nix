@@ -44,6 +44,25 @@ in {
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    
+    # Enable AirPlay device discovery
+    extraConfig.pipewire."99-raop-discover" = {
+      "context.modules" = [
+        {
+          name = "libpipewire-module-raop-discover";
+          args = {
+            "raop.discover" = true;
+            "raop.latency.ms" = 200;
+          };
+        }
+      ];
+    };
+  };
+
+  # Enable mDNS for device discovery
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
   };
 
   # Bluetooth - CRITICAL FOR YOUR ISSUE
@@ -52,7 +71,13 @@ in {
     powerOnBoot = true;
     settings = {
       General = {
-        Enable = "Source,Sink,Media,Socket";
+        Experimental = true;
+        FastConnectable = true;
+        ReconnectAttempts = 7;
+        ReconnectIntervals = "1, 2, 4, 8, 16, 32, 64";
+      };
+      Policy = {
+        ReconnectUUIDs = "0000110b-0000-1000-8000-00805f9b34fb";
       };
     };
   };

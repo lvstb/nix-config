@@ -40,8 +40,6 @@
     google-cloud-sdk
 
     # Monitoring
-    htop
-    iotop
-    nethogs
+    btop
   ];
 }

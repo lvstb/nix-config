@@ -39,6 +39,25 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    
+    # Enable AirPlay device discovery
+    extraConfig.pipewire."99-raop-discover" = {
+      "context.modules" = [
+        {
+          name = "libpipewire-module-raop-discover";
+          args = {
+            "raop.discover" = true;
+            "raop.latency.ms" = 200;
+          };
+        }
+      ];
+    };
+  };
+
+  # Enable mDNS for device discovery
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
   };
 
   # Hardware support

@@ -49,6 +49,18 @@
       url = "github:tlvince/ectool.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Walker application launcher
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
+    # Elephant backend for walker
+    elephant = {
+      url = "github:abenz1267/elephant";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
@@ -92,15 +104,15 @@
       ./home/firefox.nix
       ./home/thunderbird.nix
       ./home/nvim.nix
-      ./home/gnome.nix
+      ./home/gnome/gnome.nix
       ./home/development.nix
       ./home/opencode.nix
       ./home/stylix.nix
+      ./home/ghostty.nix
     ];
 
     hyprModules = [
       ./home/hyprland/hyprland-minimal.nix
-      ./home/hyprland/hyprland-keybindings.nix
       ./home/apps.nix
       ./home/git.nix
       ./home/lazygit.nix
@@ -111,6 +123,7 @@
       ./home/nvim.nix
       ./home/development.nix
       ./home/stylix.nix
+      ./home/ghostty.nix
     ];
     # Base OS configs
     osModules = [
@@ -148,6 +161,7 @@
           homeModules
           ++ [inputs.stylix.homeModules.stylix]
           ++ [./users/lars.nix]
+          ++ [./home/gnome/gnome.nix]
           ++ [{nixpkgs.config.allowUnfree = true;}];
         extraSpecialArgs = {
           inherit inputs;

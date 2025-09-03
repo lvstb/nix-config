@@ -30,8 +30,11 @@
       "$mod, A, exec, uwsm app -- $browser --app=https://chatgpt.com"
       "$mod SHIFT, A, exec, uwsm app -- $browser --app=https://claude.ai"
       "$mod, C, exec, uwsm app -- $browser --app=https://calendar.google.com"
+      "$mod SHIFT, C, exec, uwsm app -- $browser --app=https://meet.google.com"
       "$mod, E, exec, uwsm app -- $browser --app=https://gmail.com"
       "$mod, Y, exec, uwsm app -- $browser --app=https://youtube.com"
+      "$mod, Q, exec, uwsm app -- $browser --app=https://web.whatsapp.com"
+      "$mod SHIFT, Q, exec, uwsm app -- $browser --app=https://web.telegram.org"
 
       # Window management
       "$mod, W, killactive"
@@ -45,6 +48,7 @@
 
       # Session management
       "$mod, ESCAPE, exec, uwsm app -- hyprlock"
+      "$mod ALT, ESCAPE, exec, uwsm app -- wlogout"
       "$mod SHIFT, ESCAPE, exit"
       "$mod CTRL, ESCAPE, exec, systemctl reboot"
       "$mod SHIFT CTRL, ESCAPE, exec, systemctl poweroff"
@@ -121,7 +125,7 @@
       # "$mod SHIFT, slash, exec, ${../scripts/hypr-keybindings.sh}"
 
       # Color picker
-      "$mod SHIFT, C, exec, uwsm app -- hyprpicker -a"
+      # "$mod SHIFT, C, exec, uwsm app -- hyprpicker -a"
 
       # Clipboard manager
       "$mod CTRL, V, exec, uwsm app -- clipse"
@@ -165,9 +169,9 @@
       "SUPER SHIFT, SPACE, exec, pkill -SIGUSR1 waybar"
 
       # Notifications
-      "SUPER, COMMA, exec, uwsm app -- makoctl dismiss"
-      "SUPER SHIFT, COMMA, exec, uwsm app -- makoctl dismiss --all"
-      "SUPER CTRL, COMMA, exec, uwsm app -- sh -c 'makoctl mode -t do-not-disturb && makoctl mode |grep -q \"do-not-disturb\" && notify-send \"Silenced notifications\" ||notify-send \"Enabled notifications\"'"
+      "SUPER, COMMA, exec, uwsm app -- swaync-client -t -sw"
+      "SUPER SHIFT, COMMA, exec, uwsm app -- swaync-client -C"
+      "SUPER CTRL, COMMA, exec, uwsm app -- swaync-client -d -sw"
     ];
 
     # Mouse bindings

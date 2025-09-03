@@ -27,6 +27,7 @@
 
       # No screenshare for Bitwarden
       "noscreenshare, class:^(Bitwarden)$"
+      "float, class:^(Bitwarden)$"
 
       #PiP overlay handling
       "tag +pip, title:(Picture.{0,1}in.{0,1}[Pp]icture)"

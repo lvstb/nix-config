@@ -26,53 +26,9 @@
   services.desktopManager.gnome.enable = lib.mkForce false;
   services.gnome.gnome-keyring.enable = lib.mkForce false;
 
-  # Essential Wayland/Hyprland packages
+  # Essential system packages only
   environment.systemPackages = with pkgs; [
-    # Hyprland ecosystem
-    hyprpaper # Wallpaper daemon
-    hypridle # Idle daemon
-    hyprlock # Screen locker
-    hyprpicker # Color picker
-    hyprshot # Advanced screenshot utility
-    hyprsunset # Blue light filter
-
-    # Status bar and launcher
-    waybar # Status bar
-    walker # Application launcher (replacing wofi)
-
-    # Notification daemon
-    mako # Lightweight notification daemon (replacing dunst)
-    libnotify # Send notifications
-
-    # Screenshot and screen recording
-    grim # Screenshot utility
-    slurp # Screen area selection
-    wl-clipboard # Clipboard utilities
-    clipse # Clipboard manager
-
-    # System utilities
-    playerctl # Media player control
-    pamixer # PulseAudio mixer
-    blueberry # Bluetooth manager
-    networkmanagerapplet # Network manager applet
-
-    # File manager and utilities
-    nautilus # Keep GNOME file manager
-    pavucontrol # Audio control
-    brightnessctl # Brightness control
-
-    # Development tools
-    lazygit # Terminal UI for git
-    lazydocker # Terminal UI for docker
-    btop # Resource monitor
-
-    # Additional utilities
-    fzf # Fuzzy finder
-    ripgrep # Fast grep
-    eza # Better ls
-    fd # Better find
-    zoxide # Smarter cd
-    direnv # Directory-based environments
+    nautilus # File manager with system integration
   ];
 
   # XDG portal for screen sharing

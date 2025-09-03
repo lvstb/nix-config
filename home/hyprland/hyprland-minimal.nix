@@ -2,13 +2,16 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: {
   imports = [
     ./windows.nix
     ./hyprland-keybindings.nix
-    ./mako.nix # Notification daemon
+    ./swaync.nix # Notification daemon
     ./walker.nix # App launcher
+    ./waybar.nix
+    inputs.walker.homeManagerModules.default # Official walker module
   ];
   # Enable Hyprland with minimal config
   wayland.windowManager.hyprland = {
@@ -18,8 +21,8 @@
       # Basic monitor setup (auto-detect)
       # monitor = ",preferred,auto,1";
 
-      # Good compromise for 27" or 32" 4K monitors (but fractional!)
-      monitor = ",preferred,auto,1.25";
+      # Reduced scaling for 4K 34" ultrawide
+      monitor = ",preferred,auto,1.0";
 
       # Default applications
       "$terminal" = lib.mkDefault "ghostty";
@@ -34,7 +37,7 @@
         "uwsm app -- waybar"
         "uwsm app -- hyprpaper"
         "uwsm app -- hypridle"
-        "uwsm app -- mako"
+        "uwsm app -- swaync"
         "uwsm app -- nm-applet --indicator"
         "uwsm app -- blueman-applet"
         "uwsm app -- clipse -listen"
@@ -129,7 +132,7 @@
       # Cursor size
       env = [
         # Display scaling for 4k screen
-        "GDK_SCALE,1.25"
+        "GDK_SCALE,1.0"
         "XCURSOR_SIZE,24"
         "HYPRCURSOR_SIZE,24"
 
@@ -157,74 +160,45 @@
     };
   };
 
-  # Minimal waybar config
-  programs.waybar = {
-    enable = true;
-    settings = {
-      mainBar = {
-        layer = "top";
-        position = "top";
-        height = 30;
-
-        modules-left = ["hyprland/workspaces"];
-        modules-center = ["clock"];
-        modules-right = ["network" "audio"];
-
-        "hyprland/workspaces" = {
-          format = "{id}";
-        };
-
-        clock = {
-          format = "{:%H:%M}";
-          format-alt = "{:%Y-%m-%d}";
-        };
-
-        network = {
-          format-wifi = "{essid}";
-          format-ethernet = "ETH";
-          format-disconnected = "Disconnected";
-        };
-
-        audio = {
-          format = "{volume}%";
-          format-muted = "MUTE";
-          on-click = "pavucontrol";
-        };
-      };
-    };
-    style = ''
-      * {
-        font-family: monospace;
-        font-size: 12px;
-      }
-
-      window#waybar {
-        background-color: rgba(0, 0, 0, 0.8);
-        color: white;
-      }
-
-      #workspaces button {
-        padding: 0 5px;
-        background-color: transparent;
-        color: white;
-      }
-
-      #workspaces button.active {
-        background-color: rgba(255, 255, 255, 0.2);
-      }
-
-      #clock, #battery, #network, #audio {
-        padding: 0 10px;
-      }
-    '';
-  };
-
-  # Walker launcher with minimal config
-
-  # Minimal packages
+  # Hyprland packages
   home.packages = with pkgs; [
+    # Terminal emulators
     kitty
-    walker
     ghostty
+
+    # Hyprland ecosystem
+    hyprpaper
+    hypridle
+    hyprlock
+    hyprpicker
+    hyprshot
+    hyprsunset
+
+    # Screenshots and clipboard
+    grim
+    slurp
+    wl-clipboard
+    clipse
+
+    # Logout menu
+    wlogout
+
+    # System utilities
+    brightnessctl
+    pamixer
+    playerctl
+
+    # Development tools
+    lazygit
+    lazydocker
+    btop
+
+    # CLI utilities
+    fzf
+    ripgrep
+    eza
+    fd
+    zoxide
+    direnv
   ];
 }

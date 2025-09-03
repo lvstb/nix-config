@@ -8,6 +8,10 @@
     enable = true;
 
     settings = {
+      # Use stylix colors
+      background = config.lib.stylix.colors.base00;
+      foreground = config.lib.stylix.colors.base05;
+
       # Window appearance
       window-decoration = false;
       window-padding-x = 15;
@@ -18,9 +22,9 @@
       background-opacity = 0.95;
       background-blur-radius = 20;
 
-      # Font configuration
-      font-family = config.stylix.fonts.monospace.name;
-      font-size = 12;
+      # Use FiraCode Nerd Font (matching dotfiles config)
+      font-family = "FiraCode Nerd Font Mono";
+      font-size = config.stylix.fonts.sizes.terminal;
       font-thicken = true;
 
       # Cursor
@@ -36,15 +40,56 @@
       # Copy on select
       copy-on-select = true;
 
-      # Shell integration
-      shell-integration = "detect";
-      shell-integration-features = "cursor,sudo,title";
+      # Clipboard settings from dotfiles
+      clipboard-read = "allow";
+
+      # Shell integration (from dotfiles)
+      shell-integration = "zsh";
+      shell-integration-features = "sudo,title";
 
       # Performance
       gtk-single-instance = true;
 
-      # Keybindings
+      # GTK settings from dotfiles
+      gtk-titlebar = false;
+      gtk-wide-tabs = false;
+      gtk-adwaita = false;
+      window-theme = "system";
+
+      # Use stylix color palette (gruvbox)
+      palette = [
+        # black
+        "0=${config.lib.stylix.colors.base03}"
+        "8=${config.lib.stylix.colors.base04}"
+        # red
+        "1=${config.lib.stylix.colors.base08}"
+        "9=${config.lib.stylix.colors.base08}"
+        # green
+        "2=${config.lib.stylix.colors.base0B}"
+        "10=${config.lib.stylix.colors.base0B}"
+        # yellow
+        "3=${config.lib.stylix.colors.base0A}"
+        "11=${config.lib.stylix.colors.base0A}"
+        # blue
+        "4=${config.lib.stylix.colors.base0D}"
+        "12=${config.lib.stylix.colors.base0D}"
+        # purple
+        "5=${config.lib.stylix.colors.base0E}"
+        "13=${config.lib.stylix.colors.base0E}"
+        # aqua
+        "6=${config.lib.stylix.colors.base0C}"
+        "14=${config.lib.stylix.colors.base0C}"
+        # white
+        "7=${config.lib.stylix.colors.base05}"
+        "15=${config.lib.stylix.colors.base07}"
+      ];
+
+      # Keybindings (combining both configs)
       keybind = [
+        # From dotfiles
+        "ctrl+z=close_surface"
+        "ctrl+d=new_split:right"
+        # From home manager
         "ctrl+shift+c=copy_to_clipboard"
         "ctrl+shift+v=paste_from_clipboard"
         "ctrl+shift+n=new_window"
@@ -62,43 +107,6 @@
         "ctrl+shift+end=scroll_to_bottom"
       ];
     };
-
-    # Theme based on stylix colors
-    themes = {
-      stylix = {
-        background = "${config.lib.stylix.colors.base00}";
-        foreground = "${config.lib.stylix.colors.base05}";
-
-        selection-background = "${config.lib.stylix.colors.base02}";
-        selection-foreground = "${config.lib.stylix.colors.base05}";
-
-        cursor-color = "${config.lib.stylix.colors.base05}";
-        cursor-text = "${config.lib.stylix.colors.base00}";
-
-        # Regular colors
-        black = "${config.lib.stylix.colors.base00}";
-        red = "${config.lib.stylix.colors.base08}";
-        green = "${config.lib.stylix.colors.base0B}";
-        yellow = "${config.lib.stylix.colors.base0A}";
-        blue = "${config.lib.stylix.colors.base0D}";
-        magenta = "${config.lib.stylix.colors.base0E}";
-        cyan = "${config.lib.stylix.colors.base0C}";
-        white = "${config.lib.stylix.colors.base05}";
-
-        # Bright colors
-        bright-black = "${config.lib.stylix.colors.base03}";
-        bright-red = "${config.lib.stylix.colors.base08}";
-        bright-green = "${config.lib.stylix.colors.base0B}";
-        bright-yellow = "${config.lib.stylix.colors.base0A}";
-        bright-blue = "${config.lib.stylix.colors.base0D}";
-        bright-magenta = "${config.lib.stylix.colors.base0E}";
-        bright-cyan = "${config.lib.stylix.colors.base0C}";
-        bright-white = "${config.lib.stylix.colors.base07}";
-      };
-    };
-
-    # Use the stylix theme
-    settings.theme = "stylix";
   };
 }
 

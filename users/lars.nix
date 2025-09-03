@@ -15,15 +15,12 @@
     ../home/firefox.nix
     ../home/thunderbird.nix
     ../home/nvim.nix
-    # ../home/gnome.nix
     ../home/development.nix
+    ../home/ghostty.nix
   ];
 
   home.username = "lars";
   home.homeDirectory = "/home/lars";
-  home.file = {
-    ".config/ghostty".source = ../dotfiles/.config/ghostty;
-  };
 
   home.sessionVariables = {
     EDITOR = "nvim";

@@ -54,18 +54,36 @@ in {
       opacity = 210;
       whitelist = ["com.raggesilver.BlackBox"];
     };
-    
+
     # Custom keybindings for walker
     "org/gnome/settings-daemon/plugins/media-keys" = {
       custom-keybindings = [
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
       ];
     };
-    
+
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
       binding = "<Super>space";
-      command = "${config.home.homeDirectory}/nix-config/scripts/walker-launcher.sh";
+      command = "walker";
       name = "Walker Launcher";
+    };
+
+    "org/gnome/shell" = {
+      disable-user-extensions = false;
+      enabled-extensions = [
+        "gsconnect@andyholmes.github.io"
+        "caffeine@patapon.info"
+        "GPaste@gnome-shell-extensions.gnome.org"
+        "blur-my-shell@aunetx"
+      ];
+      favorite-apps = [
+        "firefox.desktop"
+        "thunderbird.desktop"
+        "slack.desktop"
+        "com.mitchellh.ghostty.desktop"
+        "code.desktop"
+        "org.gnome.Nautilus.desktop"
+      ];
     };
   };
 
@@ -76,13 +94,4 @@ in {
     enable = true;
     components = ["pkcs11" "secrets" "ssh"];
   };
-  
-  # Add walker launcher
-  home.packages = with pkgs; [
-    walker
-  ];
-  
-  # Walker configuration
-  xdg.configFile."walker/config.json".source = ../config/walker/config.json;
-  xdg.configFile."walker/style.css".source = ../config/walker/style.css;
 }
