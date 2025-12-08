@@ -11,7 +11,9 @@
     runAsService = true;
 
     # Stylix-integrated theme
-    theme.style = ''
+    config.theme = "stylix";
+    themes."stylix" = {
+      style = ''
       /* Define color variables using stylix colors */
       @define-color base #${config.lib.stylix.colors.base00}; /* main background */
       @define-color mantle #${config.lib.stylix.colors.base01}; /* darker background */  
@@ -204,7 +206,8 @@
       .barentry {
         opacity: 0;
       }
-    '';
+      '';
+    };
   };
 
   # Calculator dependency

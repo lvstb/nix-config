@@ -157,6 +157,14 @@
       ecosystem = {
         no_update_news = true;
       };
+
+      # Layer rules for SwayNC glassmorphism effects
+      layerrule = [
+        "blur, swaync-control-center"
+        "ignorezero, swaync-notification-window"
+        "animation slide right, swaync-control-center"
+        "ignorezero, swaync-control-center"
+      ];
     };
   };
 
@@ -185,7 +193,8 @@
 
     # System utilities
     brightnessctl
-    pamixer
+    pkgs.icu
+    # pamixer
     playerctl
 
     # Development tools

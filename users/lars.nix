@@ -50,7 +50,10 @@
 
   programs.ssh = {
     enable = true;
-    addKeysToAgent = "yes";
+    enableDefaultConfig = false;
+    matchBlocks."*" = {
+      addKeysToAgent = "yes";
+    };
   };
 
   # Ensure SSH directory exists with proper permissions

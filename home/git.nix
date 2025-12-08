@@ -17,17 +17,19 @@
     enable = true;
     lfs.enable = true;
 
-    # Main user configuration
-    userName = "Lars Van Steenbergen";
-    userEmail = "lars@wingu.dev";
-    
     # Signing configuration for personal commits
     signing = {
       key = "~/.ssh/id_personal";
       signByDefault = true;
     };
 
-    extraConfig = {
+    settings = {
+      # Main user configuration
+      user = {
+        name = "Lars Van Steenbergen";
+        email = "lars@wingu.dev";
+      };
+      
       core = {
         editor = "nvim";
         excludesfile = "~/.gitignore_global";
@@ -37,6 +39,24 @@
       push.autoSetupRemote = true;
       pull.rebase = true;
       gpg.format = "ssh";
+      
+      # aliases for git commands
+      alias = {
+        # common aliases
+        br = "branch";
+        co = "checkout";
+        st = "status";
+        ls = "log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate";
+        ll = "log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate --numstat";
+        cm = "commit -m";
+        ca = "commit -am";
+        dc = "diff --cached";
+        amend = "commit --amend -m";
+
+        # aliases for submodule
+        update = "submodule update --init --recursive";
+        foreach = "submodule foreach";
+      };
     };
 
     # Work-specific configuration when in DPG directory
@@ -56,28 +76,14 @@
       }
     ];
 
-    delta = {
-      enable = true;
-      options = {
-        features = "side-by-side";
-      };
-    };
+  };
 
-    aliases = {
-      # common aliases
-      br = "branch";
-      co = "checkout";
-      st = "status";
-      ls = "log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate";
-      ll = "log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate --numstat";
-      cm = "commit -m";
-      ca = "commit -am";
-      dc = "diff --cached";
-      amend = "commit --amend -m";
-
-      # aliases for submodule
-      update = "submodule update --init --recursive";
-      foreach = "submodule foreach";
+  # Delta configuration moved to separate program
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      features = "side-by-side";
     };
   };
 

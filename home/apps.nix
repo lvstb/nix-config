@@ -70,6 +70,7 @@
     nodejs_24
     nodePackages.pnpm
     nodePackages.yarn
+    bun
     rustc
     cargo
     gcc
@@ -104,7 +105,7 @@
     act
     kubectl
     terraform
-    awscli2
+    # awscli2  # Temporarily disabled due to failing tests
     distrobox
     snyk
     just
@@ -116,6 +117,7 @@
     # Audio and video
     spotify
     hypnotix
+    pamixer
 
     # File management and archives
     ncdu

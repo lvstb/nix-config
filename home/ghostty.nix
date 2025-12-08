@@ -53,7 +53,6 @@
       # GTK settings from dotfiles
       gtk-titlebar = false;
       gtk-wide-tabs = false;
-      gtk-adwaita = false;
       window-theme = "system";
 
       # Use stylix color palette (gruvbox)
@@ -84,27 +83,10 @@
         "15=${config.lib.stylix.colors.base07}"
       ];
 
-      # Keybindings (combining both configs)
+      # Basic keybindings
       keybind = [
-        # From dotfiles
-        "ctrl+z=close_surface"
-        "ctrl+d=new_split:right"
-        # From home manager
         "ctrl+shift+c=copy_to_clipboard"
         "ctrl+shift+v=paste_from_clipboard"
-        "ctrl+shift+n=new_window"
-        "ctrl+shift+t=new_tab"
-        "ctrl+shift+w=close_tab"
-        "ctrl+shift+q=quit"
-        "ctrl+plus=increase_font_size:1"
-        "ctrl+minus=decrease_font_size:1"
-        "ctrl+0=reset_font_size"
-        "ctrl+shift+up=scroll_up:5"
-        "ctrl+shift+down=scroll_down:5"
-        "ctrl+shift+page_up=scroll_page_up"
-        "ctrl+shift+page_down=scroll_page_down"
-        "ctrl+shift+home=scroll_to_top"
-        "ctrl+shift+end=scroll_to_bottom"
       ];
     };
   };

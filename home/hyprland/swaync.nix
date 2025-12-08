@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  lib,
   ...
 }: {
   services.swaync = {
@@ -42,7 +41,6 @@
         "title"
         "volume"
         "notifications"
-        "backlight"
         "buttons-grid"
       ];
 
@@ -63,20 +61,20 @@
           step = 5;
         };
 
-        backlight = {
-          label = "󰃞";
-          step = 5;
+        # Notification-specific configuration
+        notifications = {
+          # You can add custom notification settings here if needed
         };
 
         buttons-grid = {
           actions = [
             {
-              label = "󰤨";
-              command = "nm-connection-editor";
+              label = "";
+              command = "kitty nmtui";
               tooltip = "Network";
             }
             {
-              label = "󰂯";
+              label = "";
               command = "blueman-manager";
               tooltip = "Bluetooth";
             }
@@ -86,8 +84,23 @@
               type = "toggle";
               tooltip = "DND";
             }
+            # {
+            #   label = "󰍜";
+            #   command = "gnome-network-displays";
+            #   tooltip = "Screens";
+            # }
+            # {
+            #   label = "󰈙";
+            #   command = "kitty bash -i -c 'Docs'";
+            #   tooltip = "Files";
+            # }
+            # {
+            #   label = "";
+            #   command = "kitty bash -i -c 'Settings'";
+            #   tooltip = "Settings";
+            # }
             {
-              label = "󰌾";
+              label = "";
               command = "hyprlock";
               tooltip = "Lock";
             }
@@ -113,30 +126,30 @@
 
       /* ── 1. Palette & Globals (Using @define-color) ──────────────────── */
 
-      @define-color theme_fg #${config.lib.stylix.colors.base05}; /* Primary Text */
-      @define-color theme_fg_secondary #${config.lib.stylix.colors.base04}; /* Secondary Text */
-      @define-color theme_bg #${config.lib.stylix.colors.base00}; /* Panel/Background */
-      @define-color popup_bg #${config.lib.stylix.colors.base00}; /* Floating Notification Background */
-      @define-color module_bg #${config.lib.stylix.colors.base01}; /* Default Module Background */
-      @define-color module_hover_bg #${config.lib.stylix.colors.base02}; /* Module Hover */
-      @define-color button_bg #${config.lib.stylix.colors.base01}; /* Button Default */
-      @define-color button_hover_bg #${config.lib.stylix.colors.base02}; /* Button Hover */
-      @define-color accent_color #${config.lib.stylix.colors.base0D}; /* Accent Active */
-      @define-color accent_color_hover #${config.lib.stylix.colors.base0C}; /* Accent Hover */
+      @define-color theme_fg rgba(248, 248, 252, 0.98); /* Primary Text */
+      @define-color theme_fg_secondary rgba(215, 220, 225, 0.78); /* Secondary Text */
+      @define-color theme_bg rgba(22, 22, 28, 0.22); /* Panel/Background */
+      @define-color popup_bg rgba(20, 25, 25, 0.5); /* Floating Notification Background */
+      @define-color module_bg rgba(20, 20, 20, 0.46); /* Default Module Background */
+      @define-color module_hover_bg rgba(210, 215, 225, 0.35); /* Module Hover */
+      @define-color button_bg rgba(130, 135, 145, 0.28); /* Button Default */
+      @define-color button_hover_bg rgba(150, 155, 165, 0.40); /* Button Hover */
+      @define-color accent_color rgba(10, 132, 255, 0.8); /* Accent Active */
+      @define-color accent_color_hover #198de5; /* Accent Hover */
       @define-color border_light rgba(255, 255, 255, 0.18);
       @define-color border_dark rgba(0, 0, 0, 0.06);
-      @define-color border_medium alpha(@border_light, 0.5); /* Approx rgba(255, 255, 255, 0.09) */
+      @define-color border_medium rgba(255, 255, 255, 0.09); /* Direct white border instead of alpha calculation */
       @define-color icon_primary @theme_fg;
-      @define-color icon_secondary #${config.lib.stylix.colors.base04};
-      @define-color slider_trough_bg #${config.lib.stylix.colors.base02};
-      @define-color slider_thumb_bg #${config.lib.stylix.colors.base05};
-      @define-color close_button_bg #${config.lib.stylix.colors.base02};
-      @define-color close_button_hover_bg #${config.lib.stylix.colors.base03};
-      @define-color mpris_player_bg #${config.lib.stylix.colors.base01};
+      @define-color icon_secondary rgba(215, 220, 225, 0.88);
+      @define-color slider_trough_bg rgba(50, 55, 65, 0.35);
+      @define-color slider_thumb_bg white;
+      @define-color close_button_bg rgba(110, 110, 115, 0.15);
+      @define-color close_button_hover_bg rgba(130, 130, 135, 0.30);
+      @define-color mpris_player_bg rgba(0, 0, 0, 0.5);
 
       /* ── Base Reset ───────────────────────────────────────────────────── */
       * {
-        font-family: "${config.stylix.fonts.serif.name}", serif;
+        font-family: "Inter", "SF Pro Text", sans-serif;
         font-size: 17px;
         color: @theme_fg;
         border: none;
@@ -147,6 +160,7 @@
         box-shadow: none;
         text-shadow: none;
         outline: none;
+        -gtk-outline-radius: 0px;
       }
 
       /* ── 2. Control Center Container ─────────────────────────────────── */
@@ -164,16 +178,23 @@
       .widget-mpris,
       .widget-volume,
       .widget-backlight,
-      .widget-buttons-grid,
-      .widget-dnd,
-      .control-center-list > box > *:not(.widget-title) {
+      .widget-buttons-grid {
         background-color: @module_bg;
         border-radius: 18px;
         padding: 18px;
         margin-bottom: 14px;
         border: 1px solid @border_medium;
       }
-      .widget-volume, .widget-backlight { padding: 14px 18px; }
+      
+      /* Remove borders from notification containers */
+      .control-center-list > box > *:not(.widget-title) {
+        background-color: @module_bg;
+        border-radius: 18px;
+        padding: 18px;
+        margin-bottom: 14px;
+        border: none !important;
+      }
+      .widget-volume, { padding: 14px 18px; }
       .widget-buttons-grid { padding: 12px; }
       .control-center > box > *:last-child { margin-bottom: 0; }
 
@@ -185,7 +206,7 @@
         margin-bottom: 8px;
       }
       .widget-title label {
-        font-family: "${config.stylix.fonts.serif.name}";
+        font-family: 'Inter';
         font-size: 17px;
         font-weight: 500;
         color: @theme_fg_secondary;
@@ -211,6 +232,7 @@
       .widget-mpris {
         padding: 0;
         border: none;
+
         border-radius: 18px;
         background: transparent;
       }
@@ -303,7 +325,7 @@
         background: none;
       }
       .widget-buttons-grid > flowbox > flowboxchild > button {
-        background-color: @button_bg;
+        background-color: rgba(0,0,0, 0.7);
         border-radius: 66px;
         padding: 14px;
         min-width: 24px;
@@ -312,7 +334,7 @@
         transition: background-color 0.15s ease, color 0.15s ease;
       }
       .widget-buttons-grid > flowbox > flowboxchild > button:hover {
-        background-color: @button_hover_bg;
+        background-color: rgba(20,20,20, 0.45);
         color: @icon_primary;
       }
       .widget-buttons-grid > flowbox > flowboxchild > button.toggle:checked {
@@ -333,12 +355,15 @@
       }
       .control-center .notification-background {
         background-color: @module_bg;
-        border: 1px solid @border_medium;
+        border: none !important;
         padding: 16px;
         border-radius: 18px;
         transition: background-color 0.15s ease;
       }
+
+
       .control-center .notification-row:hover .notification-background {
+
         border-radius: 18px;
         background-color: @module_hover_bg;
       }
@@ -346,9 +371,17 @@
         font-weight: 600;
         color: @theme_fg;
         margin-bottom: 5px;
+        background: transparent !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
       }
       .control-center .notification .body {
         color: @theme_fg_secondary;
+        background: transparent !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
       }
       .control-center .notification .time {
         font-size: 15px;
@@ -384,11 +417,105 @@
       }
       .floating-notifications .notification-background {
         background-color: @popup_bg;
-        border: 1px solid @border_light;
+        border: none !important;
         border-radius: 18px;
         padding: 18px;
         margin: 8px 14px;
         transition: background-color 0.15s ease;
+      }
+
+      /* Target all notification container elements to remove borders */
+      .floating-notifications .notification-row,
+      .floating-notifications .notification-background,
+      .floating-notifications .notification,
+      .floating-notifications .notification-default-action,
+      .floating-notifications .notification-content {
+        border: none !important;
+        box-shadow: none !important;
+        outline: none !important;
+      }
+
+      /* Remove borders from control center notifications too */
+      .control-center .notification-row,
+      .control-center .notification-background,
+      .control-center .notification,
+      .control-center .notification-default-action,
+      .control-center .notification-content {
+        border: none !important;
+        box-shadow: none !important;
+        outline: none !important;
+      }
+
+      /* Aggressive override for all notification child elements */
+      .floating-notifications .notification * {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+      }
+
+      .control-center .notification * {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+      }
+
+      /* Override Stylix notification borders specifically */
+      .notification.low,
+      .notification.normal,
+      .notification.critical,
+      .notification {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+      }
+
+      /* Override for both floating and control center */
+      .floating-notifications .notification.low,
+      .floating-notifications .notification.normal,
+      .floating-notifications .notification.critical,
+      .control-center .notification.low,
+      .control-center .notification.normal,
+      .control-center .notification.critical {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+      }
+
+      /* Override the main notification container specifically */
+      .floating-notifications .notification {
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+      }
+
+      /* Target inner widgets that might have borders */
+      .floating-notifications .notification .text-box,
+      .floating-notifications .notification .image,
+      .floating-notifications .notification .app-icon,
+      .floating-notifications .notification .inline-reply,
+      .floating-notifications .notification .inline-reply-entry,
+      .floating-notifications .notification label,
+      .floating-notifications .notification textview,
+      .floating-notifications .notification text {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        background: transparent !important;
+      }
+
+      /* Same for control center notifications */
+      .control-center .notification .text-box,
+      .control-center .notification .image,
+      .control-center .notification .app-icon,
+      .control-center .notification .inline-reply,
+      .control-center .notification .inline-reply-entry,
+      .control-center .notification label,
+      .control-center .notification textview,
+      .control-center .notification text {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        background: transparent !important;
       }
       .floating-notifications .notification-row:hover .notification-background {
         background-color: alpha(@popup_bg, 1.1);
@@ -396,9 +523,17 @@
       .floating-notifications .notification .summary {
         font-weight: 700;
         color: @theme_fg;
+        background: transparent !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
       }
       .floating-notifications .notification .body {
         color: @theme_fg;
+        background: transparent !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
       }
       .floating-notifications .notification .time {
         font-size: 15px;
@@ -428,7 +563,6 @@
       .floating-notifications .notification-alt-actions {
         margin-top: 16px;
         padding-top: 16px;
-        border-top: 1px solid @border_medium;
       }
       .floating-notifications .notification-action button,
       .floating-notifications .notification-alt-actions button {
@@ -442,26 +576,6 @@
       .floating-notifications .notification-action button:hover,
       .floating-notifications .notification-alt-actions button:hover {
         background-color: @button_hover_bg;
-      }
-
-      /* Avoid 'annoying' backgroud */
-      .blank-window {
-        background: transparent;
-      }
-
-      /* Hide placeholder text and icons when no notifications */
-      .control-center-list-placeholder {
-        opacity: 0;
-        display: none;
-      }
-
-      .notification-list-box:empty {
-        display: none;
-      }
-
-      /* Hide empty notification center placeholder */
-      .control-center .notification-list-box label {
-        display: none;
       }
     '';
   };

@@ -12,6 +12,7 @@ in {
     ./hardware-configuration.nix
     ../../system/boot-simple.nix
     ../../system/core-services.nix
+    ../../system/desktop-services.nix  # Temporarily restored for Bluetooth debugging
     ../../system/nix-settings.nix
     ../../system/hyprland.nix
     ../../system/secrets-beelink.nix
@@ -65,23 +66,7 @@ in {
     nssmdns4 = true;
   };
 
-  # Bluetooth - CRITICAL FOR YOUR ISSUE
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-    settings = {
-      General = {
-        Experimental = true;
-        FastConnectable = true;
-        ReconnectAttempts = 7;
-        ReconnectIntervals = "1, 2, 4, 8, 16, 32, 64";
-      };
-      Policy = {
-        ReconnectUUIDs = "0000110b-0000-1000-8000-00805f9b34fb";
-      };
-    };
-  };
-  services.blueman.enable = true;
+
 
   # Hardware support
   hardware.graphics.enable = true;
@@ -94,6 +79,9 @@ in {
       PermitRootLogin = "no";
     };
   };
+
+  # Disable audit service for this desktop system
+  security.audit.enable = lib.mkForce false;
 
   # User configuration
   users.users.lars = {

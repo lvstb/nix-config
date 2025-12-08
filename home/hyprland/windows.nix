@@ -30,7 +30,7 @@
       "float, class:^(Bitwarden)$"
 
       #PiP overlay handling
-      "tag +pip, title:(Picture.{0,1}in.{0,1}[Pp]icture)"
+      "tag +pip, title:(Picture.?in.?[Pp]icture)"
       "float, tag:pip"
       "pin, tag:pip"
       "size 600 338, tag:pip"

@@ -56,6 +56,13 @@
     };
   };
 
+  # Bluetooth support (was missing after switching from GNOME)
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+  services.blueman.enable = true;
+
   # Power profiles daemon for better power management
   services.power-profiles-daemon.enable = true;
 }
