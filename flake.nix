@@ -94,6 +94,7 @@
       ./home/nvim.nix
       ./home/gnome.nix
       ./home/development.nix
+      ./home/opencode.nix
       ./home/stylix.nix
     ];
 

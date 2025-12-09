@@ -21,7 +21,6 @@
       {id = "mnjggcdmjocbbbhaepdhchncahnbgone";}
     ];
   };
-
   # Shell based tools
   programs.home-manager.enable = true;
   programs.ripgrep.enable = true;
@@ -54,19 +53,20 @@
     # Communication apps
     telegram-desktop
     discord
-    whatsapp-for-linux
+    wasistlos
     slack
 
     # Text editors and IDEs
     obsidian
     claude-code
     code-cursor
-
+    kiro
+    opencode
     # Development - Languages (use specific versions)
     python311
     python311Packages.pip
     python311Packages.pipx
-    nodejs_20
+    nodejs_24
     nodePackages.pnpm
     nodePackages.yarn
     rustc
@@ -82,7 +82,7 @@
     terraform-ls
     marksman
     luajitPackages.luarocks
-
+    jetbrains.idea-ultimate
     # Development - Formatters and linters
     hadolint
     selene
@@ -109,7 +109,7 @@
 
     # Office and productivity
     libreoffice-qt6-fresh
-    bitwarden
+    bitwarden-desktop
 
     # Audio and video
     spotify
@@ -138,4 +138,3 @@
     "$HOME/.opencode/bin"
   ];
 }
-

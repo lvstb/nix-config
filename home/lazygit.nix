@@ -4,10 +4,12 @@
     settings = {
       git = {
         #branchLogCmd =  'git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium --oneline {{branchName}} --'
-        paging = {
-          colorArg = "always";
-          pager = "delta --dark --paging=never";
-        };
+        pagers = [
+          {
+            colorArg = "always";
+            pager = "delta --dark --paging=never";
+          }
+        ];
         disableForcePushing = true;
         commit = {
           signOff = false;

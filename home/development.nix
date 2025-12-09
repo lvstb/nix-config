@@ -25,6 +25,7 @@
     # Container tools
     dive # Docker image analyzer
     lazydocker # Docker TUI
+    devenv
 
     # Network tools
     nmap
@@ -37,7 +38,6 @@
 
     # Cloud tools
     google-cloud-sdk
-    azure-cli
 
     # Monitoring
     htop
