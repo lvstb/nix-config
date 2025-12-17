@@ -61,6 +61,9 @@
       url = "github:abenz1267/elephant";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Nix User Repository
+    nur.url = "github:nix-community/NUR";
   };
 
   nixConfig = {
@@ -85,6 +88,7 @@
         vscode-marketplace = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
         vscode-marketplace-release = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace-release;
       })
+      inputs.nur.overlays.default
     ];
 
     # Create pkgs with unfree enabled and overlays applied

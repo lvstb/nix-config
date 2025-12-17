@@ -37,34 +37,7 @@ in {
     LC_TIME = "nl_NL.UTF-8";
   };
 
-  # Audio system
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    
-    # Enable AirPlay device discovery
-    extraConfig.pipewire."99-raop-discover" = {
-      "context.modules" = [
-        {
-          name = "libpipewire-module-raop-discover";
-          args = {
-            "raop.discover" = true;
-            "raop.latency.ms" = 200;
-          };
-        }
-      ];
-    };
-  };
-
-  # Enable mDNS for device discovery
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-  };
+  # Audio and Avahi config inherited from desktop-services.nix
 
 
 

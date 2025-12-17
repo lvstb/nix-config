@@ -7,20 +7,8 @@
 }: {
   # Programs configuration
   # VSCode configuration moved to vscode.nix
-  programs.chromium = {
-    enable = true;
-    package = pkgs.ungoogled-chromium;
-    dictionaries = [
-      pkgs.hunspellDictsChromium.en_US
-    ];
-    extensions = [
-      {id = "ocaahdebbfolfmndjeplogmgcagdmblk";}
-      {id = "nngceckbapebfimnlniiiahkandclblb";}
-      {id = "ecjfaoeopefafjpdgnfcjnhinpbldjij";}
-      {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";}
-      {id = "mnjggcdmjocbbbhaepdhchncahnbgone";}
-    ];
-  };
+  # Chromium replaced with Helium - see home.packages for helium installation
+
   # Shell based tools
   programs.home-manager.enable = true;
   programs.ripgrep.enable = true;
@@ -50,6 +38,7 @@
     any-nix-shell
     nextcloud-client
     ghostty
+    nur.repos.Ev357.helium
 
     # Communication apps
     telegram-desktop

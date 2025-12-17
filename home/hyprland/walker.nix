@@ -12,6 +12,32 @@
 
     # Stylix-integrated theme
     config.theme = "stylix";
+    config.modules = [
+      {
+        name = "applications";
+        prefix = "";
+      }
+      {
+        name = "runner";
+        prefix = "!";
+      }
+      {
+        name = "finder";
+        prefix = "~";
+      }
+      {
+        name = "websearch";
+        prefix = "?";
+      }
+      {
+        name = "clipboard";
+        prefix = "clip ";
+      }
+      {
+        name = "windows";
+        prefix = "win ";
+      }
+    ];
     themes."stylix" = {
       style = ''
       /* Define color variables using stylix colors */

@@ -47,10 +47,18 @@
           name = "libpipewire-module-raop-discover";
           args = {
             "raop.discover" = true;
-            "raop.latency.ms" = 200;
+            "raop.filter.duplicates" = true;
+            "raop.discover.ip-version" = 4;  # Force IPv4 only to prevent duplicates
           };
         }
       ];
+    };
+    
+    # RAOP sink latency configuration
+    extraConfig.pipewire."98-raop-sink" = {
+      "stream.properties" = {
+        "sess.latency.msec" = 256;  # Must be integer multiple of rtp.ptime (~8ms): 256 = 32 × 8
+      };
     };
   };
 
@@ -58,6 +66,31 @@
   services.avahi = {
     enable = true;
     nssmdns4 = true;
+    allowInterfaces = [ "br0" ];  # Only use bridge interface for mDNS - prevents duplicates from wlp3s0
+    publish = {
+      enable = lib.mkForce false;  # Don't advertise this system as AirPlay receiver
+      addresses = lib.mkForce false;
+      domain = lib.mkForce false;
+      hinfo = lib.mkForce false;
+      userServices = lib.mkForce false;
+      workstation = lib.mkForce false;
+    };
+    extraConfig = ''
+      [server]
+      use-ipv4=yes
+      use-ipv6=no
+      ratelimit-interval-usec=1000000
+      ratelimit-burst=1000
+      
+      [wide-area]
+      enable-wide-area=no
+      
+      [publish]
+      publish-hinfo=no
+      publish-workstation=no
+      publish-aaaa-on-ipv4=no
+      publish-a-on-ipv6=no
+    '';
   };
 
   # Hardware support
