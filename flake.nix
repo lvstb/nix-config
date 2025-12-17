@@ -55,7 +55,7 @@
       url = "github:abenz1267/walker";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     # Elephant backend for walker
     elephant = {
       url = "github:abenz1267/elephant";
@@ -124,6 +124,7 @@
       ./home/development.nix
       ./home/stylix.nix
       ./home/ghostty.nix
+      ./home/opencode.nix
     ];
     # Base OS configs
     osModules = [

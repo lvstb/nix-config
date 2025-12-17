@@ -67,9 +67,9 @@
           user = {
             name = "Lars Van Steenbergen";
             email = "lars.van.steenbergen@persgroep.net";
-            signingkey = "~/DPG/.ssh/id_ed25519_dpg";
+            signingkey = "~/DPG/.ssh/id_dpgmedia";
           };
-          core.sshCommand = "ssh -i ~/DPG/.ssh/id_ed25519_dpg";
+          core.sshCommand = "ssh -i ~/DPG/.ssh/id_dpgmedia";
           commit.gpgSign = true;
           gpg.format = "ssh";
         };

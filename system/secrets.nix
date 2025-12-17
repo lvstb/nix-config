@@ -1,14 +1,15 @@
 # Common secrets configuration for all systems
 {config, ...}: {
   sops = {
-    # Path to age key file - must be on root filesystem for boot decryption
-    age.keyFile = "/var/lib/sops-nix/key.txt";
+    # Path to age key file - using user's key location
+    age.keyFile = "/home/lars/.config/sops/age/keys.txt";
 
     # Common secrets available on all systems
     secrets = {
       # Personal SSH private key
       personal_ssh_private_key = {
         sopsFile = ../secrets/common.yaml;
+        key = "personal_ssh_private_key";
         owner = config.users.users.lars.name;
         group = config.users.users.lars.group;
         mode = "0600";
@@ -18,36 +19,41 @@
       # Work SSH private key
       dpgmedia_ssh_private_key = {
         sopsFile = ../secrets/common.yaml;
+        key = "dpgmedia_ssh_private_key";
         owner = config.users.users.lars.name;
         group = config.users.users.lars.group;
         mode = "0600";
         path = "/home/lars/DPG/.ssh/id_dpgmedia";
       };
 
-      # Email configuration
-      email_wingu_address = {
-        sopsFile = ../secrets/common.yaml;
-        owner = config.users.users.lars.name;
-        group = config.users.users.lars.group;
-        mode = "0400";
-      };
+      # Email configuration (commented out due to placeholder values)
+      # email_wingu_address = {
+      #   sopsFile = ../secrets/common.yaml;
+      #   key = "email.wingu.address";
+      #   owner = config.users.users.lars.name;
+      #   group = config.users.users.lars.group;
+      #   mode = "0400";
+      # };
 
-      email_wingu_password = {
-        sopsFile = ../secrets/common.yaml;
-        owner = config.users.users.lars.name;
-        group = config.users.users.lars.group;
-        mode = "0400";
-      };
+      # email_wingu_password = {
+      #   sopsFile = ../secrets/common.yaml;
+      #   key = "email.wingu.password";
+      #   owner = config.users.users.lars.name;
+      #   group = config.users.users.lars.group;
+      #   mode = "0400";
+      # };
 
-      email_work_address = {
-        sopsFile = ../secrets/common.yaml;
-        owner = config.users.users.lars.name;
-        group = config.users.users.lars.group;
-        mode = "0400";
-      };
+      # email_work_address = {
+      #   sopsFile = ../secrets/common.yaml;
+      #   key = "email.work.address";
+      #   owner = config.users.users.lars.name;
+      #   group = config.users.users.lars.group;
+      #   mode = "0400";
+      # };
 
       user_full_name = {
         sopsFile = ../secrets/common.yaml;
+        key = "user_full_name";
         owner = config.users.users.lars.name;
         group = config.users.users.lars.group;
         mode = "0400";
