@@ -48,7 +48,7 @@
 
     # Text editors and IDEs
     obsidian
-    claude-code
+    # claude-code
     code-cursor
     kiro
     opencode
@@ -94,7 +94,7 @@
     act
     kubectl
     terraform
-    # awscli2  # Temporarily disabled due to failing tests
+    awscli2
     distrobox
     snyk
     just

@@ -24,6 +24,20 @@
       # Sharing mode: "manual", "auto", or "disabled"
       share = "manual";
 
+      # MCP servers
+      mcp = {
+        context7 = {
+          type = "remote";
+          url = "https://mcp.context7.com/mcp";
+          enabled = true;
+        };
+        exa = {
+          type = "remote";
+          url = "https://mcp.exa.ai/mcp";
+          headers = {};
+          enabled = true;
+        };
+      };
       # TUI settings
       tui = {
         scroll_acceleration = {
@@ -41,21 +55,51 @@
     # Custom instructions written to $XDG_CONFIG_HOME/opencode/AGENTS.md
     # Can be inline string or path to file
     rules = ''
-          # Agent Guidelines
-          ## Communication
-            - Be concise and direct - no filler words or unnecessary explanations
-            - Answer the question asked, nothing more
-            - Use code examples over lengthy descriptions when applicable
-          ## Code Changes
-            - Make minimal, focused changes
-            - Preserve existing code style and conventions
-            - Test changes before considering them complete
-          ## Problem Solving
-            - Understand the problem before proposing solutions
-            - Ask clarifying questions when requirements are ambiguous
-            - Prefer simple solutions over clever ones
-          ## Do use Context7
-            - Always use context7 when i need code generation, setup or configuration steps, or libraryAPI documentation. This means you should automatically use the Context7 MCP tools to resolve library id and get libary documentation without me having to explicitly ask for it.
+        # Agent Guidelines
+        ## Communication
+          - Be concise and direct - no filler words or unnecessary explanations
+          - Answer the question asked, nothing more
+          - Use code examples over lengthy descriptions when applicable
+        ## Code Changes
+          - Make minimal, focused changes
+          - Preserve existing code style and conventions
+          - Test changes before considering them complete
+        ## Problem Solving
+          - Understand the problem before proposing solutions
+          - Ask clarifying questions when requirements are ambiguous
+          - Prefer simple solutions over clever ones
+        ## Do use Context7
+           - Always use context7 when i need code generation, setup or configuration steps, or libraryAPI documentation. This means you should automatically use the Context7 MCP tools to resolve library id and get libary documentation without me having to explicitly ask for it.
+       
+        ## Tool Calling
+        - ALWAYS USE PARALLEL TOOLS WHEN APPLICABLE. Here is an example illustrating how to execute 3 parallel file reads in this chat environment:
+     
+        json
+        {
+        "recipient_name": "multi_tool_use.parallel",
+        "parameters": {
+        "tool_uses": [
+        {
+        "recipient_name": "functions.read",
+        "parameters": {
+        "filePath": "path/to/file.tsx"
+        }
+        },
+        {
+        "recipient_name": "functions.read",
+        "parameters": {
+        "filePath": "path/to/file.ts"
+        }
+        },
+        {
+        "recipient_name": "functions.read",
+        "parameters": {
+        "filePath": "path/to/file.md"
+        }
+        }
+        ]
+        }
+        }
       # '';
 
     # Custom agents stored in $XDG_CONFIG_HOME/opencode/agent/
@@ -74,20 +118,22 @@
 
     # Custom commands stored in $XDG_CONFIG_HOME/opencode/command/
     # Attribute name becomes the command filename
-    # commands = {
-    #   changelog = ''
-    #     # Update Changelog Command
-    #
-    #     Update CHANGELOG.md with a new entry for the specified version.
-    #     Usage: /changelog [version] [change-type] [message]
-    #   '';
-    #   commit = ''
-    #     # Commit Command
-    #
-    #     Create a git commit with proper message formatting.
-    #     Usage: /commit [message]
-    #   '';
-    # };
+    commands = {
+      commit = ./opencode/commands/commit.md;
+      rmslop = ./opencode/commands/rmslop.md;
+      #   changelog = ''
+      #     # Update Changelog Command
+      #
+      #     Update CHANGELOG.md with a new entry for the specified version.
+      #     Usage: /changelog [version] [change-type] [message]
+      #   '';
+      #   commit = ''
+      #     # Commit Command
+      #
+      #     Create a git commit with proper message formatting.
+      #     Usage: /commit [message]
+      #   '';
+    };
 
     # Custom themes stored in $XDG_CONFIG_HOME/opencode/themes/
     # Set settings.theme to the theme name to enable

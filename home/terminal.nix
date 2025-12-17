@@ -19,6 +19,12 @@
       du = "ncdu --color dark -rr -x --exclude .git";
     };
 
+    envExtra = ''
+      if [[ -r /run/secrets/context7_api_key ]]; then
+        export CONTEXT7_API_KEY="$(< /run/secrets/context7_api_key)"
+      fi
+    '';
+
     initContent = ''
         any-nix-shell zsh --info-right | source /dev/stdin
         # Ensure COLUMNS is set for starship right prompt

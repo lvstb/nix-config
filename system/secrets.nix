@@ -91,6 +91,15 @@
       #   group = config.users.users.lars.group;
       #   mode = "0400";
       # };
+
+      # Context7 API key for MCP
+      context7_api_key = {
+        sopsFile = ../secrets/common.yaml;
+        key = "context7_api_key";
+        owner = config.users.users.lars.name;
+        group = config.users.users.lars.group;
+        mode = "0400";
+      };
     };
   };
 }
