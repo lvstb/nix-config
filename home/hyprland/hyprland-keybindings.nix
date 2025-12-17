@@ -121,8 +121,8 @@
       "$mod, PRINT, exec, uwsm app -- hyprshot -m region --clipboard-only"
 
       # Show keybindings help
-      "$mod, question, exec, uwsm app -- ${../../scripts/hypr-keybindings.sh}"
-      "$mod SHIFT, slash, exec, uwsm app -- ${../../scripts/hypr-keybindings.sh}"
+      # "$mod, question, exec, uwsm app -- ${../../scripts/hypr-keybindings.sh}"
+      # "$mod SHIFT, slash, exec, uwsm app -- ${../../scripts/hypr-keybindings.sh}"
 
       # Color picker
       # "$mod SHIFT, C, exec, uwsm app -- hyprpicker -a"

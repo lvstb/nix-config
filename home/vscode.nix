@@ -10,23 +10,23 @@
       extensions = with pkgs.vscode-marketplace;
       with pkgs.vscode-marketplace-release; [
         # Formatters and linters
-        esbenp.prettier-vscode
-        dbaeumer.vscode-eslint
-        bradlc.vscode-tailwindcss
+        # esbenp.prettier-vscode  # Temporarily disabled due to build issue
+        # dbaeumer.vscode-eslint  # Temporarily disabled due to build issue  
+        # bradlc.vscode-tailwindcss  # Temporarily disabled due to build issue
 
         # Git integration
-        eamodio.gitlens
+        # eamodio.gitlens  # Temporarily disabled due to build issue
 
         # Language support
-        jnoortheen.nix-ide
+        # jnoortheen.nix-ide  # Temporarily disabled due to build issue
 
         # Themes and icons
-        catppuccin.catppuccin-vsc
-        catppuccin.catppuccin-vsc-icons
+        # catppuccin.catppuccin-vsc  # Temporarily disabled due to build issue
+        # catppuccin.catppuccin-vsc-icons  # Temporarily disabled due to build issue
 
         # AI assistance
-        github.copilot
-        github.copilot-chat
+        # github.copilot  # Temporarily disabled due to build issue
+        # github.copilot-chat  # Temporarily disabled due to build issue
       ];
 
       userSettings = {
