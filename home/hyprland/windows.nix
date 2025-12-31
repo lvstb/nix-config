@@ -52,6 +52,12 @@
 
       # No transparency on media windows
       "opacity 1 1, class:^(zoom|vlc|mpv|org\\.kde\\.kdenlive|com\\.obsproject\\.Studio|com\\.github\\.PintaProject\\.Pinta|imv|org\\.gnome\\.NautilusPreviewer)$"
+
+      # Keybindings viewer - small window at top right
+      "float, title:^(Hyprland Keybindings)"
+      "size 800 600, title:^(Hyprland Keybindings)"
+      "move 100%-w-20 20, title:^(Hyprland Keybindings)"
+      "opacity 0.95 0.95, title:^(Hyprland Keybindings)"
     ];
   };
 }

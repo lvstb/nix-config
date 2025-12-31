@@ -29,6 +29,8 @@
   # Essential system packages only
   environment.systemPackages = with pkgs; [
     nautilus # File manager with system integration
+    kdePackages.kwallet
+    kdePackages.kwalletmanager
   ];
 
   # XDG portal for screen sharing
@@ -39,17 +41,20 @@
 
   # Security for Hyprland
   security.pam.services.hyprlock = {};
+  
+  # KWallet for credential management
+  security.pam.services.sddm.enableKwallet = true;
 
   # Enable polkit for authentication
   security.polkit.enable = true;
-  systemd.user.services.polkit-gnome-authentication-agent-1 = {
-    description = "polkit-gnome-authentication-agent-1";
+  systemd.user.services.hyprpolkitagent = {
+    description = "Hyprland Polkit Authentication Agent";
     wantedBy = ["graphical-session.target"];
     wants = ["graphical-session.target"];
     after = ["graphical-session.target"];
     serviceConfig = {
       Type = "simple";
-      ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+      ExecStart = "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent";
       Restart = "on-failure";
       RestartSec = 1;
       TimeoutStopSec = 10;

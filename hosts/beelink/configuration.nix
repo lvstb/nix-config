@@ -16,6 +16,7 @@ in {
     ../../system/nix-settings.nix
     ../../system/hyprland.nix
     ../../system/secrets-beelink.nix
+    ../../system/loxone.nix
   ];
 
   # Networking
@@ -62,7 +63,7 @@ in {
     initialPassword = "test";
     shell = pkgs.zsh;
     description = "Lars Van Steenbergen";
-    extraGroups = ["networkmanager" "wheel" "audio" "video" "input"];
+    extraGroups = ["networkmanager" "wheel" "audio" "video" "input" "libvirtd"];
   };
 
   # Minimal additional packages for beelink

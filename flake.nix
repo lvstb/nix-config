@@ -129,6 +129,7 @@
       ./home/stylix.nix
       ./home/ghostty.nix
       ./home/opencode.nix
+      ./home/keyring.nix
     ];
     # Base OS configs
     osModules = [
