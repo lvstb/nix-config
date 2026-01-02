@@ -17,21 +17,22 @@
     "fs.file-max" = 2097152;
   };
 
-  # Zram for better memory management
-  zramSwap = {
-    enable = true;
-    algorithm = "zstd";
-    memoryPercent = 50;
-  };
+  # Zram disabled due to hardware incompatibility
+  # zramSwap = {
+  #   enable = true;
+  #   algorithm = "zstd";
+  #   memoryPercent = 50;
+  # };
 
   # SSD optimizations
   services.fstrim.enable = true;
-  
-  # CPU governor for laptops
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  
-  # Better I/O scheduler for SSDs
+
+  # CPU governor - performance for desktop use
+  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
+
+  # AMD P-State for Zen 4 CPUs (Ryzen 7 8845HS)
   boot.kernelParams = [
-    "elevator=mq-deadline"
+    "amd_pstate=active"
+    "amd_pstate.shared_mem=1"
   ];
 }

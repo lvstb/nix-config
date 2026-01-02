@@ -10,13 +10,14 @@
 in {
   imports = [
     ./hardware-configuration.nix
-    ../../system/boot-simple.nix
+    ../../system/boot-standard.nix
     ../../system/core-services.nix
     ../../system/desktop-services.nix  # Temporarily restored for Bluetooth debugging
     ../../system/nix-settings.nix
     ../../system/hyprland.nix
-    ../../system/secrets-beelink.nix
+    ../../system/secrets.nix
     ../../system/loxone.nix
+    ../../users/lars-system.nix
   ];
 
   # Networking
@@ -57,14 +58,8 @@ in {
   # Disable audit service for this desktop system
   security.audit.enable = lib.mkForce false;
 
-  # User configuration
-  users.users.lars = {
-    isNormalUser = true;
-    initialPassword = "test";
-    shell = pkgs.zsh;
-    description = "Lars Van Steenbergen";
-    extraGroups = ["networkmanager" "wheel" "audio" "video" "input" "libvirtd"];
-  };
+  # Beelink-specific user groups
+  users.users.lars.extraGroups = ["networkmanager" "wheel" "audio" "video" "input" "libvirtd"];
 
   # Minimal additional packages for beelink
   environment.systemPackages = with pkgs; [

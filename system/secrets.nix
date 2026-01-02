@@ -1,5 +1,9 @@
 # Common secrets configuration for all systems
-{config, ...}: {
+# Includes host-specific secrets based on hostname
+{ config, lib, ... }:
+let
+  hostName = config.networking.hostName;
+in {
   sops = {
     # Path to age key file - using user's key location
     age.keyFile = "/home/lars/.config/sops/age/keys.txt";
@@ -26,31 +30,6 @@
         path = "/home/lars/DPG/.ssh/id_dpgmedia";
       };
 
-      # Email configuration (commented out due to placeholder values)
-      # email_wingu_address = {
-      #   sopsFile = ../secrets/common.yaml;
-      #   key = "email.wingu.address";
-      #   owner = config.users.users.lars.name;
-      #   group = config.users.users.lars.group;
-      #   mode = "0400";
-      # };
-
-      # email_wingu_password = {
-      #   sopsFile = ../secrets/common.yaml;
-      #   key = "email.wingu.password";
-      #   owner = config.users.users.lars.name;
-      #   group = config.users.users.lars.group;
-      #   mode = "0400";
-      # };
-
-      # email_work_address = {
-      #   sopsFile = ../secrets/common.yaml;
-      #   key = "email.work.address";
-      #   owner = config.users.users.lars.name;
-      #   group = config.users.users.lars.group;
-      #   mode = "0400";
-      # };
-
       user_full_name = {
         sopsFile = ../secrets/common.yaml;
         key = "user_full_name";
@@ -58,39 +37,6 @@
         group = config.users.users.lars.group;
         mode = "0400";
       };
-
-      # email_work_password = {
-      #   sopsFile = ../secrets/common.yaml;
-      #   key = "email_work_password";
-      #   owner = config.users.users.lars.name;
-      #   group = config.users.users.lars.group;
-      #   mode = "0400";
-      # };
-
-      # GitHub token for development (uncomment when needed)
-      # github_token = {
-      #   sopsFile = ../secrets/common.yaml;
-      #   owner = config.users.users.lars.name;
-      #   group = config.users.users.lars.group;
-      #   mode = "0400";
-      # };
-
-      # API keys (uncomment when needed)
-      # openai_api_key = {
-      #   sopsFile = ../secrets/common.yaml;
-      #   key = "api_keys.openai";
-      #   owner = config.users.users.lars.name;
-      #   group = config.users.users.lars.group;
-      #   mode = "0400";
-      # };
-
-      # anthropic_api_key = {
-      #   sopsFile = ../secrets/common.yaml;
-      #   key = "api_keys.anthropic";
-      #   owner = config.users.users.lars.name;
-      #   group = config.users.users.lars.group;
-      #   mode = "0400";
-      # };
 
       # Context7 API key for MCP
       context7_api_key = {
@@ -100,6 +46,35 @@
         group = config.users.users.lars.group;
         mode = "0400";
       };
+
+      # Email credentials (top-level format)
+      email_wingu_address = {
+        sopsFile = ../secrets/common.yaml;
+        key = "email_wingu_address";
+        owner = config.users.users.lars.name;
+        group = config.users.users.lars.group;
+        mode = "0400";
+      };
+      email_wingu_password = {
+        sopsFile = ../secrets/common.yaml;
+        key = "email_wingu_password";
+        owner = config.users.users.lars.name;
+        group = config.users.users.lars.group;
+        mode = "0400";
+      };
+    } // lib.optionalAttrs (hostName == "framework") {
+      # Framework laptop specific secrets
+      wifi_home_password = {
+        sopsFile = ../secrets/framework.yaml;
+        key = "wifi/home_password";
+        owner = "root";
+        group = "wheel";
+        mode = "0400";
+        neededForUsers = true;
+      };
+    } // lib.optionalAttrs (hostName == "beelink") {
+      # Beelink mini PC specific secrets
+      # Add host-specific secrets here when needed
     };
   };
 }

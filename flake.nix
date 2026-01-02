@@ -98,8 +98,8 @@
       overlays = overlays;
     };
 
-    # Base user config modules
-    homeModules = [
+    # Shared home modules across all desktop environments
+    baseHomeModules = [
       ./home/apps.nix
       ./home/git.nix
       ./home/lazygit.nix
@@ -108,27 +108,21 @@
       ./home/firefox.nix
       ./home/thunderbird.nix
       ./home/nvim.nix
-      ./home/gnome/gnome.nix
       ./home/development.nix
       ./home/opencode.nix
       ./home/stylix.nix
       ./home/ghostty.nix
     ];
 
+    # GNOME desktop environment modules
+    gnomeModules = baseHomeModules ++ [
+      ./home/gnome/gnome.nix
+    ];
+
+    # Hyprland desktop environment modules
     hyprModules = [
       ./home/hyprland/hyprland-minimal.nix
-      ./home/apps.nix
-      ./home/git.nix
-      ./home/lazygit.nix
-      ./home/terminal.nix
-      ./home/vscode.nix
-      ./home/firefox.nix
-      ./home/thunderbird.nix
-      ./home/nvim.nix
-      ./home/development.nix
-      ./home/stylix.nix
-      ./home/ghostty.nix
-      ./home/opencode.nix
+    ] ++ baseHomeModules ++ [
       ./home/keyring.nix
     ];
     # Base OS configs
@@ -137,7 +131,7 @@
       inputs.nixos-hardware.nixosModules.common-hidpi
       inputs.stylix.nixosModules.stylix
       inputs.sops-nix.nixosModules.sops
-      ./system/boot.nix
+      ./system/boot-secure.nix
       ./system/os.nix
       ./system/global.nix
       ./system/performance.nix
@@ -164,11 +158,9 @@
       lars = inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules =
-          homeModules
+          gnomeModules
           ++ [inputs.stylix.homeModules.stylix]
-          ++ [./users/lars.nix]
-          ++ [./home/gnome/gnome.nix]
-          ++ [{nixpkgs.config.allowUnfree = true;}];
+          ++ [./users/lars.nix];
         extraSpecialArgs = {
           inherit inputs;
         };
@@ -179,8 +171,7 @@
         modules =
           hyprModules
           ++ [inputs.stylix.homeModules.stylix]
-          ++ [./users/lars.nix]
-          ++ [{nixpkgs.config.allowUnfree = true;}];
+          ++ [./users/lars.nix];
         extraSpecialArgs = {
           inherit inputs;
         };
@@ -196,7 +187,6 @@
           ++ [
             inputs.nixos-hardware.nixosModules.framework-13-7040-amd
             ./hosts/framework/configuration.nix
-            {nixpkgs.config.allowUnfree = true;}
           ];
         specialArgs = {inherit inputs;};
       };
@@ -207,7 +197,6 @@
           desktopModules
           ++ [
             ./hosts/beelink/configuration.nix
-            {nixpkgs.config.allowUnfree = true;}
           ];
         specialArgs = {inherit inputs;};
       };

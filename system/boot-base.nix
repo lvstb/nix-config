@@ -1,15 +1,13 @@
-# Simple boot configuration for desktop systems without TPM/secure boot
-{ pkgs, ... }:
-
-{
-  boot.loader.systemd-boot.enable = true;
+# Shared boot configuration for all systems
+# Contains common settings for plymouth, quiet boot, kernel packages, etc.
+{ pkgs, ... }: {
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   hardware.enableAllFirmware = true;
   boot.supportedFilesystems = [ "btrfs" "ntfs" ];
 
-  # Quiet boot
+  # Quiet boot with plymouth
   boot.kernelParams = [
     "quiet"
     "rd.systemd.show_status=false"

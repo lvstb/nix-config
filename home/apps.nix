@@ -27,16 +27,15 @@
   # Development languages and runtimes
   programs.go.enable = true;
 
-  # Services
-  services.nextcloud-client = {
-    enable = true;
-    startInBackground = true;
-  };
+  # Services - Nextcloud client disabled (no secrets configured)
+  # services.nextcloud-client = {
+  #   enable = true;
+  #   startInBackground = true;
+  # };
 
   home.packages = with pkgs; [
     # Core applications
     any-nix-shell
-    nextcloud-client
     ghostty
     nur.repos.Ev357.helium
 

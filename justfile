@@ -14,9 +14,32 @@ fmt:
 deploy hostname:
 	NIXPKGS_ALLOW_UNFREE=1 sudo -E nixos-rebuild switch --flake .#{{hostname}} --impure
 
-# Deploy user configuration
-user username:
+# Deploy user configuration (auto-detect by hostname)
+user username="lars":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    host=$(hostname)
+    case "$host" in
+        beelink)
+            echo "Host: $host → using {{username}}-hyprland config"
+            NIXPKGS_ALLOW_UNFREE=1 home-manager switch --flake .#{{username}}-hyprland --impure
+            ;;
+        framework)
+            echo "Host: $host → using {{username}} (GNOME) config"
+            NIXPKGS_ALLOW_UNFREE=1 home-manager switch --flake .#{{username}} --impure
+            ;;
+        *)
+            echo "Unknown host: $host - defaulting to {{username}} config"
+            NIXPKGS_ALLOW_UNFREE=1 home-manager switch --flake .#{{username}} --impure
+            ;;
+    esac
+
+# Deploy specific user configuration (explicit)
+user-gnome username="lars":
     NIXPKGS_ALLOW_UNFREE=1 home-manager switch --flake .#{{username}} --impure
+
+user-hyprland username="lars":
+    NIXPKGS_ALLOW_UNFREE=1 home-manager switch --flake .#{{username}}-hyprland --impure
 
 # Clean old generations (7+ days)
 clean:

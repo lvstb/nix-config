@@ -9,10 +9,11 @@
 in {
   imports = [
     ./hardware-configuration.nix
-    ../../system/secrets-framework.nix
+    ../../system/secrets.nix
     ../../system/core-services.nix
     ../../system/desktop-services.nix
     ../../system/nix-settings.nix
+    ../../users/lars-system.nix
   ];
 
   specialisation = {
@@ -69,13 +70,8 @@ in {
     };
   };
 
-  users.users.lars = {
-    isNormalUser = true;
-    initialPassword = "test";
-    shell = pkgs.zsh;
-    description = "Lars Van Steenbergen";
-    extraGroups = ["networkmanager" "wheel" "libvirtd" "podman" "vboxusers"];
-  };
+  # Framework-specific user groups
+  users.users.lars.extraGroups = ["networkmanager" "wheel" "libvirtd" "podman" "vboxusers"];
 
 
   # Framework-specific packages (removed ghostty - now in home-manager)
