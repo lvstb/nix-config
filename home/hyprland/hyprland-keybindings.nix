@@ -32,6 +32,7 @@
       "$mod, C, exec, uwsm app -- $browser --app=https://calendar.google.com"
       "$mod SHIFT, C, exec, uwsm app -- $browser --app=https://meet.google.com"
       "$mod, E, exec, uwsm app -- $browser --app=https://gmail.com"
+      "$mod SHIFT, E, exec, uwsm app -- $browser --app=https://webmail.migadu.com"
       "$mod, Y, exec, uwsm app -- $browser --app=https://youtube.com"
       "$mod, Q, exec, uwsm app -- $browser --app=https://web.whatsapp.com"
       "$mod SHIFT, Q, exec, uwsm app -- $browser --app=https://web.telegram.org"
@@ -167,10 +168,11 @@
       # Aesthetics
       "SUPER SHIFT, SPACE, exec, pkill -SIGUSR1 waybar"
 
-      # Notifications
-      "SUPER, COMMA, exec, uwsm app -- swaync-client -t -sw"
-      "SUPER SHIFT, COMMA, exec, uwsm app -- swaync-client -C"
-      "SUPER CTRL, COMMA, exec, uwsm app -- swaync-client -d -sw"
+      # Notifications (dunst)
+      "SUPER, COMMA, exec, dunstctl close"
+      "SUPER SHIFT, COMMA, exec, dunstctl close-all"
+      "SUPER CTRL, COMMA, exec, dunstctl history-pop"
+      "SUPER ALT, COMMA, exec, dunstctl set-paused toggle"
     ];
 
     # Mouse bindings

@@ -8,7 +8,7 @@
   imports = [
     ./windows.nix
     ./hyprland-keybindings.nix
-    ./swaync.nix # Notification daemon
+    ./dunst.nix # Notification daemon
     ./walker.nix # App launcher
     ./waybar.nix
     inputs.walker.homeManagerModules.default # Official walker module
@@ -37,7 +37,7 @@
         "uwsm app -- waybar"
         "uwsm app -- hyprpaper"
         "uwsm app -- hypridle"
-        "uwsm app -- swaync"
+        "uwsm app -- dunst"
         "uwsm app -- nm-applet --indicator"
         "uwsm app -- blueman-applet"
         "uwsm app -- clipse -listen"
@@ -158,13 +158,12 @@
         no_update_news = true;
       };
 
-      # Layer rules for SwayNC glassmorphism effects
-      layerrule = [
-        "blur, swaync-control-center"
-        "ignorezero, swaync-notification-window"
-        "animation slide right, swaync-control-center"
-        "ignorezero, swaync-control-center"
-      ];
+      # Layer rules for SwayNC effects
+      # Commenting out due to syntax issues with Hyprland 0.53
+      # layerrule = [
+      #   "blur, swaync-control-center"
+      #   "ignorezero, swaync-control-center"
+      # ];
     };
   };
 

@@ -1,6 +1,9 @@
 #global.nix settings for all systemPackages
 { lib, pkgs, ... }:
 {
+# Allow unfree packages system-wide
+nixpkgs.config.allowUnfree = true;
+
 nix.settings.trusted-users = ["lars" "root" "@wheel"];
 nix.settings.auto-optimise-store = true;
 nix.settings.experimental-features = "nix-command flakes";
