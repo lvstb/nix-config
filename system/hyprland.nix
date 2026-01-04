@@ -36,7 +36,19 @@
   # XDG portal for screen sharing
   xdg.portal = {
     enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-hyprland];
+    xdgOpenUsePortal = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal-gtk
+    ];
+    config = {
+      common = {
+        default = ["gtk"];
+      };
+      hyprland = {
+        default = ["hyprland" "gtk"];
+      };
+    };
   };
 
   # Security for Hyprland
