@@ -16,6 +16,7 @@ in {
     ../../system/nix-settings.nix
     ../../system/hyprland.nix
     ../../system/secrets.nix
+    ../../system/wifi.nix
     ../../system/loxone.nix
     ../../users/lars-system.nix
   ];
@@ -59,7 +60,7 @@ in {
   security.audit.enable = lib.mkForce false;
 
   # Beelink-specific user groups
-  users.users.lars.extraGroups = ["networkmanager" "wheel" "audio" "video" "input" "libvirtd"];
+  users.users.lars.extraGroups = ["networkmanager" "wheel" "audio" "video" "input" "libvirtd" "podman"];
 
   # Minimal additional packages for beelink
   environment.systemPackages = with pkgs; [

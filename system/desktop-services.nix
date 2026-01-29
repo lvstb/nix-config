@@ -112,7 +112,14 @@
     dockerSocket.enable = true; # Enable Docker socket for compatibility
     dockerCompat = true; # Enable Docker compatibility layer
     defaultNetwork.settings.dns_enabled = true;
+    # Rootful mode required for Dagger
+    # https://docs.dagger.io/reference/container-runtimes/podman/
+    dockerSocket.enable = true;
+    autoPrune.enable = true;
   };
+  
+  # Enable Podman socket for rootful access
+  systemd.sockets.podman.wantedBy = [ "sockets.target" ];
 
   # Docker disabled - using Podman with Docker compatibility instead
   virtualisation.docker = {

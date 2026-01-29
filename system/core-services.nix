@@ -8,6 +8,14 @@
   # Network management
   networking.networkmanager.enable = true;
 
+  # Netfilter modules for legacy iptables (CNI/Dagger)
+  boot.kernelModules = [
+    "ip_tables"
+    "iptable_nat"
+    "nf_nat"
+    "br_netfilter"
+  ];
+
   # Enable IP forwarding for bridge networking
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 1;

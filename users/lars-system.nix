@@ -7,6 +7,6 @@
     shell = pkgs.zsh;
     description = "Lars Van Steenbergen";
     # Default groups - hosts can extend with mkAfter or lib.mkForce
-    extraGroups = lib.mkDefault ["networkmanager" "wheel"];
+    extraGroups = lib.mkDefault ["networkmanager" "wheel" "podman"];
   };
 }

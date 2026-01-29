@@ -13,6 +13,7 @@ in {
     ../../system/core-services.nix
     ../../system/desktop-services.nix
     ../../system/nix-settings.nix
+    ../../system/wifi.nix
     ../../users/lars-system.nix
   ];
 
@@ -56,33 +57,8 @@ in {
     # };
   };
 
-  # NetworkManager WiFi configuration
-  # Note: NetworkManager reads the password from psk-file and stores it in the connection
-  # If the secret changes, you may need to delete and recreate the connection:
-  # sudo nmcli connection delete "2Fly4MyWifi" && sudo systemctl restart NetworkManager
-  networking.networkmanager.ensureProfiles.profiles = {
-    "2Fly4MyWifi" = {
-      connection = {
-        id = "2Fly4MyWifi";
-        type = "wifi";
-        autoconnect = true;
-      };
-      wifi = {
-        ssid = "2Fly4MyWifi";
-        mode = "infrastructure";
-      };
-      wifi-security = {
-        key-mgmt = "wpa-psk";
-        psk-file = config.sops.secrets.wifi_home_password.path;
-      };
-      ipv4.method = "auto";
-      ipv6.method = "auto";
-    };
-  };
-
   # Framework-specific user groups
   users.users.lars.extraGroups = ["networkmanager" "wheel" "libvirtd" "podman" "docker" "vboxusers"];
-
 
   # Framework-specific packages (removed ghostty - now in home-manager)
   environment.systemPackages = with pkgs; [];
