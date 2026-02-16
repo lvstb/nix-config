@@ -14,11 +14,8 @@
 
   # Git delta configuration moved to git.nix
 
-  # Docker/Podman aliases
-  home.shellAliases = {
-    docker = "podman";
-    docker-compose = "podman-compose";
-  };
+  # Keep Podman available but don't alias docker
+  # Docker is now installed system-wide for Dagger compatibility
 
   # Development packages
   home.packages = with pkgs; [

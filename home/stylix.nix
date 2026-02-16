@@ -46,11 +46,24 @@
         name = "Noto Color Emoji";
       };
       sizes = {
-        applications = 12;
-        terminal = 12;
-        desktop = 15;
-        popups = 12;
+        applications = 10;
+        terminal = 10;
+        desktop = 12;
+        popups = 10;
       };
+    };
+    override = {
+      "gtk-4.0/gtk.css" = ''
+        /* Smaller GNOME notifications */
+        .notification-banner {
+          font-size: 11pt;
+          padding: 8px 12px;
+          max-width: 400px;
+        }
+        .notification-banner .notification-body {
+          font-size: 10pt;
+        }
+      '';
     };
   };
 }

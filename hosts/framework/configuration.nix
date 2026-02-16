@@ -26,6 +26,16 @@ in {
 
   #Specific boot config for the device
   # boot.initrd.kernelModules = ["kvm_amd"];
+  boot.kernelModules = [
+    # nftables modules
+    "nf_nat"
+    "nf_nat_ipv4"
+    "nf_conntrack"
+    # iptables-legacy modules (required for Dagger/Docker networking)
+    "iptable_nat"
+    "iptable_filter"
+    "br_netfilter"
+  ];
 
   networking = {
     hostName = hostName;
@@ -71,7 +81,7 @@ in {
   };
 
   # Framework-specific user groups
-  users.users.lars.extraGroups = ["networkmanager" "wheel" "libvirtd" "podman" "vboxusers"];
+  users.users.lars.extraGroups = ["networkmanager" "wheel" "libvirtd" "podman" "docker" "vboxusers"];
 
 
   # Framework-specific packages (removed ghostty - now in home-manager)

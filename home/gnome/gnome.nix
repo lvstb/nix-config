@@ -77,7 +77,7 @@ in {
         "blur-my-shell@aunetx"
       ];
       favorite-apps = [
-        "firefox.desktop"
+        "helium.desktop"
         "thunderbird.desktop"
         "slack.desktop"
         "com.mitchellh.ghostty.desktop"

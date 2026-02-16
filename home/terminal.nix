@@ -26,53 +26,33 @@
     '';
 
     initContent = ''
-        any-nix-shell zsh --info-right | source /dev/stdin
-        # Ensure COLUMNS is set for starship right prompt
-        export COLUMNS=$(tput cols 2>/dev/null || echo 80)
-        # Shell integrations
-        eval "$(zoxide init --cmd cd zsh)"
-        eval "$(fzf --zsh)"
-        #extra opts
-        zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-        # Function to check if credentials are valid for the selected profile
-        function check_credentials() {
-            local profile=$1
-            if ! aws sts get-caller-identity --profile "$profile" > /dev/null 2>&1; then
-                echo "No valid credentials found for '$profile'. Initiating SSO login..."
-                aws-sso-util login --profile "$profile"
-            fi
-        }
+      # Ensure COLUMNS is set for starship right prompt
+      export COLUMNS=$(tput cols 2>/dev/null || echo 80)
+      # Shell integrations
+      eval "$(zoxide init --cmd cd zsh)"
+      eval "$(fzf --zsh)"
+      #extra opts
+      zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+      saws() {
+        local SAWS_BIN
+        SAWS_BIN="$(command which saws)"
 
-      # Function to select AWS profile using fzf
-      function saws() {
-          local profile
-          profile=$(awk -F '[][]' '/^\[profile /{print substr($2, 9, length($2) - 8)}' ~/.aws/config | fzf)
+        case "$1" in
+          init|--version|--configure|configure)
+            SAWS_WRAPPER=1 "$SAWS_BIN" "$@"
+            return $?
+            ;;
+        esac
 
-          if [[ -n $profile ]]; then
-              export AWS_PROFILE=$profile
+        local export_output
+        export_output="$(SAWS_WRAPPER=1 "$SAWS_BIN" --export "$@")"
+        local exit_code=$?
 
-              # Also set the region for the profile if available
-              local region
-              region=$(aws configure get region --profile "$profile" 2>/dev/null)
-              if [[ -n $region ]]; then
-                  export AWS_DEFAULT_REGION=$region
-                  echo "AWS Profile set to '$AWS_PROFILE' (region: $region)"
-              else
-                  echo "AWS Profile set to '$AWS_PROFILE'"
-              fi
-
-              check_credentials "$profile"
-
-              # Force starship to refresh the prompt
-              if command -v starship >/dev/null 2>&1; then
-                  # Trigger prompt refresh by clearing and redrawing
-                  printf '\033[2K\r'
-                  # Also trigger zsh to redraw the prompt
-                  zle && zle reset-prompt
-              fi
-          else
-              echo "No profile selected."
-          fi
+        if [ $exit_code -eq 0 ]; then
+          eval "$export_output"
+        else
+          SAWS_WRAPPER=1 "$SAWS_BIN" "$@"
+        fi
       }
     '';
 
@@ -107,21 +87,15 @@
         format = "[$symbol$state]($style) ";
       };
 
-      time = {
-        disabled = false;
-        format = "[ $time ](#474747) ";
-        time_format = "%H:%M:%S";
-      };
-
       aws = {
         format = "[$symbol$profile(\($region\))]($style) ";
-        style = "bold yellow";
+        # style = "dark yellow";
         disabled = false;
-        symbol = "☁️ ";
-        # Make it more responsive to profile changes
-        expiration_symbol = "💀";
-        # Force display even without valid credentials
-        force_display = true;
+        symbol = "󰫮 ";
+        # # Make it more responsive to profile changes
+        # expiration_symbol = "💀";
+        # # Force display even without valid credentials
+        # force_display = true;
       };
 
       python = {

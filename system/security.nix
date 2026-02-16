@@ -37,12 +37,9 @@
       killUnconfinedConfinables = true;
     };
 
-    # Audit system
+    # Audit system - disabled due to kernel compatibility issues
     audit = {
-      enable = true;
-      rules = [
-        "-a always,exit -F arch=b64 -S execve"
-      ];
+      enable = false;
     };
   };
 

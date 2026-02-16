@@ -25,7 +25,7 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     TERMINAL = "ghostty";
-    BROWSER = "firefox";
+    BROWSER = "helium";
     XDG_CONFIG_HOME = "$HOME/.config";
     XDG_DATA_HOME = "$HOME/.local/share";
     XDG_STATE_HOME = "$HOME/.local/state";
@@ -37,11 +37,11 @@
 
   xdg.mimeApps.enable = true;
   xdg.mimeApps.associations.added = {
-    "text/html" = "firefox.desktop";
-    "x-scheme-handler/http" = "firefox.desktop";
-    "x-scheme-handler/https" = "firefox.desktop";
-    "x-scheme-handler/about" = "firefox.desktop";
-    "x-scheme-handler/unknown" = "firefox.desktop";
+    "text/html" = "helium.desktop";
+    "x-scheme-handler/http" = "helium.desktop";
+    "x-scheme-handler/https" = "helium.desktop";
+    "x-scheme-handler/about" = "helium.desktop";
+    "x-scheme-handler/unknown" = "helium.desktop";
   };
 
   home.packages = with pkgs; [

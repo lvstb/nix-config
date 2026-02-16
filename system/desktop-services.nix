@@ -109,9 +109,15 @@
   # Virtualization for desktop use
   virtualisation.podman = {
     enable = true;
-    dockerSocket.enable = true;
-    dockerCompat = true;
+    dockerSocket.enable = false;  # Disabled - using real Docker instead
+    dockerCompat = false;  # Disabled - using real Docker instead
     defaultNetwork.settings.dns_enabled = true;
+  };
+
+  # Docker for Dagger compatibility
+  virtualisation.docker = {
+    enable = true;
+    enableOnBoot = true;
   };
 
   virtualisation.libvirtd = {

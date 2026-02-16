@@ -70,10 +70,10 @@
           - Prefer simple solutions over clever ones
         ## Do use Context7
            - Always use context7 when i need code generation, setup or configuration steps, or libraryAPI documentation. This means you should automatically use the Context7 MCP tools to resolve library id and get libary documentation without me having to explicitly ask for it.
-       
+     
         ## Tool Calling
         - ALWAYS USE PARALLEL TOOLS WHEN APPLICABLE. Here is an example illustrating how to execute 3 parallel file reads in this chat environment:
-     
+         
         json
         {
         "recipient_name": "multi_tool_use.parallel",
@@ -114,6 +114,7 @@
       documentation = ./opencode/agents/docs-writer.md;
       security = ./opencode/agents/security-auditor.md;
       typescript = ./opencode/agents/typescript-pro.md;
+      dpg-infra = ./opencode/agents/dpg-infra.md;
     };
 
     # Custom commands stored in $XDG_CONFIG_HOME/opencode/command/

@@ -44,3 +44,7 @@ user-hyprland username="lars":
 # Clean old generations (7+ days)
 clean:
   sudo nix profile wipe-history --profile /nix/var/nix/profiles/system --older-than 7d
+
+# Show package updates available
+pkgs:
+  nix profile list --profile home-manager

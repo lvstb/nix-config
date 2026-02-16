@@ -19,7 +19,7 @@
 
     # Secure Boot for NixOS
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
+      url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -31,6 +31,9 @@
 
     # Portable CI/CD
     dagger.url = "github:dagger/nix";
+
+    # AWS SSO CLI
+    saws.url = "github:lvstb/saws";
 
     # System-wide styles
     stylix.url = "github:danth/stylix";

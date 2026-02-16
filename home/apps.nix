@@ -3,6 +3,7 @@
   lib,
   pkgs,
   config,
+  inputs,
   ...
 }: {
   # Programs configuration
@@ -35,7 +36,6 @@
 
   home.packages = with pkgs; [
     # Core applications
-    any-nix-shell
     ghostty
     nur.repos.Ev357.helium
 
@@ -47,10 +47,11 @@
 
     # Text editors and IDEs
     obsidian
-    # claude-code
+    claude-code
     code-cursor
     kiro
     opencode
+    inputs.saws.packages.${pkgs.system}.default
     # Development - Languages (use specific versions)
     python311
     python311Packages.pip
@@ -62,6 +63,7 @@
     rustc
     cargo
     gcc
+    pre-commit
 
     # Development - Language servers (for nvim)
     gopls
@@ -72,7 +74,7 @@
     terraform-ls
     marksman
     luajitPackages.luarocks
-    jetbrains.idea-ultimate
+    jetbrains.idea
     # Development - Formatters and linters
     hadolint
     selene
@@ -88,6 +90,7 @@
     markdownlint-cli
 
     # Development - Tools
+    # github-copilot-cli
     httpie-desktop
     sops
     act

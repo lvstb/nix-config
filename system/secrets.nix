@@ -5,8 +5,8 @@ let
   hostName = config.networking.hostName;
 in {
   sops = {
-    # Path to age key file - using user's key location
-    age.keyFile = "/home/lars/.config/sops/age/keys.txt";
+    # Path to age key file - must be available at boot time (before /home is mounted)
+    age.keyFile = "/var/lib/sops-nix/key.txt";
 
     # Common secrets available on all systems
     secrets = {
