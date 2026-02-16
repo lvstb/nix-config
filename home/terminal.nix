@@ -93,7 +93,7 @@
         disabled = false;
         symbol = "󰫮 ";
         # # Make it more responsive to profile changes
-        # expiration_symbol = "💀";
+        expiration_symbol = "💀";
         # # Force display even without valid credentials
         # force_display = true;
       };
