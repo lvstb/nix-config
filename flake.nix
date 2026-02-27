@@ -67,6 +67,19 @@
 
     # Nix User Repository
     nur.url = "github:nix-community/NUR";
+
+    # Astal libraries (underlying framework for AGS v2)
+    astal = {
+      url = "github:aylur/astal";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # AGS v2 scaffolding CLI + home-manager module
+    ags = {
+      url = "github:aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.astal.follows = "astal";
+    };
   };
 
   nixConfig = {

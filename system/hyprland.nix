@@ -18,6 +18,8 @@
     sddm = {
       enable = true;
       wayland.enable = true;
+      theme = "sddm-astronaut-theme";
+      extraPackages = [ pkgs.sddm-astronaut ];
     };
     defaultSession = lib.mkForce "hyprland-uwsm";
   };
@@ -31,6 +33,7 @@
     nautilus # File manager with system integration
     kdePackages.kwallet
     kdePackages.kwalletmanager
+    sddm-astronaut
   ];
 
   # XDG portal for screen sharing
@@ -52,7 +55,7 @@
   };
 
   # Security for Hyprland
-  security.pam.services.hyprlock = {};
+  security.pam.services.hyprlock.enableKwallet = true;
   
   # KWallet for credential management
   security.pam.services.sddm.enableKwallet = true;

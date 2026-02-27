@@ -16,7 +16,6 @@ in {
     ../../system/nix-settings.nix
     ../../system/hyprland.nix
     ../../system/secrets.nix
-    ../../system/wifi.nix
     ../../system/loxone.nix
     ../../users/lars-system.nix
   ];
