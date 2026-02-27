@@ -10,7 +10,7 @@
     ./hyprland-keybindings.nix
     ./dunst.nix # Notification daemon
     ./walker.nix # App launcher
-    ./waybar.nix
+    ./ags.nix # Top bar (AGS/Astal replacing waybar)
     inputs.walker.homeManagerModules.default # Official walker module
   ];
   # Enable Hyprland with minimal config
@@ -34,7 +34,7 @@
 
       # Import modular configurations
       exec-once = [
-        "uwsm app -- waybar"
+        "uwsm app -- ags run ~/.config/ags/app.ts"
         "uwsm app -- hyprpaper"
         "uwsm app -- hypridle"
         "uwsm app -- dunst"
@@ -56,7 +56,7 @@
       };
       # https://wiki.hyprland.org/Configuring/Variables/#decoration
       decoration = {
-        rounding = 0;
+        rounding = 10;
 
         shadow = {
           enabled = true;
