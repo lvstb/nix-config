@@ -35,6 +35,7 @@
 
     # Cloud tools
     google-cloud-sdk
+    cloudsmith-cli
 
     # Monitoring
     btop

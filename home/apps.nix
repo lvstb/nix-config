@@ -53,9 +53,9 @@
     opencode
     inputs.saws.packages.${pkgs.system}.default
     # Development - Languages (use specific versions)
-    python311
-    python311Packages.pip
-    python311Packages.pipx
+    python312
+    python312Packages.pip
+    python312Packages.pipx
     nodejs_24
     nodePackages.pnpm
     nodePackages.yarn
@@ -100,6 +100,7 @@
     distrobox
     snyk
     just
+    opencode-desktop
 
     # Office and productivity
     libreoffice-qt6-fresh
