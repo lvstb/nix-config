@@ -117,11 +117,17 @@
       # dpg-infra = ./opencode/agents/dpg-infra.md;
     };
 
+    # Custom skills stored in $XDG_CONFIG_HOME/opencode/skill/
+    skills = {
+      karpathy-guidelines = ./opencode/skills/karpathy-guidelines;
+    };
+
     # Custom commands stored in $XDG_CONFIG_HOME/opencode/command/
     # Attribute name becomes the command filename
     commands = {
       commit = ./opencode/commands/commit.md;
       rmslop = ./opencode/commands/rmslop.md;
+      code-simplifier = ./opencode/commands/code-simplifier.md;
       #   changelog = ''
       #     # Update Changelog Command
       #
