@@ -120,6 +120,7 @@
     # Custom skills stored in $XDG_CONFIG_HOME/opencode/skill/
     skills = {
       karpathy-guidelines = ./opencode/skills/karpathy-guidelines;
+      brainstorming = ./opencode/skills/brainstorming;
     };
 
     # Custom commands stored in $XDG_CONFIG_HOME/opencode/command/
