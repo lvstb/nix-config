@@ -106,18 +106,18 @@
   services.gnome.gnome-keyring.enable = true;
   programs.gpaste.enable = true;
 
-  # Virtualization for desktop use
+  # Virtualization for desktop use - Podman with Docker compatibility
   virtualisation.podman = {
     enable = true;
-    dockerSocket.enable = false; # Disabled - using real Docker instead
-    dockerCompat = false; # Disabled - using real Docker instead
+    dockerSocket.enable = true; # Enable Docker socket for compatibility
+    dockerCompat = true; # Enable Docker compatibility layer
     defaultNetwork.settings.dns_enabled = true;
   };
 
-  # Docker for Dagger compatibility
+  # Docker disabled - using Podman with Docker compatibility instead
   virtualisation.docker = {
-    enable = true;
-    enableOnBoot = true;
+    enable = false;
+    enableOnBoot = false;
   };
 
   virtualisation.libvirtd = {

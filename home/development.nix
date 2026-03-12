@@ -14,8 +14,8 @@
 
   # Git delta configuration moved to git.nix
 
-  # Keep Podman available but don't alias docker
-  # Docker is now installed system-wide for Dagger compatibility
+  # Keep Podman available with Docker compatibility
+  # Docker replaced by Podman with Docker compatibility layer system-wide
 
   # Development packages
   home.packages = with pkgs; [

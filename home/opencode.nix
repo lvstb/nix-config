@@ -106,6 +106,7 @@
 
     # Custom skills stored in $XDG_CONFIG_HOME/opencode/skill/
     skills = {
+      auto-commit = ./opencode/skills/auto-commit;
       brainstorming = ./opencode/skills/brainstorming;
       code-review = ./opencode/skills/code-review;
       executing-plans = ./opencode/skills/executing-plans;
