@@ -16,7 +16,7 @@
       theme = lib.mkForce "system";
 
       # Model configuration
-      model = "anthropic/claude-sonnet-4-5";
+      model = "copilot/claude-sonnet-4-6";
 
       # Auto-update
       autoupdate = true;
@@ -45,62 +45,50 @@
         };
       };
 
-      # Permissions (default allows all)
-      # permission = {
-      #   edit = "ask";
-      #   bash = "ask";
-      # };
+      permission = {
+        bash = {
+          "*" = "ask";
+          "git diff*" = "allow";
+          "git status*" = "allow";
+          "git log*" = "allow";
+          "git show*" = "allow";
+          "grep *" = "allow";
+          "rg *" = "allow";
+          "nix-instantiate *" = "allow";
+          "nix eval *" = "allow";
+          "nix flake check*" = "allow";
+          "git push*" = "ask";
+          "git pull*" = "ask";
+          "git rebase*" = "ask";
+          "git reset*" = "deny";
+          "rm *" = "ask";
+        };
+      };
     };
 
     # Custom instructions written to $XDG_CONFIG_HOME/opencode/AGENTS.md
     # Can be inline string or path to file
     rules = ''
-        # Agent Guidelines
-        ## Communication
-          - Be concise and direct - no filler words or unnecessary explanations
-          - Answer the question asked, nothing more
-          - Use code examples over lengthy descriptions when applicable
-        ## Code Changes
-          - Make minimal, focused changes
-          - Preserve existing code style and conventions
-          - Test changes before considering them complete
-        ## Problem Solving
-          - Understand the problem before proposing solutions
-          - Ask clarifying questions when requirements are ambiguous
-          - Prefer simple solutions over clever ones
-        ## Do use Context7
-           - Always use context7 when i need code generation, setup or configuration steps, or libraryAPI documentation. This means you should automatically use the Context7 MCP tools to resolve library id and get libary documentation without me having to explicitly ask for it.
-         
-        ## Tool Calling
-        - ALWAYS USE PARALLEL TOOLS WHEN APPLICABLE. Here is an example illustrating how to execute 3 parallel file reads in this chat environment:
-       
-        json
-        {
-        "recipient_name": "multi_tool_use.parallel",
-        "parameters": {
-        "tool_uses": [
-        {
-        "recipient_name": "functions.read",
-        "parameters": {
-        "filePath": "path/to/file.tsx"
-        }
-        },
-        {
-        "recipient_name": "functions.read",
-        "parameters": {
-        "filePath": "path/to/file.ts"
-        }
-        },
-        {
-        "recipient_name": "functions.read",
-        "parameters": {
-        "filePath": "path/to/file.md"
-        }
-        }
-        ]
-        }
-        }
-      # '';
+      # Agent Guidelines
+      ## Communication
+        - Be concise and direct
+        - Answer the question asked
+        - Use code examples when they help
+
+      ## Code Changes
+        - Make minimal, focused changes
+        - Preserve existing code style and conventions
+        - Verify changes before claiming success
+
+      ## Problem Solving
+        - Understand the problem before proposing solutions
+        - Prefer simple solutions over clever ones
+        - Ask clarifying questions only when ambiguity materially changes the outcome
+
+      ## Tooling
+        - Use Context7 for code generation, setup, configuration, and library API questions
+        - Use parallel tools when the work is independent
+    '';
 
     # Custom agents stored in $XDG_CONFIG_HOME/opencode/agent/
     # Attribute name becomes the agent filename
@@ -114,13 +102,20 @@
       documentation = ./opencode/agents/docs-writer.md;
       security = ./opencode/agents/security-auditor.md;
       typescript = ./opencode/agents/typescript-pro.md;
-      # dpg-infra = ./opencode/agents/dpg-infra.md;
     };
 
     # Custom skills stored in $XDG_CONFIG_HOME/opencode/skill/
     skills = {
-      karpathy-guidelines = ./opencode/skills/karpathy-guidelines;
       brainstorming = ./opencode/skills/brainstorming;
+      code-review = ./opencode/skills/code-review;
+      executing-plans = ./opencode/skills/executing-plans;
+      git-workflow = ./opencode/skills/git-workflow;
+      karpathy-guidelines = ./opencode/skills/karpathy-guidelines;
+      receiving-code-review = ./opencode/skills/receiving-code-review;
+      systematic-debugging = ./opencode/skills/systematic-debugging;
+      tdd = ./opencode/skills/tdd;
+      verification = ./opencode/skills/verification;
+      writing-plans = ./opencode/skills/writing-plans;
     };
 
     # Custom commands stored in $XDG_CONFIG_HOME/opencode/command/

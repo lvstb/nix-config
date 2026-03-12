@@ -7,13 +7,19 @@ description: "Use before any creative work - creating features, building compone
 
 ## Overview
 
-Turn ideas into fully formed designs through collaborative dialogue. Understand the project context, ask questions one at a time, then present a design for approval.
+Turn ideas into clear designs through collaborative dialogue. Use this when the work is creative, ambiguous, or large enough that a quick implementation would likely drift.
 
-**HARD GATE:** Do NOT write any code, scaffold any project, or take any implementation action until a design is presented and the user approves it. This applies to EVERY project regardless of perceived simplicity.
+**HARD GATE:** Do NOT write any code until the problem, constraints, and recommended approach are clear enough to execute confidently.
 
-## Anti-Pattern: "Too Simple To Need A Design"
+## When to Use
 
-Every project goes through this process. A todo list, a single-function utility, a config change -- all of them. "Simple" projects are where unexamined assumptions cause the most wasted work. The design can be short (a few sentences for truly simple things), but you MUST present it and get approval.
+Use this skill when:
+- Building a new feature or workflow
+- The user wants a rigorous plan before implementation
+- There are multiple reasonable approaches
+- Requirements or constraints are still fuzzy
+
+Skip this skill for tiny, low-ambiguity edits where a short implementation plan or direct change is enough.
 
 ## Checklist
 
@@ -22,8 +28,8 @@ Complete these in order:
 1. **Explore project context** -- check files, docs, recent commits
 2. **Ask clarifying questions** -- one at a time, understand purpose/constraints/success criteria
 3. **Propose 2-3 approaches** -- with trade-offs and your recommendation
-4. **Present design** -- in sections scaled to complexity, get user approval after each section
-5. **Write design doc** -- save to `docs/plans/YYYY-MM-DD-<topic>-design.md` and commit
+4. **Present design** -- in sections scaled to complexity, confirm it matches the user's intent
+5. **Write design doc** -- save to `docs/plans/YYYY-MM-DD-<topic>-design.md` when the design is substantial
 6. **Transition to implementation** -- load the writing-plans skill
 
 ## The Process
@@ -42,15 +48,15 @@ Complete these in order:
 **Presenting the design:**
 - Present the design in sections, scaled to complexity
 - A few sentences if straightforward, up to 200-300 words if nuanced
-- Ask after each section whether it looks right so far
+- Confirm the proposed direction before moving into implementation planning
 - Cover: architecture, components, data flow, error handling, testing
 - Be ready to go back and clarify
 
 ## After the Design
 
 **Documentation:**
-- Write the validated design to `docs/plans/YYYY-MM-DD-<topic>-design.md`
-- Commit the design document
+- Write the validated design to `docs/plans/YYYY-MM-DD-<topic>-design.md` when useful for future execution
+- Commit the design document only when the user wants the design preserved in git
 
 **Implementation:**
 - Load the writing-plans skill to create a detailed implementation plan
@@ -61,5 +67,5 @@ Complete these in order:
 - **One question at a time** -- don't overwhelm with multiple questions
 - **Multiple choice preferred** -- easier than open-ended when possible
 - **YAGNI ruthlessly** -- remove unnecessary features from all designs
-- **Explore alternatives** -- always propose 2-3 approaches before settling
-- **Incremental validation** -- present design, get approval before moving on
+- **Explore alternatives** -- present alternatives when there is a real decision to make
+- **Scale the process** -- a small task may only need a brief design, a complex task may need a full document

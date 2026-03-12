@@ -1,10 +1,12 @@
 ---
-description: git commit and push
+description: create a focused git commit
 model: opencode/glm-4.6
 subtask: true
 ---
 
-commit and push
+Create a git commit for the current changes.
+
+Do not push unless I explicitly ask for it.
 
 make sure it includes a prefix like
 docs:
@@ -24,5 +26,11 @@ WHAT was done.
 do not do generic messages like "improved agent experience" be very specific
 about what user facing changes were made
 
-if there are changes do a git pull --rebase
-if there are conflicts DO NOT FIX THEM. notify me and I will fix them
+Before committing:
+- inspect staged and unstaged changes
+- follow the repo's existing commit style when possible
+- do not include unrelated files
+
+If there are no relevant changes, do not create an empty commit.
+
+If a push is explicitly requested and a pull/rebase is needed, do not resolve conflicts yourself. Notify me instead.
