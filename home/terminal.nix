@@ -23,6 +23,10 @@
       if [[ -r /run/secrets/context7_api_key ]]; then
         export CONTEXT7_API_KEY="$(< /run/secrets/context7_api_key)"
       fi
+
+      if [[ -r /run/secrets/cloudsmith_api_key ]]; then
+        export CLOUDSMITH_API_KEY="$(< /run/secrets/cloudsmith_api_key)"
+      fi
     '';
 
     initContent = ''

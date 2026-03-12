@@ -39,7 +39,7 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    
+
     # Enable AirPlay device discovery
     extraConfig.pipewire."99-raop-discover" = {
       "context.modules" = [
@@ -48,16 +48,16 @@
           args = {
             "raop.discover" = true;
             "raop.filter.duplicates" = true;
-            "raop.discover.ip-version" = 4;  # Force IPv4 only to prevent duplicates
+            "raop.discover.ip-version" = 4; # Force IPv4 only to prevent duplicates
           };
         }
       ];
     };
-    
+
     # RAOP sink latency configuration
     extraConfig.pipewire."98-raop-sink" = {
       "stream.properties" = {
-        "sess.latency.msec" = 256;  # Must be integer multiple of rtp.ptime (~8ms): 256 = 32 × 8
+        "sess.latency.msec" = 256; # Must be integer multiple of rtp.ptime (~8ms): 256 = 32 × 8
       };
     };
   };
@@ -66,9 +66,9 @@
   services.avahi = {
     enable = true;
     nssmdns4 = true;
-    allowInterfaces = [ "br0" ];  # Only use bridge interface for mDNS - prevents duplicates from wlp3s0
+    allowInterfaces = ["br0"]; # Only use bridge interface for mDNS - prevents duplicates from wlp3s0
     publish = {
-      enable = lib.mkForce false;  # Don't advertise this system as AirPlay receiver
+      enable = lib.mkForce false; # Don't advertise this system as AirPlay receiver
       addresses = lib.mkForce false;
       domain = lib.mkForce false;
       hinfo = lib.mkForce false;
@@ -81,10 +81,10 @@
       use-ipv6=no
       ratelimit-interval-usec=1000000
       ratelimit-burst=1000
-      
+
       [wide-area]
       enable-wide-area=no
-      
+
       [publish]
       publish-hinfo=no
       publish-workstation=no
@@ -109,8 +109,8 @@
   # Virtualization for desktop use
   virtualisation.podman = {
     enable = true;
-    dockerSocket.enable = false;  # Disabled - using real Docker instead
-    dockerCompat = false;  # Disabled - using real Docker instead
+    dockerSocket.enable = false; # Disabled - using real Docker instead
+    dockerCompat = false; # Disabled - using real Docker instead
     defaultNetwork.settings.dns_enabled = true;
   };
 
@@ -135,33 +135,34 @@
   };
 
   # Desktop packages
-  environment.systemPackages = with pkgs; [
-    # Desktop applications
-    gnome-tweaks
-    gnome-boxes
-    vlc
-    virt-manager
-    
-    # Development tools for desktop use
-    nix-output-monitor
-    dagger
-    appimage-run
-    yubikey-personalization
-    gcc
-    gnumake
-    just
-    lshw
-    sbctl
-    podman-compose
-    podman-desktop
-    delve
-    go
-  ] ++ (with pkgs.gnomeExtensions; [
-    blur-my-shell
-    luminus-shell-y
-    night-theme-switcher
-    caffeine
-  ]);
+  environment.systemPackages = with pkgs;
+    [
+      # Desktop applications
+      gnome-tweaks
+      gnome-boxes
+      vlc
+      virt-manager
+
+      # Development tools for desktop use
+      nix-output-monitor
+      dagger
+      appimage-run
+      yubikey-personalization
+      gcc
+      gnumake
+      just
+      lshw
+      sbctl
+      podman-compose
+      podman-desktop
+      delve
+      go
+    ]
+    ++ [
+      pkgs.gnomeExtensions."blur-my-shell"
+      pkgs.gnomeExtensions."night-theme-switcher"
+      pkgs.gnomeExtensions.caffeine
+    ];
 
   # Remove unwanted GNOME packages
   environment.gnome.excludePackages = with pkgs; [
