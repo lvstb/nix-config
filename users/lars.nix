@@ -82,5 +82,8 @@
   #   };
   # };
   #
+  # Silence stateVersion migration warnings - adopt new defaults
+  gtk.gtk4.theme = null;
+
   home.stateVersion = "22.11";
 }

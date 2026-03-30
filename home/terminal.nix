@@ -27,6 +27,10 @@
       if [[ -r /run/secrets/cloudsmith_api_key ]]; then
         export CLOUDSMITH_API_KEY="$(< /run/secrets/cloudsmith_api_key)"
       fi
+
+      if [[ -r /run/secrets/api_key_foundry ]]; then
+        export ANTHROPIC_FOUNDRY_API_KEY="$(< /run/secrets/api_key_foundry)"
+      fi
     '';
 
     initContent = ''

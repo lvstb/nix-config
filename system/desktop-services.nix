@@ -114,7 +114,6 @@
     defaultNetwork.settings.dns_enabled = true;
     # Rootful mode required for Dagger
     # https://docs.dagger.io/reference/container-runtimes/podman/
-    dockerSocket.enable = true;
     autoPrune.enable = true;
   };
 

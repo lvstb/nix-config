@@ -39,5 +39,8 @@
 
     # Monitoring
     btop
+
+    # Git worktree workflow
+    worktrunk
   ];
 }

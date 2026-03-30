@@ -24,6 +24,7 @@
 
     # Signing configuration for personal commits
     signing = {
+      format = null;
       key = "~/.ssh/id_personal";
       signByDefault = true;
     };

@@ -65,7 +65,7 @@ in {
     wget
     curl
     htop
-    neofetch
+    fastfetch
     kitty # Terminal emulator
   ];
 

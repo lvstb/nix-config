@@ -21,6 +21,7 @@
   programs.btop.enable = true;
   programs.gh.enable = true;
   programs.yazi.enable = true;
+  programs.yazi.shellWrapperName = "y";
   programs.fd.enable = true;
 
   # direnv configuration moved to development.nix
@@ -28,11 +29,10 @@
   # Development languages and runtimes
   programs.go.enable = true;
 
-  # Services - Nextcloud client disabled (no secrets configured)
-  # services.nextcloud-client = {
-  #   enable = true;
-  #   startInBackground = true;
-  # };
+  services.nextcloud-client = {
+    enable = true;
+    startInBackground = true;
+  };
 
   home.packages = with pkgs; [
     # Core applications
@@ -51,7 +51,8 @@
     code-cursor
     kiro
     opencode
-    inputs.saws.packages.${pkgs.system}.default
+    inputs.saws.packages.${pkgs.stdenv.hostPlatform.system}.default
+
     # Development - Languages (use specific versions)
     python312
     python312Packages.pip
@@ -75,6 +76,7 @@
     marksman
     luajitPackages.luarocks
     jetbrains.idea
+
     # Development - Formatters and linters
     hadolint
     selene

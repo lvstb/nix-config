@@ -31,6 +31,7 @@
   };
 
   staticSettingsJson = builtins.toJSON staticSettings;
+  staticSettingsFile = pkgs.writeText "claude-settings.json" staticSettingsJson;
 
   # Shared skill source directory (reused from OpenCode)
   skillSrc = ./opencode/skills;
@@ -99,18 +100,10 @@ in {
 
   # --- Activation: settings.json + MCP servers ---
   home.activation.claudeCodeSettings = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    FOUNDRY_API_KEY=""
-    if [ -f /run/secrets/api_key_foundry ]; then
-      FOUNDRY_API_KEY=$(cat /run/secrets/api_key_foundry)
-    fi
-
     mkdir -p "${homeDir}/.claude"
 
-    # Generate ~/.claude/settings.json with API key
-    ${pkgs.jq}/bin/jq --arg key "$FOUNDRY_API_KEY" \
-      '.env.ANTHROPIC_FOUNDRY_API_KEY = $key' \
-      <<< '${staticSettingsJson}' \
-      > "${homeDir}/.claude/settings.json"
+    # Generate ~/.claude/settings.json with non-secret settings
+    cp ${staticSettingsFile} "${homeDir}/.claude/settings.json"
 
     # Merge MCP servers into ~/.claude.json (preserves existing state)
     CLAUDE_JSON="${homeDir}/.claude.json"

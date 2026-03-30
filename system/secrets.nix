@@ -51,10 +51,10 @@ in {
           mode = "0400";
         };
 
-        # Cloudsmit API key
-        cloudsmit_api_key = {
+        # Cloudsmith API key
+        cloudsmith_api_key = {
           sopsFile = ../secrets/common.yaml;
-          key = "cloudsmit_api_key";
+          key = "cloudsmith_api_key";
           owner = config.users.users.lars.name;
           group = config.users.users.lars.group;
           mode = "0400";
@@ -64,22 +64,6 @@ in {
         api_key_foundry = {
           sopsFile = ../secrets/common.yaml;
           key = "api_key_foundry";
-          owner = config.users.users.lars.name;
-          group = config.users.users.lars.group;
-          mode = "0400";
-        };
-
-        # Email credentials (top-level format)
-        email_wingu_address = {
-          sopsFile = ../secrets/common.yaml;
-          key = "email_wingu_address";
-          owner = config.users.users.lars.name;
-          group = config.users.users.lars.group;
-          mode = "0400";
-        };
-        email_wingu_password = {
-          sopsFile = ../secrets/common.yaml;
-          key = "email_wingu_password";
           owner = config.users.users.lars.name;
           group = config.users.users.lars.group;
           mode = "0400";

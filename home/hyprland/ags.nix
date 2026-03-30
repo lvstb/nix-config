@@ -4,7 +4,7 @@
   inputs,
   ...
 }: let
-  astal = inputs.astal.packages.${pkgs.system};
+  astal = inputs.astal.packages.${pkgs.stdenv.hostPlatform.system};
 
   # Generate a _colors.scss from Stylix so style.scss can @import "colors"
   colorsScss = ''
@@ -39,6 +39,7 @@ in {
 
   programs.ags = {
     enable = true;
+    systemd.enable = true;
     # Build a single store path with source files + generated colors merged in,
     # so configDir gets one clean directory and relative imports work.
     configDir = let

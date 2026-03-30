@@ -40,6 +40,13 @@
 - If instructions conflict, prefer the stricter safety path (smaller change, less risk, no destructive action).
 - Ask one targeted clarifying question only when the answer materially changes files touched, safety posture, or validation path.
 
+## Secret handling
+- Define secrets in `system/secrets.nix` via `sops.secrets`, not in `home/`, `hosts/`, or committed config files.
+- Consume secrets at runtime from `/run/secrets/<name>` or the declared secret path, not through `builtins.readFile`, `writeText`, `toJSON`, or other Nix store materialization.
+- Use environment-variable export snippets only for runtime injection into tools and shells.
+- Reserve explicit file paths for tools that require a real file on disk, such as SSH keys.
+- Never copy secret values into `home.file`, generated dotfiles, logs, diffs, or command output.
+
 # L3 - Deep Reference
 
 ## Useful commands
