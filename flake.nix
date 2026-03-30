@@ -128,6 +128,7 @@
       ./home/opencode.nix
       ./home/stylix.nix
       ./home/ghostty.nix
+      ./home/claude.nix
     ];
 
     # GNOME desktop environment modules
