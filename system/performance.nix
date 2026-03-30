@@ -34,5 +34,8 @@
   boot.kernelParams = [
     "amd_pstate=active"
     "amd_pstate.shared_mem=1"
+    # Fix for Beelink SER7 AMD Radeon 780M random freezes
+    # Disables problematic Display Core features causing hangs on Phoenix Point APUs
+    "amdgpu.dcdebugmask=0x10"
   ];
 }
