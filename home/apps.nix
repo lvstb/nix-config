@@ -100,7 +100,7 @@
     distrobox
     snyk
     just
-    opencode-desktop
+    cloudsmith-cli
 
     # Office and productivity
     libreoffice-qt6-fresh
