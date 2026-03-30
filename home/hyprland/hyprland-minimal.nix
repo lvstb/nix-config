@@ -34,11 +34,9 @@
 
       # Import modular configurations
       exec-once = [
-        "uwsm app -- ags run ~/.config/ags/app.ts"
+        "ags run ~/.config/ags/app.ts"
         "uwsm app -- hyprpaper"
         "uwsm app -- hypridle"
-        "uwsm app -- dunst"
-        "uwsm app -- nm-applet --indicator"
         "uwsm app -- blueman-applet"
         "uwsm app -- clipse -listen"
         "[workspace 1 silent] uwsm app -- $terminal"
