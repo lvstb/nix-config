@@ -5,7 +5,8 @@
   pkgs,
   ...
 }: let
-  hookInstallPath = "${config.home.homeDirectory}/.config/claude-hooks/auto_commit.py";
+  homeDir = config.home.homeDirectory;
+  hookInstallPath = "${homeDir}/.config/claude-hooks/auto_commit.py";
 
   staticSettings = {
     hooks = {
@@ -30,24 +31,95 @@
   };
 
   staticSettingsJson = builtins.toJSON staticSettings;
-in {
-  # Install the hook script
-  home.file.".config/claude-hooks/auto_commit.py" = {
-    source = ./claude/auto_commit.py;
-    executable = true;
+
+  # Shared skill source directory (reused from OpenCode)
+  skillSrc = ./opencode/skills;
+
+  # Skills to deploy (all except auto-commit, which is handled by the TaskCompleted hook)
+  skills = [
+    "brainstorming"
+    "code-review"
+    "executing-plans"
+    "git-workflow"
+    "karpathy-guidelines"
+    "receiving-code-review"
+    "systematic-debugging"
+    "tdd"
+    "verification"
+    "writing-plans"
+  ];
+
+  # Generate home.file entries for each skill's SKILL.md
+  skillFiles = builtins.listToAttrs (map (name: {
+      name = ".claude/skills/${name}/SKILL.md";
+      value = {source = "${skillSrc}/${name}/SKILL.md";};
+    })
+    skills);
+
+  # Supporting files for skills that have them
+  skillSupportFiles = {
+    ".claude/skills/systematic-debugging/root-cause-tracing.md".source = "${skillSrc}/systematic-debugging/root-cause-tracing.md";
+    ".claude/skills/systematic-debugging/defense-in-depth.md".source = "${skillSrc}/systematic-debugging/defense-in-depth.md";
+    ".claude/skills/systematic-debugging/condition-based-waiting.md".source = "${skillSrc}/systematic-debugging/condition-based-waiting.md";
+    ".claude/skills/tdd/testing-anti-patterns.md".source = "${skillSrc}/tdd/testing-anti-patterns.md";
   };
 
-  # Generate ~/.claude/settings.json, injecting the API key from sops at activation time
+  # MCP server definitions for injection into ~/.claude.json
+  mcpServers = {
+    context7 = {
+      type = "url";
+      url = "https://mcp.context7.com/mcp";
+    };
+    exa = {
+      type = "url";
+      url = "https://mcp.exa.ai/mcp";
+    };
+  };
+
+  mcpServersJson = builtins.toJSON mcpServers;
+in {
+  home.file =
+    {
+      # --- Hook script ---
+      ".config/claude-hooks/auto_commit.py" = {
+        source = ./claude/auto_commit.py;
+        executable = true;
+      };
+
+      # --- Global user instructions ---
+      ".claude/CLAUDE.md".source = ./claude/CLAUDE.md;
+
+      # --- Custom subagents ---
+      ".claude/agents/documentation.md".source = ./claude/agents/documentation.md;
+      ".claude/agents/security.md".source = ./claude/agents/security.md;
+      ".claude/agents/typescript.md".source = ./claude/agents/typescript.md;
+    }
+    // skillFiles
+    // skillSupportFiles;
+
+  # --- Activation: settings.json + MCP servers ---
   home.activation.claudeCodeSettings = lib.hm.dag.entryAfter ["writeBoundary"] ''
     FOUNDRY_API_KEY=""
     if [ -f /run/secrets/api_key_foundry ]; then
       FOUNDRY_API_KEY=$(cat /run/secrets/api_key_foundry)
     fi
 
-    mkdir -p "${config.home.homeDirectory}/.claude"
+    mkdir -p "${homeDir}/.claude"
+
+    # Generate ~/.claude/settings.json with API key
     ${pkgs.jq}/bin/jq --arg key "$FOUNDRY_API_KEY" \
       '.env.ANTHROPIC_FOUNDRY_API_KEY = $key' \
       <<< '${staticSettingsJson}' \
-      > "${config.home.homeDirectory}/.claude/settings.json"
+      > "${homeDir}/.claude/settings.json"
+
+    # Merge MCP servers into ~/.claude.json (preserves existing state)
+    CLAUDE_JSON="${homeDir}/.claude.json"
+    if [ ! -f "$CLAUDE_JSON" ]; then
+      echo '{}' > "$CLAUDE_JSON"
+    fi
+    ${pkgs.jq}/bin/jq --argjson mcp '${mcpServersJson}' \
+      '.mcpServers = ((.mcpServers // {}) * $mcp)' \
+      "$CLAUDE_JSON" > "''${CLAUDE_JSON}.tmp" \
+      && mv "''${CLAUDE_JSON}.tmp" "$CLAUDE_JSON"
   '';
 }
