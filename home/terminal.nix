@@ -38,8 +38,6 @@
       export COLUMNS=$(tput cols 2>/dev/null || echo 80)
       # Shell integrations
       eval "$(wt config shell init zsh)"
-      eval "$(zoxide init --cmd cd zsh)"
-      eval "$(fzf --zsh)"
       #extra opts
       zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
       saws() {

@@ -15,7 +15,11 @@
   programs.ripgrep.enable = true;
   programs.bat.enable = true;
   programs.fzf.enable = true;
-  programs.zoxide.enable = true;
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+    options = ["--cmd" "cd"];
+  };
   programs.jq.enable = true;
   programs.eza.enable = true;
   programs.btop.enable = true;
