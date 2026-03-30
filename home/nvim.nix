@@ -94,6 +94,4 @@ in {
     source = inputs.nvim-config;
     recursive = true;
   };
-
 }
-

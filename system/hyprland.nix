@@ -19,7 +19,7 @@
       enable = true;
       wayland.enable = true;
       theme = "sddm-astronaut-theme";
-      extraPackages = [ pkgs.sddm-astronaut ];
+      extraPackages = [pkgs.sddm-astronaut];
     };
     defaultSession = lib.mkForce "hyprland-uwsm";
   };
@@ -56,7 +56,7 @@
 
   # Security for Hyprland
   security.pam.services.hyprlock.enableKwallet = true;
-  
+
   # KWallet for credential management
   security.pam.services.sddm.enableKwallet = true;
 
@@ -86,4 +86,3 @@
   # Power profiles daemon for better power management
   services.power-profiles-daemon.enable = true;
 }
-

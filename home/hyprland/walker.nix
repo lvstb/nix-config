@@ -23,16 +23,33 @@
     config.providers.default = ["desktopapplications" "calc" "websearch"];
     config.providers.empty = ["desktopapplications"];
     config.providers.prefixes = [
-      { prefix = "!";    provider = "runner"; }
-      { prefix = "~";    provider = "files"; }
-      { prefix = "?";    provider = "websearch"; }
-      { prefix = "clip "; provider = "clipboard"; }
-      { prefix = "win ";  provider = "windows"; }
-      { prefix = "key ";  provider = "menus:hyprland-keybinds"; }
+      {
+        prefix = "!";
+        provider = "runner";
+      }
+      {
+        prefix = "~";
+        provider = "files";
+      }
+      {
+        prefix = "?";
+        provider = "websearch";
+      }
+      {
+        prefix = "clip ";
+        provider = "clipboard";
+      }
+      {
+        prefix = "win ";
+        provider = "windows";
+      }
+      {
+        prefix = "key ";
+        provider = "menus:hyprland-keybinds";
+      }
     ];
 
     themes."stylix" = {
-
       style = ''
         /* ── Color palette (Stylix/Gruvbox-dark) ─────────────────────── */
         @define-color base     #${config.lib.stylix.colors.base00};

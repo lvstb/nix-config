@@ -2,8 +2,8 @@
 # Requires lanzaboote flake input
 # Used by: Framework laptop
 # See: https://github.com/nix-community/lanzaboote/blob/master/docs/QUICK_START.md
-{ lib, ... }: {
-  imports = [ ./boot-base.nix ];
+{lib, ...}: {
+  imports = [./boot-base.nix];
 
   # Bootspec and Secure Boot using lanzaboote
   boot.bootspec.enable = true;

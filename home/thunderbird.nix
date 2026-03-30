@@ -29,7 +29,7 @@
       };
       thunderbird = {
         enable = true;
-        profiles = [ "lars" ];
+        profiles = ["lars"];
       };
     };
   };

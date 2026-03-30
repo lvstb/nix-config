@@ -4,7 +4,12 @@
 #   # useremail,
 #   ...
 # }
-{lib, config, pkgs, ...}: {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}: {
   # `programs.git` will generate the config file: ~/.config/git/config
   # to make git use this config file, `~/.gitconfig` should not exist!
   #
@@ -29,7 +34,7 @@
         name = "Lars Van Steenbergen";
         email = "lars@wingu.dev";
       };
-      
+
       core = {
         editor = "nvim";
         excludesfile = "~/.gitignore_global";
@@ -39,7 +44,7 @@
       push.autoSetupRemote = true;
       pull.rebase = true;
       gpg.format = "ssh";
-      
+
       # aliases for git commands
       alias = {
         # common aliases
@@ -75,7 +80,6 @@
         };
       }
     ];
-
   };
 
   # Delta configuration moved to separate program
@@ -123,7 +127,7 @@
     *.tmp
     *.temp
     *.log
-    
+
     # Build artifacts
     dist/
     build/
@@ -131,4 +135,5 @@
     __pycache__/
     node_modules/
     .cache/
-  '';}
+  '';
+}

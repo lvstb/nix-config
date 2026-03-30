@@ -16,7 +16,7 @@
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-amd" "amdgpu" "gpu-scheduler"];
   boot.extraModulePackages = [];
-  
+
   # Enable all redistributable firmware
   hardware.enableRedistributableFirmware = true;
 

@@ -11,7 +11,7 @@
       with pkgs.vscode-marketplace-release; [
         # Formatters and linters
         # esbenp.prettier-vscode  # Temporarily disabled due to build issue
-        # dbaeumer.vscode-eslint  # Temporarily disabled due to build issue  
+        # dbaeumer.vscode-eslint  # Temporarily disabled due to build issue
         # bradlc.vscode-tailwindcss  # Temporarily disabled due to build issue
 
         # Git integration

@@ -1,6 +1,10 @@
 # System-level user configuration for lars
 # Shared between all hosts
-{ lib, pkgs, ... }: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   users.users.lars = {
     isNormalUser = true;
     initialPassword = "test";

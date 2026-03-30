@@ -11,7 +11,7 @@
       loxone-config = {
         image = "ghcr.io/lian/docker-loxone-config:main";
         extraOptions = [
-          "--network=host"  # Use host network to access local Loxone appliances
+          "--network=host" # Use host network to access local Loxone appliances
         ];
         environment = {
           VNC_PASSWORD = "loxone";
@@ -21,7 +21,7 @@
           DISPLAY_HEIGHT = "1080";
           HOME = "/config/";
           WINEPREFIX = "/config/wine";
-          XLANG = "de";  # Keyboard layout: de=German, us=English, fr=French, etc.
+          XLANG = "de"; # Keyboard layout: de=German, us=English, fr=French, etc.
         };
         volumes = [
           "loxone-config:/config:rw"
@@ -65,7 +65,7 @@
         ${pkgs.xdg-utils}/bin/xdg-open http://localhost:5800
       ''}";
       icon = "applications-internet";
-      categories = [ "Network" "RemoteAccess" ];
+      categories = ["Network" "RemoteAccess"];
     })
   ];
 

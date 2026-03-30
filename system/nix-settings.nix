@@ -1,16 +1,20 @@
 # nix-settings.nix
 # Nix daemon configuration and optimization settings
-{ lib, pkgs, ... }: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   # Nix daemon configuration
   nix.settings = {
     trusted-users = ["lars" "root" "@wheel"];
     auto-optimise-store = true;
     experimental-features = "nix-command flakes";
-    
+
     # Parallel build settings
-    max-jobs = "auto";  # Use all available CPU cores
-    cores = 0;         # Use all available cores per job
-    
+    max-jobs = "auto"; # Use all available CPU cores
+    cores = 0; # Use all available cores per job
+
     # Binary caches for faster builds
     substituters = [
       "https://cache.nixos.org"

@@ -34,7 +34,7 @@
 
       # Import modular configurations
       exec-once = [
-        "ags run ~/.config/ags/app.ts"
+        "uwsm app -- ags run ~/.config/ags/app.ts"
         "uwsm app -- hyprpaper"
         "uwsm app -- hypridle"
         "uwsm app -- blueman-applet"

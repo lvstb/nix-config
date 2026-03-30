@@ -12,7 +12,7 @@ in {
     ./hardware-configuration.nix
     ../../system/boot-standard.nix
     ../../system/core-services.nix
-    ../../system/desktop-services.nix  # Temporarily restored for Bluetooth debugging
+    ../../system/desktop-services.nix # Temporarily restored for Bluetooth debugging
     ../../system/nix-settings.nix
     ../../system/hyprland.nix
     ../../system/secrets.nix
@@ -40,8 +40,6 @@ in {
   };
 
   # Audio and Avahi config inherited from desktop-services.nix
-
-
 
   # Hardware support
   hardware.graphics.enable = true;
@@ -78,4 +76,3 @@ in {
 
   system.stateVersion = "24.11";
 }
-

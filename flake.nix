@@ -132,16 +132,21 @@
     ];
 
     # GNOME desktop environment modules
-    gnomeModules = baseHomeModules ++ [
-      ./home/gnome/gnome.nix
-    ];
+    gnomeModules =
+      baseHomeModules
+      ++ [
+        ./home/gnome/gnome.nix
+      ];
 
     # Hyprland desktop environment modules
-    hyprModules = [
-      ./home/hyprland/hyprland-minimal.nix
-    ] ++ baseHomeModules ++ [
-      ./home/keyring.nix
-    ];
+    hyprModules =
+      [
+        ./home/hyprland/hyprland-minimal.nix
+      ]
+      ++ baseHomeModules
+      ++ [
+        ./home/keyring.nix
+      ];
     # Base OS configs
     osModules = [
       inputs.lanzaboote.nixosModules.lanzaboote

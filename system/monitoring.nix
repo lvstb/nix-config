@@ -1,11 +1,11 @@
 # System monitoring and maintenance
-{ pkgs, ... }: {
+{pkgs, ...}: {
   # System monitoring
   services.prometheus = {
     exporters = {
       node = {
         enable = true;
-        enabledCollectors = [ "systemd" ];
+        enabledCollectors = ["systemd"];
         port = 9100;
       };
     };
@@ -24,7 +24,7 @@
   # This provides additional scheduled optimization
   nix.optimise = {
     automatic = true;
-    dates = [ "weekly" ];
+    dates = ["weekly"];
   };
 
   # System health checks
@@ -36,10 +36,10 @@
         #!${pkgs.bash}/bin/bash
         # Check disk space
         df -h | awk '$5 > 90 {print "Warning: " $1 " is " $5 " full"}'
-        
+
         # Check memory usage
         free -m | awk 'NR==2{printf "Memory Usage: %s/%sMB (%.2f%%)\n", $3,$2,$3*100/$2 }'
-        
+
         # Check failed systemd services
         systemctl --failed --no-legend | head -10
       '';
@@ -47,7 +47,7 @@
   };
 
   systemd.timers.system-health-check = {
-    wantedBy = [ "timers.target" ];
+    wantedBy = ["timers.target"];
     timerConfig = {
       OnCalendar = "daily";
       Persistent = true;

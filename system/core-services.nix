@@ -32,11 +32,11 @@
 
   # System updates and firmware
   services.fwupd.enable = true;
-  
+
   # Essential programs
   programs.nix-ld.enable = true;
   programs.zsh.enable = true;
-  
+
   # Time and locale (common for all hosts)
   time.timeZone = "Europe/Brussels";
   i18n.defaultLocale = "en_US.UTF-8";

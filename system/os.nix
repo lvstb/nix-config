@@ -4,7 +4,7 @@
 # - system/core-services.nix (essential services)
 # - system/desktop-services.nix (desktop environment)
 # - system/nix-settings.nix (Nix daemon settings)
-# 
+#
 # This file can be removed after confirming all configurations work correctly
 {
   lib,

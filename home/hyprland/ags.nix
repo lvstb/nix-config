@@ -43,14 +43,15 @@ in {
     # so configDir gets one clean directory and relative imports work.
     configDir = let
       colorsFile = pkgs.writeText "_colors.scss" colorsScss;
-    in pkgs.runCommand "ags-config" {} ''
-      mkdir -p $out/bar
-      cp ${./ags/app.ts}          $out/app.ts
-      cp ${./ags/style.scss}      $out/style.scss
-      cp ${./ags/tsconfig.json}   $out/tsconfig.json
-      cp ${colorsFile}            $out/_colors.scss
-      cp ${./ags/bar/Bar.tsx}     $out/bar/Bar.tsx
-    '';
+    in
+      pkgs.runCommand "ags-config" {} ''
+        mkdir -p $out/bar
+        cp ${./ags/app.ts}          $out/app.ts
+        cp ${./ags/style.scss}      $out/style.scss
+        cp ${./ags/tsconfig.json}   $out/tsconfig.json
+        cp ${colorsFile}            $out/_colors.scss
+        cp ${./ags/bar/Bar.tsx}     $out/bar/Bar.tsx
+      '';
     extraPackages = [
       astal.astal3
       astal.io

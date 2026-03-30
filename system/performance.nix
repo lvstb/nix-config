@@ -1,5 +1,9 @@
 # Performance optimizations
-{ lib, pkgs, ... }: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   # Kernel optimizations
   boot.kernel.sysctl = {
     # Network performance
@@ -7,12 +11,12 @@
     "net.core.wmem_max" = 134217728;
     "net.ipv4.tcp_rmem" = "4096 87380 134217728";
     "net.ipv4.tcp_wmem" = "4096 65536 134217728";
-    
+
     # Memory management
     "vm.swappiness" = 10;
     "vm.dirty_ratio" = 15;
     "vm.dirty_background_ratio" = 5;
-    
+
     # File system performance
     "fs.file-max" = 2097152;
   };

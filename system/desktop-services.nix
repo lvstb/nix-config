@@ -117,9 +117,9 @@
     dockerSocket.enable = true;
     autoPrune.enable = true;
   };
-  
+
   # Enable Podman socket for rootful access
-  systemd.sockets.podman.wantedBy = [ "sockets.target" ];
+  systemd.sockets.podman.wantedBy = ["sockets.target"];
 
   # Docker disabled - using Podman with Docker compatibility instead
   virtualisation.docker = {
