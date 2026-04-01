@@ -43,6 +43,7 @@ in {
 
   # Hardware support
   hardware.graphics.enable = true;
+  boot.plymouth.enable = lib.mkForce false;
 
   # SSH daemon
   services.openssh = {

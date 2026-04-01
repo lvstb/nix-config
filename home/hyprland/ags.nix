@@ -65,6 +65,8 @@ in {
     ];
   };
 
+  systemd.user.services.ags.Service.ExecStartPre = "${pkgs.bash}/bin/bash -lc 'for i in {1..50}; do ${pkgs.hyprland}/bin/hyprctl -j monitors >/dev/null 2>&1 && exit 0; sleep 0.2; done; exit 1'";
+
   # Packages needed at runtime by the bar
   home.packages = with pkgs; [
     blueman

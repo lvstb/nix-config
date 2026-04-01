@@ -99,6 +99,7 @@
     overlays = [
       (_: _: {fw-ectool = inputs.fw-ectool.packages.${system}.ectool;})
       (final: prev: {dagger = inputs.dagger.packages.${system}.dagger;})
+      (final: prev: {saws = inputs.saws.packages.${system}.default;})
       (final: prev: import ./pkgs prev)
       (final: prev: {
         vscode-marketplace = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
@@ -231,6 +232,7 @@
     packages.${system} =
       {
         dagger = inputs.dagger.packages.${system}.dagger;
+        saws = inputs.saws.packages.${system}.default;
       }
       // (import ./pkgs pkgs);
   };
