@@ -40,6 +40,10 @@
 - If instructions conflict, prefer the stricter safety path (smaller change, less risk, no destructive action).
 - Ask one targeted clarifying question only when the answer materially changes files touched, safety posture, or validation path.
 
+## Flake package wiring
+- When adding a package from a flake input for regular use in `home.packages` or `environment.systemPackages`, expose it through `flake.nix` overlays first and consume it as `pkgs.<name>` in modules instead of referencing `inputs.<name>.packages...` directly at the use site.
+- If useful for direct builds, also expose the package under `packages.${system}` in `flake.nix`, but keep module package lists using `pkgs.<name>`.
+
 ## Secret handling
 - Define secrets in `system/secrets.nix` via `sops.secrets`, not in `home/`, `hosts/`, or committed config files.
 - Consume secrets at runtime from `/run/secrets/<name>` or the declared secret path, not through `builtins.readFile`, `writeText`, `toJSON`, or other Nix store materialization.

@@ -36,6 +36,27 @@
   # Shared skill source directory (reused from OpenCode)
   skillSrc = ./opencode/skills;
 
+  agentSrc = ./claude/agents;
+
+  agentFiles =
+    if builtins.pathExists agentSrc
+    then
+      builtins.listToAttrs (
+        map (name: {
+          name = ".claude/agents/${name}";
+          value = {source = "${agentSrc}/${name}";};
+        }) (
+          builtins.attrNames (
+            lib.filterAttrs (name: type:
+              type
+              == "regular"
+              && lib.hasSuffix ".md" name)
+            (builtins.readDir agentSrc)
+          )
+        )
+      )
+    else {};
+
   # Skills to deploy (all except auto-commit, which is handled by the TaskCompleted hook)
   skills = [
     "brainstorming"
@@ -89,12 +110,8 @@ in {
 
       # --- Global user instructions ---
       ".claude/CLAUDE.md".source = ./claude/CLAUDE.md;
-
-      # --- Custom subagents ---
-      ".claude/agents/documentation.md".source = ./claude/agents/documentation.md;
-      ".claude/agents/security.md".source = ./claude/agents/security.md;
-      ".claude/agents/typescript.md".source = ./claude/agents/typescript.md;
     }
+    // agentFiles
     // skillFiles
     // skillSupportFiles;
 
