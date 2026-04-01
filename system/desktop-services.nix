@@ -4,7 +4,28 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  bluetoothManualProfileConfig = pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/51-bluetooth-manual-profile.conf" ''
+    wireplumber.settings = {
+      bluetooth.autoswitch-to-headset-profile = false
+    }
+
+    monitor.bluez.rules = [
+      {
+        matches = [
+          {
+            device.name = "~bluez_card.*"
+          }
+        ]
+        actions = {
+          update-props = {
+            device.profile = "a2dp-sink"
+          }
+        }
+      }
+    ]
+  '';
+in {
   # X11 and display management
   services.xserver = {
     enable = true;
@@ -39,6 +60,10 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    wireplumber = {
+      enable = true;
+      configPackages = [bluetoothManualProfileConfig];
+    };
 
     # Enable AirPlay device discovery
     extraConfig.pipewire."99-raop-discover" = {

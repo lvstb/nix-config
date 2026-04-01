@@ -17,6 +17,9 @@
       vim = "nvim";
       rg = "rg --smart-case";
       du = "ncdu --color dark -rr -x --exclude .git";
+      bt-audio = "bt-audio-profile status";
+      bt-hifi = "bt-audio-profile a2dp";
+      bt-meet = "bt-audio-profile headset";
     };
 
     envExtra = ''
