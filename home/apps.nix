@@ -429,6 +429,7 @@ in {
     cargo
     gcc
     pre-commit
+    uv
 
     # Development - Language servers (for nvim)
     gopls

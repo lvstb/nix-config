@@ -2,6 +2,7 @@
   stylix = {
     autoEnable = true;
     enable = true;
+    targets.opencode.enable = false;
     targets.starship.enable = false;
     base16Scheme = {
       base00 = "#1d2021"; # base - main background

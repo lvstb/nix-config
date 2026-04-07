@@ -7,14 +7,18 @@
   programs.opencode = {
     enable = true;
 
+    tui = {
+      theme = lib.mkForce "system";
+      scroll_acceleration = {
+        enabled = true;
+      };
+    };
+
     # The opencode package to use (default: pkgs.opencode)w
     # package = pkgs.opencode;
 
     # Configuration written to $XDG_CONFIG_HOME/opencode/config.json
     settings = {
-      # Theme
-      theme = lib.mkForce "system";
-
       # Model configuration
       model = "copilot/claude-sonnet-4-6";
 
@@ -38,13 +42,6 @@
           enabled = true;
         };
       };
-      # TUI settings
-      tui = {
-        scroll_acceleration = {
-          enabled = true;
-        };
-      };
-
       permission = {
         bash = {
           "*" = "ask";

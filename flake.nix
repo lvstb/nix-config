@@ -105,6 +105,25 @@
         vscode-marketplace = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
         vscode-marketplace-release = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace-release;
       })
+      # claude-code 2.1.88 was yanked from npm; pin to 2.1.91 until nixpkgs catches up
+      (final: prev: {
+        claude-code = prev.claude-code.overrideAttrs (old: let
+          version = "2.1.91";
+          src = prev.fetchzip {
+            url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${version}.tgz";
+            hash = "sha256-u7jdM6hTYN05ZLPz630Yj7gI0PeCSArg4O6ItQRAMy4=";
+          };
+          npmDepsHash = "sha256-5LvH7fG5pti2SiXHQqgRxfFpxaXxzrmGxIoPR4dGE+8=";
+        in {
+          inherit version src npmDepsHash;
+          npmDeps = prev.fetchNpmDeps {
+            inherit src npmDepsHash;
+            name = "claude-code-${version}-npm-deps";
+            hash = npmDepsHash;
+            postPatch = old.postPatch;
+          };
+        });
+      })
       inputs.nur.overlays.default
     ];
 

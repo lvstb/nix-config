@@ -12,12 +12,54 @@
         src = pkgs.fishPlugins."fzf-fish".src;
       }
     ];
+    shellAliases = {
+      lsd = "eza -lhaa --icons";
+      ping = "prettyping --nolegend";
+      vim = "nvim";
+      rg = "rg --smart-case";
+      du = "ncdu --color dark -rr -x --exclude .git";
+    };
+    functions.saws = {
+      wraps = "saws";
+      body = ''
+        set -l saws_bin (command which saws)
+
+        switch "$argv[1]"
+          case init --version --configure configure
+            env SAWS_WRAPPER=1 "$saws_bin" $argv
+            return $status
+        end
+
+        set -l export_output (env SAWS_WRAPPER=1 "$saws_bin" --export $argv)
+        set -l exit_code $status
+
+        if test $exit_code -eq 0
+          eval $export_output
+        else
+          env SAWS_WRAPPER=1 "$saws_bin" $argv
+        end
+      '';
+    };
     interactiveShellInit = ''
+      wt config shell init fish | source
+
       fzf_configure_bindings --directory=ctrl-t
 
       set -g fzf_fd_opts --hidden --exclude .git
       set -g fzf_preview_dir_cmd eza --all --color=always
       set -g fzf_diff_highlighter delta --paging=never --width=20
+
+      if test -r /run/secrets/context7_api_key
+        set -gx CONTEXT7_API_KEY (cat /run/secrets/context7_api_key)
+      end
+
+      if test -r /run/secrets/cloudsmith_api_key
+        set -gx CLOUDSMITH_API_KEY (cat /run/secrets/cloudsmith_api_key)
+      end
+
+      if test -r /run/secrets/api_key_foundry
+        set -gx ANTHROPIC_FOUNDRY_API_KEY (cat /run/secrets/api_key_foundry)
+      end
     '';
   };
 
@@ -191,7 +233,7 @@
   # Tmux configuration
   programs.tmux = {
     enable = true;
-    shell = "${pkgs.zsh}/bin/zsh";
+    shell = "${pkgs.fish}/bin/fish";
     terminal = "tmux-256color";
     historyLimit = 100000;
     plugins = with pkgs; [
