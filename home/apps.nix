@@ -369,9 +369,13 @@ in {
   programs.home-manager.enable = true;
   programs.ripgrep.enable = true;
   programs.bat.enable = true;
-  programs.fzf.enable = true;
+  programs.fzf = {
+    enable = true;
+    enableFishIntegration = true;
+  };
   programs.zoxide = {
     enable = true;
+    enableFishIntegration = true;
     enableZshIntegration = true;
     options = ["--cmd" "cd"];
   };

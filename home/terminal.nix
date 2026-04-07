@@ -4,6 +4,23 @@
   pkgs,
   ...
 }: {
+  programs.fish = {
+    enable = true;
+    plugins = [
+      {
+        name = "fzf.fish";
+        src = pkgs.fishPlugins."fzf-fish".src;
+      }
+    ];
+    interactiveShellInit = ''
+      fzf_configure_bindings --directory=ctrl-t
+
+      set -g fzf_fd_opts --hidden --exclude .git
+      set -g fzf_preview_dir_cmd eza --all --color=always
+      set -g fzf_diff_highlighter delta --paging=never --width=20
+    '';
+  };
+
   # Zsh configuration
   programs.zsh = {
     enable = true;
@@ -80,6 +97,7 @@
   # Starship prompt - restored from previous config
   programs.starship = {
     enable = true;
+    enableFishIntegration = true;
     enableZshIntegration = true;
     settings = {
       # Timeout for commands executed by starship (ms)

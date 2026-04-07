@@ -34,6 +34,7 @@
   services.fwupd.enable = true;
 
   # Essential programs
+  programs.fish.enable = true;
   programs.nix-ld.enable = true;
   programs.zsh.enable = true;
 
