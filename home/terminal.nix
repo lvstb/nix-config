@@ -6,6 +6,9 @@
 }: {
   programs.fish = {
     enable = true;
+    shellInit = ''
+      set -g fish_greeting
+    '';
     plugins = [
       {
         name = "fzf.fish";
