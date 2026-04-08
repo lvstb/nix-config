@@ -249,10 +249,17 @@
           candidates = [
               node
               for node in section_nodes("Sources", device_id)
-              if node["props"].get("media.class", "").startswith("Audio/Source")
+              if node["props"].get("media.class") == "Audio/Source"
               and node["props"].get("api.bluez5.profile")
               and node["props"].get("bluez5.loopback") != "true"
           ]
+          if not candidates:
+              candidates = [
+                  node
+                  for node in section_nodes("Filters", device_id)
+                  if node["props"].get("media.class") == "Audio/Source"
+                  and node["props"].get("node.name", "").startswith("bluez_input.")
+              ]
           return max(candidates, key=node_priority) if candidates else None
 
       def fallback_source_node(excluded_device_id):
@@ -300,7 +307,7 @@
           return sink, source
 
       def current_profile(device_id):
-          for node in section_nodes("Sinks", device_id) + section_nodes("Sources", device_id):
+          for node in section_nodes("Sinks", device_id) + section_nodes("Sources", device_id) + section_nodes("Filters", device_id):
               profile = node["props"].get("api.bluez5.profile")
               if profile:
                   return profile
@@ -411,8 +418,8 @@ in {
     python312Packages.pip
     python312Packages.pipx
     nodejs_24
-    nodePackages.pnpm
-    nodePackages.yarn
+    pnpm
+    yarn
     bun
     rustc
     cargo

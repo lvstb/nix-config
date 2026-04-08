@@ -29,7 +29,7 @@
       "$fileManager" = lib.mkDefault "nautilus --new-window";
       "$browser" = lib.mkDefault "helium";
       "$music" = lib.mkDefault "spotify";
-      "$passwordManager" = lib.mkDefault "1password";
+      "$passwordManager" = lib.mkDefault "bitwarden-desktop";
       "$messenger" = lib.mkDefault "signal-desktop";
 
       # Import modular configurations
