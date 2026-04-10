@@ -416,6 +416,7 @@ in {
     kiro
     opencode
     saws
+    github-copilot-cli
 
     # Development - Languages (use specific versions)
     python312
@@ -473,6 +474,7 @@ in {
     # Office and productivity
     libreoffice-qt6-fresh
     bitwarden-desktop
+    eid-mw
 
     # Audio and video
     spotify

@@ -54,6 +54,9 @@ in {
     };
   };
 
+  # Smart card support for the Belgian eID middleware and USB readers.
+  services.pcscd.enable = true;
+
   # Disable audit service for this desktop system
   security.audit.enable = lib.mkForce false;
 

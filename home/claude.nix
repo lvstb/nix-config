@@ -89,12 +89,16 @@
   # MCP server definitions for injection into ~/.claude.json
   mcpServers = {
     context7 = {
-      type = "url";
+      type = "http";
       url = "https://mcp.context7.com/mcp";
     };
     exa = {
-      type = "url";
+      type = "http";
       url = "https://mcp.exa.ai/mcp";
+    };
+    figma = {
+      type = "http";
+      url = "https://mcp.figma.com/mcp";
     };
   };
 
