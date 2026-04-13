@@ -60,6 +60,24 @@ in {
           mode = "0400";
         };
 
+        # Jira Data Center Personal Access Token
+        jira_pat = {
+          sopsFile = ../secrets/common.yaml;
+          key = "jira_pat";
+          owner = config.users.users.lars.name;
+          group = config.users.users.lars.group;
+          mode = "0400";
+        };
+
+        # Confluence Data Center Personal Access Token
+        confluence_pat = {
+          sopsFile = ../secrets/common.yaml;
+          key = "confluence_pat";
+          owner = config.users.users.lars.name;
+          group = config.users.users.lars.group;
+          mode = "0400";
+        };
+
         # Azure Foundry API key for Claude Code (ChatDPG)
         api_key_foundry = {
           sopsFile = ../secrets/common.yaml;

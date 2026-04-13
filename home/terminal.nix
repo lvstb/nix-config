@@ -7,8 +7,9 @@
   programs.fish = {
     enable = true;
     shellInit = ''
-      set -g fish_greeting
+      set -g fish_greeting ""
     '';
+    functions.fish_greeting = "";
     plugins = [
       {
         name = "fzf.fish";
@@ -62,6 +63,14 @@
 
       if test -r /run/secrets/api_key_foundry
         set -gx ANTHROPIC_FOUNDRY_API_KEY (cat /run/secrets/api_key_foundry)
+      end
+
+      if test -r /run/secrets/jira_pat
+        set -gx JIRA_PERSONAL_TOKEN (cat /run/secrets/jira_pat)
+      end
+
+      if test -r /run/secrets/confluence_pat
+        set -gx CONFLUENCE_PERSONAL_TOKEN (cat /run/secrets/confluence_pat)
       end
     '';
   };
