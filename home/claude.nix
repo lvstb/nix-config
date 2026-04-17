@@ -62,7 +62,6 @@
     "brainstorming"
     "code-review"
     "executing-plans"
-    "git-workflow"
     "karpathy-guidelines"
     "receiving-code-review"
     "systematic-debugging"
