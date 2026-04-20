@@ -65,7 +65,7 @@
 
     # Custom instructions written to $XDG_CONFIG_HOME/opencode/AGENTS.md
     # Can be inline string or path to file
-    rules = ''
+    context = ''
       # Agent Guidelines (Karpathy-Inspired)
 
       ## 1. Think Before Coding

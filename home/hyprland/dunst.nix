@@ -44,7 +44,7 @@
         font = lib.mkForce "Inter 11";
         line_height = 0;
         markup = "full";
-        format = "<b>%s</b>\\n%b";
+        format = "<b>%s</b> [x]\\n%b";
         alignment = "left";
         vertical_alignment = "center";
         show_age_threshold = 60;
@@ -78,8 +78,8 @@
         force_xinerama = false;
 
         # Mouse
-        mouse_left_click = "do_action, close_current";
-        mouse_middle_click = "close_current";
+        mouse_left_click = "close_current";
+        mouse_middle_click = "do_action, close_current";
         mouse_right_click = "close_all";
       };
 

@@ -408,6 +408,7 @@ in {
     discord
     wasistlos
     slack
+    nextcloud-client
 
     # Text editors and IDEs
     obsidian
