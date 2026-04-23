@@ -52,6 +52,7 @@
       set -g fzf_fd_opts --hidden --exclude .git
       set -g fzf_preview_dir_cmd eza --all --color=always
       set -g fzf_diff_highlighter delta --paging=never --width=20
+      set -g fish_color_param normal
 
       if test -r /run/secrets/context7_api_key
         set -gx CONTEXT7_API_KEY (cat /run/secrets/context7_api_key)

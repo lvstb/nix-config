@@ -41,6 +41,11 @@ in {
 
   # Audio and Avahi config inherited from desktop-services.nix
 
+  # Keep login secrets unlocked in Hyprland sessions (e.g. Nextcloud credentials).
+  services.gnome.gnome-keyring.enable = lib.mkOverride 40 true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
+  security.pam.services.hyprlock.enableGnomeKeyring = true;
+
   # Hardware support
   hardware.graphics.enable = true;
   boot.plymouth.enable = lib.mkForce false;
@@ -59,6 +64,13 @@ in {
 
   # Disable audit service for this desktop system
   security.audit.enable = lib.mkForce false;
+
+  # Disable onboard Intel Bluetooth (8087:0029) and use only USB adapter (0B05:190E)
+  # The onboard Bluetooth is unreliable, so we disable it via udev rule
+  services.udev.extraRules = ''
+    # Disable Intel onboard Bluetooth (vendor 8087, product 0029)
+    SUBSYSTEM=="usb", ATTR{idVendor}=="8087", ATTR{idProduct}=="0029", ATTR{authorized}="0"
+  '';
 
   # Beelink-specific user groups
   users.users.lars.extraGroups = ["networkmanager" "wheel" "audio" "video" "input" "libvirtd" "podman"];
