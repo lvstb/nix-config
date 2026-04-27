@@ -19,7 +19,7 @@
       window-save-state = "never";
 
       # Transparency
-      background-opacity = 0.95;
+      background-opacity = 1.0;
       background-blur-radius = 20;
 
       # Use FiraCode Nerd Font (matching dotfiles config)

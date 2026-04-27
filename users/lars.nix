@@ -15,7 +15,6 @@
     ../home/firefox.nix
     ../home/thunderbird.nix
     ../home/nvim.nix
-    ../home/development.nix
     ../home/ghostty.nix
   ];
 

@@ -120,6 +120,8 @@ EOF
       core.editor = "nvim";
       core.excludesfile = "~/.gitignore_global";
       core.sshCommand = "ssh -i ~/.ssh/id_ed25519_personal";
+      interactive.diffFilter = "delta --color-only";
+      pager.diff = "diffnav";
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
       pull.rebase = true;
@@ -129,13 +131,6 @@ EOF
     signing = {
       key = config.sops.secrets.personal_ssh_private_key.path;
       signByDefault = true;
-    };
-
-    delta = {
-      enable = true;
-      options = {
-        features = "side-by-side";
-      };
     };
 
     aliases = {
@@ -155,6 +150,14 @@ EOF
       foreach = "submodule foreach";
     };
     };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = false;
+    options = {
+      features = "side-by-side";
+    };
+  };
 
   home.activation.createDPGDir = lib.hm.dag.entryBefore ["writeBoundary"] ''mkdir -p $HOME/DPG'';
 

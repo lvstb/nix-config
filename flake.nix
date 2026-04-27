@@ -125,7 +125,6 @@
       ./home/firefox.nix
       ./home/thunderbird.nix
       ./home/nvim.nix
-      ./home/development.nix
       ./home/opencode.nix
       ./home/stylix.nix
       ./home/ghostty.nix

@@ -41,6 +41,8 @@
         excludesfile = "~/.gitignore_global";
         sshCommand = "ssh -i ~/.ssh/id_personal";
       };
+      interactive.diffFilter = "delta --color-only";
+      pager.diff = "diffnav";
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
       pull.rebase = true;
@@ -86,7 +88,7 @@
   # Delta configuration moved to separate program
   programs.delta = {
     enable = true;
-    enableGitIntegration = true;
+    enableGitIntegration = false;
     options = {
       features = "side-by-side";
     };

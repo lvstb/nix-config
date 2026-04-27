@@ -24,7 +24,7 @@
     };
     image = ./../config/assets/wall.png;
     polarity = "dark";
-    opacity.terminal = 0.9;
+    opacity.terminal = 1.0;
     cursor.package = pkgs.bibata-cursors;
     cursor.name = "Bibata-Modern-Ice";
     cursor.size = 14;
