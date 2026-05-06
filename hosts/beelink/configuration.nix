@@ -65,6 +65,15 @@ in {
   # Disable audit service for this desktop system
   security.audit.enable = lib.mkForce false;
 
+  # Disable AppArmor as a workaround for NixOS/nixpkgs#511465.
+  # Re-enable after updating nixpkgs past the fix.
+  security.apparmor.enable = lib.mkForce false;
+
+  # Disable fwupd on beelink — generic mini PC does not need LVFS firmware
+  # updates, and a stale fwupd daemon from a previous generation causes
+  # version-mismatch failures during nixos-rebuild switch.
+  services.fwupd.enable = lib.mkForce false;
+
   # Disable onboard Intel Bluetooth (8087:0029) and use only USB adapter (0B05:190E)
   # The onboard Bluetooth is unreliable, so we disable it via udev rule
   services.udev.extraRules = ''
