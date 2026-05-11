@@ -8,11 +8,11 @@ update:
     
 # Format nix files
 fmt:
-  nix fmt
+  nix fmt .
 
 # Deploy system configuration
 deploy hostname:
-	NIXPKGS_ALLOW_UNFREE=1 sudo -E nixos-rebuild switch --flake .#{{hostname}} --impure
+	NIXPKGS_ALLOW_UNFREE=1 nh os switch .#{{hostname}} --impure --diff always
 
 # Deploy user configuration (auto-detect by hostname)
 user username="lars":
@@ -22,24 +22,24 @@ user username="lars":
     case "$host" in
         beelink)
             echo "Host: $host → using {{username}}-hyprland config"
-            NIXPKGS_ALLOW_UNFREE=1 home-manager switch --flake .#{{username}}-hyprland --impure
+            NIXPKGS_ALLOW_UNFREE=1 nh home switch . -c {{username}}-hyprland --impure --diff always
             ;;
         framework)
             echo "Host: $host → using {{username}} (GNOME) config"
-            NIXPKGS_ALLOW_UNFREE=1 home-manager switch --flake .#{{username}} --impure
+            NIXPKGS_ALLOW_UNFREE=1 nh home switch . -c {{username}} --impure --diff always
             ;;
         *)
             echo "Unknown host: $host - defaulting to {{username}} config"
-            NIXPKGS_ALLOW_UNFREE=1 home-manager switch --flake .#{{username}} --impure
+            NIXPKGS_ALLOW_UNFREE=1 nh home switch . -c {{username}} --impure --diff always
             ;;
     esac
 
 # Deploy specific user configuration (explicit)
 user-gnome username="lars":
-    NIXPKGS_ALLOW_UNFREE=1 home-manager switch --flake .#{{username}} --impure
+    NIXPKGS_ALLOW_UNFREE=1 nh home switch . -c {{username}} --impure --diff always
 
 user-hyprland username="lars":
-    NIXPKGS_ALLOW_UNFREE=1 home-manager switch --flake .#{{username}}-hyprland --impure
+    NIXPKGS_ALLOW_UNFREE=1 nh home switch . -c {{username}}-hyprland --impure --diff always
 
 # Clean old generations (7+ days)
 clean:

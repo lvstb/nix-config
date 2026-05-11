@@ -182,6 +182,7 @@ in {
       gcc
       gnumake
       just
+      nh
       lshw
       sbctl
       podman-compose

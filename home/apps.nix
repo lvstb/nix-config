@@ -562,18 +562,21 @@ in {
     # Communication apps
     telegram-desktop
     discord
-    wasistlos
+    karere
     slack
     nextcloud-client
 
     # Text editors and IDEs
     obsidian
     claude-code
+    codex
     code-cursor
     kiro
     opencode
     saws
     github-copilot-cli
+    tree-sitter
+    zed-editor
 
     # Development - Languages (use specific versions)
     python312
@@ -632,7 +635,6 @@ in {
     lazydocker
     devenv
     nmap
-    wireshark
     postgresql
     redis
     nosql-workbench

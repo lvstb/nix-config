@@ -18,6 +18,12 @@ in {
   ];
 
   specialisation = {
+    cosmic.configuration = {
+      imports = [
+        ./../../system/cosmic.nix
+      ];
+    };
+
     hyprland.configuration = {
       imports = [
         ./../../system/hyprland.nix
