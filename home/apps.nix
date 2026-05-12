@@ -510,7 +510,7 @@ in {
           {
             key = "C";
             name = "code review";
-            command = "tmux new-window -n \"PR-{{.PrNumber}}\" 'wt switch pr:{{.PrNumber}} -x \"opencode --command review `review-pr-for-this-branch`\"'";
+            command = "tmux new-window -n \"PR-{{.PrNumber}}\" 'wt switch pr:{{.PrNumber}} -x \"opencode --prompt \\\"/review pr {{.PrNumber}}\\\"\"'";
           }
         ];
       };
