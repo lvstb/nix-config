@@ -19,9 +19,6 @@
 
     # Configuration written to $XDG_CONFIG_HOME/opencode/config.json
     settings = {
-      # Model configuration
-      model = "copilot/claude-sonnet-4-6";
-
       # Auto-update
       autoupdate = true;
 
