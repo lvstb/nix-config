@@ -15,13 +15,45 @@
   };
 
   # Official walker home-manager module
+  programs.rbw = {
+    enable = true;
+    settings = {
+      email = "lars@infra-consult.be";
+      lock_timeout = 86400;
+      pinentry = pkgs.pinentry-gnome3;
+    };
+  };
+
   programs.walker = {
     enable = true;
     runAsService = true;
 
     config.theme = "stylix";
-    config.providers.default = ["desktopapplications" "calc" "websearch"];
+    config.providers.default = ["desktopapplications" "calc"];
     config.providers.empty = ["desktopapplications"];
+    config.providers.actions.bitwarden = [
+      {
+        action = "copypassword";
+        label = "copy password";
+        default = true;
+        bind = "Return";
+      }
+      {
+        action = "copyusername";
+        label = "copy username";
+        bind = "shift Return";
+      }
+      {
+        action = "copytotp";
+        label = "copy 2fa";
+        bind = "ctrl Return";
+      }
+      {
+        action = "syncvault";
+        label = "sync";
+        bind = "ctrl s";
+      }
+    ];
     config.providers.prefixes = [
       {
         prefix = "!";
@@ -46,6 +78,14 @@
       {
         prefix = "key ";
         provider = "menus:hyprland-keybinds";
+      }
+      {
+        prefix = "bt ";
+        provider = "bluetooth";
+      }
+      {
+        prefix = "bw ";
+        provider = "bitwarden";
       }
     ];
 
@@ -297,5 +337,10 @@
   # Calculator dependency
   home.packages = with pkgs; [
     libqalculate
+    pinentry-gnome3
+    (writeShellScriptBin "walker-rbw-unlock" ''
+      rbw unlock
+      systemctl --user restart elephant.service walker.service
+    '')
   ];
 }
