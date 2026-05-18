@@ -25,6 +25,8 @@
       # Sharing mode: "manual", "auto", or "disabled"
       share = "manual";
 
+      plugin = ["superpowers@git+https://github.com/obra/superpowers.git"];
+
       # MCP servers
       mcp = {
         context7 = {
@@ -178,6 +180,7 @@
       documentation = ./opencode/agents/docs-writer.md;
       security = ./opencode/agents/security-auditor.md;
       typescript = ./opencode/agents/typescript-pro.md;
+      aws-iac = ./opencode/agents/aws-iac.md;
     };
 
     # Custom skills stored in $XDG_CONFIG_HOME/opencode/skill/

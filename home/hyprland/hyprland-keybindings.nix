@@ -42,7 +42,7 @@
       "$mod, Backspace, killactive"
       "$mod, V, togglefloating"
       "$mod, P, pseudo" # dwindle
-      "$mod, J, togglesplit" # dwindle
+      "$mod, J, layoutmsg, togglesplit" # dwindle
       "$mod SHIFT, F, fullscreen, 0"
       "$mod, F11, fullscreen, 0"
       "$mod SHIFT, M, fullscreen, 1" # maximize
