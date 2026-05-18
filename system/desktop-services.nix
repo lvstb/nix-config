@@ -122,6 +122,12 @@ in {
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
+    # Apple Magic Trackpad uses SSP "Just Works" pairing which produces an
+    # unauthenticated link key (Paired: yes, Bonded: no). BlueZ ≥5.65 rejects
+    # HID connections from non-bonded devices by default (CVE-2023-45866).
+    # Relaxing this is the upstream-recommended workaround for Apple HID
+    # peripherals on a trusted desktop.
+    input.General.ClassicBondedOnly = false;
   };
   services.blueman.enable = true;
   hardware.graphics.enable = true;
