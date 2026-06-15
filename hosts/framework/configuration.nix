@@ -67,7 +67,12 @@ in {
   users.users.lars.extraGroups = ["networkmanager" "wheel" "libvirtd" "podman" "docker" "vboxusers"];
 
   # Framework-specific packages (removed ghostty - now in home-manager)
-  environment.systemPackages = with pkgs; [];
+  environment.systemPackages = with pkgs; [
+    pcsc-tools
+    usbutils
+  ];
+  # Smart card support for the Belgian eID middleware and USB readers.
+  services.pcscd.enable = true;
   # Enable LVFS testing to get UEFI updates
   services.fwupd.extraRemotes = ["lvfs-testing"];
   # programs.ssh.startAgent = true;
