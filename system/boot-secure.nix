@@ -5,8 +5,7 @@
 {lib, ...}: {
   imports = [./boot-base.nix];
 
-  # Bootspec and Secure Boot using lanzaboote
-  boot.bootspec.enable = true;
+  # Secure Boot using lanzaboote (bootspec is always generated in current nixpkgs)
   boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.lanzaboote = {
     enable = true;

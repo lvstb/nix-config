@@ -14,5 +14,7 @@ pkgs: {
     '';
   });
 
+  jlink-jabra = import ./jlink.nix {inherit pkgs;};
+
   # zscaler = import ./zscaler.nix {inherit pkgs;};
 }

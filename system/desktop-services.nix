@@ -41,7 +41,6 @@ in {
   # Display manager and desktop environment
   services.displayManager.gdm = {
     enable = true;
-    wayland = true;
   };
   services.desktopManager.gnome.enable = true;
   services.displayManager.defaultSession = "gnome";
@@ -195,12 +194,18 @@ in {
       podman-desktop
       delve
       go
+
+      # Jabra headset/dongle management
+      jlink-jabra
     ]
     ++ [
       pkgs.gnomeExtensions."blur-my-shell"
       pkgs.gnomeExtensions."night-theme-switcher"
       pkgs.gnomeExtensions.caffeine
     ];
+
+  # Jabra device access rules for jlink-jabra
+  services.udev.packages = [pkgs.jlink-jabra];
 
   # Remove unwanted GNOME packages
   environment.gnome.excludePackages = with pkgs; [

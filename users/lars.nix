@@ -32,7 +32,10 @@
     XDG_SCREENSHOTS_DIR = "$HOME/Pictures/screenshots";
   };
 
-  home.sessionPath = ["/home/lars/.opencode/bin"];
+  home.sessionPath = [
+    "/home/lars/.local/bin"
+    "/home/lars/.opencode/bin"
+  ];
 
   xdg.mimeApps.enable = true;
   xdg.mimeApps.defaultApplications = {
@@ -50,8 +53,8 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks."*" = {
-      addKeysToAgent = "yes";
+    settings."*" = {
+      AddKeysToAgent = "yes";
     };
   };
 
@@ -81,8 +84,5 @@
   #   };
   # };
   #
-  # Silence stateVersion migration warnings - adopt new defaults
-  gtk.gtk4.theme = null;
-
   home.stateVersion = "22.11";
 }

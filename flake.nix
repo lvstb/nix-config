@@ -111,7 +111,12 @@
     # Create pkgs with unfree enabled and overlays applied
     pkgs = import nixpkgs {
       inherit system;
-      config.allowUnfree = true;
+      config = {
+        allowUnfree = true;
+        permittedInsecurePackages = [
+          "electron-39.8.10" # Required by bitwarden-desktop 2026.5.0.
+        ];
+      };
       overlays = overlays;
     };
 
