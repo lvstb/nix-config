@@ -573,6 +573,7 @@ in {
     code-cursor
     kiro
     opencode
+    herdr
     saws
     github-copilot-cli
     tree-sitter

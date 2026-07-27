@@ -80,6 +80,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.astal.follows = "astal";
     };
+
+    # Terminal workspace manager for AI coding agents
+    herdr = {
+      url = "github:ogulcancelik/herdr";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
@@ -100,6 +106,7 @@
       (_: _: {fw-ectool = inputs.fw-ectool.packages.${system}.ectool;})
       (final: prev: {dagger = inputs.dagger.packages.${system}.dagger;})
       (final: prev: {saws = inputs.saws.packages.${system}.default;})
+      inputs.herdr.overlays.default
       (final: prev: import ./pkgs prev)
       (final: prev: {
         vscode-marketplace = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
