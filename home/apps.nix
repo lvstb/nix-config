@@ -582,7 +582,7 @@ in {
     # Development - Languages (use specific versions)
     python312
     python312Packages.pip
-    python312Packages.pipx
+    pipx
     nodejs_24
     pnpm
     yarn

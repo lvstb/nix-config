@@ -1,6 +1,10 @@
 # Custom packages, that can be defined similarly to ones from nixpkgs
 # You can build them using 'nix build .#example'
 pkgs: {
+  pipx = pkgs.python312Packages.pipx.overrideAttrs (_: {
+    dontUsePytestCheck = true;
+  });
+
   eid-mw = pkgs.eid-mw.overrideAttrs (old: rec {
     version = "5.1.28";
     src = pkgs.fetchurl {
