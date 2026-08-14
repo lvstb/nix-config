@@ -141,6 +141,7 @@
       ./home/stylix.nix
       ./home/ghostty.nix
       ./home/claude.nix
+      ./home/pi.nix
     ];
 
     # GNOME desktop environment modules
