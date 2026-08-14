@@ -1,0 +1,9 @@
+{
+  "name": "pi-subagents",
+  "version": "0.49.0",
+  "dependencies": {
+    "jiti": "2.7.0",
+    "typebox": "1.1.38",
+    "yaml": "2.8.3"
+  }
+}

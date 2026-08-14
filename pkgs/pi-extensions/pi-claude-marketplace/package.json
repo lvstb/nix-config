@@ -1,0 +1,9 @@
+{
+  "name": "pi-claude-marketplace",
+  "version": "0.14.0",
+  "dependencies": {
+    "isomorphic-git": "^1.38.1",
+    "proper-lockfile": "^4.1.2",
+    "write-file-atomic": "^8.0.0"
+  }
+}
