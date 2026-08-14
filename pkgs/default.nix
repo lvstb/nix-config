@@ -1,6 +1,7 @@
 # Custom packages, that can be defined similarly to ones from nixpkgs
 # You can build them using 'nix build .#example'
-pkgs: {
+pkgs:
+{
   pipx = pkgs.python312Packages.pipx.overrideAttrs (_: {
     dontUsePytestCheck = true;
   });
@@ -24,3 +25,4 @@ pkgs: {
 
   # zscaler = import ./zscaler.nix {inherit pkgs;};
 }
+// (import ./pi-extensions.nix {inherit pkgs;})
