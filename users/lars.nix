@@ -11,6 +11,7 @@
     ../home/git.nix
     ../home/lazygit.nix
     ../home/terminal.nix
+    ../home/herdr.nix
     ../home/vscode.nix
     ../home/firefox.nix
     ../home/thunderbird.nix
