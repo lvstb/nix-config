@@ -549,8 +549,34 @@ in {
   programs.go.enable = true;
 
   services.nextcloud-client = {
-    enable = true;
-    startInBackground = true;
+    enable = false;
+  };
+
+  xdg.dataFile."applications/com.nextcloud.desktopclient.nextcloud.desktop" = {
+    force = true;
+    text = ''
+      [Desktop Entry]
+      Type=Application
+      Name=Nextcloud Desktop
+      Exec=env GSETTINGS_SCHEMA_DIR=${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}/glib-2.0/schemas nextcloud %u
+      Icon=Nextcloud
+      Terminal=false
+      Categories=Utility;
+      MimeType=x-scheme-handler/nc;
+      StartupNotify=false
+    '';
+  };
+
+  xdg.configFile."autostart/Nextcloud.desktop" = {
+    force = true;
+    text = ''
+      [Desktop Entry]
+      Type=Application
+      Name=Nextcloud
+      Exec=nextcloud --background
+      Icon=Nextcloud
+      Hidden=true
+    '';
   };
 
   home.packages = with pkgs; [
@@ -561,18 +587,19 @@ in {
 
     # Communication apps
     telegram-desktop
-    discord
+    # discord
     karere
     slack
     nextcloud-client
+    gtk3
 
     # Text editors and IDEs
     obsidian
     claude-code
     codex
+    codex-app
     code-cursor
     kiro
-    opencode
     herdr
     saws
     github-copilot-cli

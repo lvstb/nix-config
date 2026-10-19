@@ -81,6 +81,12 @@
       inputs.astal.follows = "astal";
     };
 
+    # Superpowers skills/extension pack for pi
+    superpowers = {
+      url = "github:obra/superpowers";
+      flake = false;
+    };
+
     # Terminal workspace manager for AI coding agents
     herdr = {
       url = "github:ogulcancelik/herdr";
@@ -106,6 +112,7 @@
       (_: _: {fw-ectool = inputs.fw-ectool.packages.${system}.ectool;})
       (final: prev: {dagger = inputs.dagger.packages.${system}.dagger;})
       (final: prev: {saws = inputs.saws.packages.${system}.default;})
+      (final: prev: {pi-superpowers = inputs.superpowers;})
       inputs.herdr.overlays.default
       (final: prev: import ./pkgs prev)
       (final: prev: {

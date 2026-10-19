@@ -36,6 +36,7 @@
   home.sessionPath = [
     "/home/lars/.local/bin"
     "/home/lars/.opencode/bin"
+    "/usr/local/bin" # aicodemetricsd (DX AI Code Insights)
   ];
 
   xdg.mimeApps.enable = true;

@@ -37,6 +37,7 @@
     # Tab bar on top like tmux status-position top
     tab_bar_position = "top"
     pane_borders = true
+    agent_panel_sort = "priority"
 
     [theme]
     # Follow the terminal's ANSI palette, then match the tmux status bar:

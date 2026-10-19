@@ -79,6 +79,7 @@
   # Zsh configuration
   programs.zsh = {
     enable = true;
+    dotDir = "/home/lars/.config/zsh";
     history.extended = true;
     enableCompletion = true;
     syntaxHighlighting.enable = true;

@@ -14,8 +14,9 @@
       };
     };
 
-    # The opencode package to use (default: pkgs.opencode)w
-    # package = pkgs.opencode;
+    # OpenCode V2 is installed via `curl -fsSL https://opencode.ai/v2/install | bash`
+    # into ~/.opencode/bin (not in nixpkgs yet); HM only manages config here.
+    package = null;
 
     # Configuration written to $XDG_CONFIG_HOME/opencode/config.json
     settings = {
@@ -190,6 +191,7 @@
       code-review = ./opencode/skills/code-review;
       executing-plans = ./opencode/skills/executing-plans;
       git-workflow = ./opencode/skills/git-workflow;
+      install-anti-slop = ./opencode/skills/install-anti-slop;
       karpathy-guidelines = ./opencode/skills/karpathy-guidelines;
       receiving-code-review = ./opencode/skills/receiving-code-review;
       systematic-debugging = ./opencode/skills/systematic-debugging;

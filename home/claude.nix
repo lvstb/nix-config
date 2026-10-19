@@ -77,6 +77,14 @@
     })
     skills);
 
+  # Skills shipped as whole directories (assets/scripts alongside SKILL.md)
+  skillDirs = {
+    ".claude/skills/install-anti-slop" = {
+      source = "${skillSrc}/install-anti-slop";
+      recursive = true;
+    };
+  };
+
   # Supporting files for skills that have them
   skillSupportFiles = {
     ".claude/skills/systematic-debugging/root-cause-tracing.md".source = "${skillSrc}/systematic-debugging/root-cause-tracing.md";
@@ -116,6 +124,7 @@ in {
     }
     // agentFiles
     // skillFiles
+    // skillDirs
     // skillSupportFiles;
 
   # --- Activation: settings.json + MCP servers ---
