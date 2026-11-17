@@ -7,13 +7,6 @@
   programs.opencode = {
     enable = true;
 
-    tui = {
-      theme = lib.mkForce "system";
-      scroll_acceleration = {
-        enabled = true;
-      };
-    };
-
     # OpenCode V2 is installed via `curl -fsSL https://opencode.ai/v2/install | bash`
     # into ~/.opencode/bin (not in nixpkgs yet); HM only manages config here.
     package = null;
@@ -230,4 +223,8 @@
     #   another-theme = ./themes/another-theme.json;
     # };
   };
+
+  # Stylix sets programs.opencode.tui.theme, which OpenCode 2 ignores (and HM
+  # warns about). Terminal settings live in the app-owned cli.json instead.
+  stylix.targets.opencode.enable = false;
 }

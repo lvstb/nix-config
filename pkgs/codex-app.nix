@@ -3,13 +3,13 @@
 in
   pkgs.stdenv.mkDerivation (finalAttrs: {
     pname = "codex-app";
-    version = "26.814.41407";
+    version = "26.1106.51428";
 
     # The official OpenAI desktop app (ChatGPT + Codex) for Linux.
     # Only an unversioned "latest" URL is published, so the hash pins the build.
     src = pkgs.fetchurl {
       url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_amd64.deb";
-      sha256 = "106a4y14mn0zi40wl5gx9zlv38h0pd5cl0pgd8a1g2n4j775lg85";
+      sha256 = "sha256-g1anghkwsTW3QTR/rMvEPhaStEJMPqtxCpr1bAvrsTU=";
     };
 
     nativeBuildInputs = with pkgs; [
@@ -40,16 +40,18 @@ in
       libxkbcommon
       nspr
       nss
+      openssl
       pango
       stdenv.cc.cc.lib
       systemd
-      xorg.libX11
-      xorg.libXcomposite
-      xorg.libXdamage
-      xorg.libXext
-      xorg.libXfixes
-      xorg.libXrandr
-      xorg.libxcb
+      tpm2-tss
+      libx11
+      libxcomposite
+      libxdamage
+      libxext
+      libxfixes
+      libxrandr
+      libxcb
     ];
 
     runtimeDependencies = with pkgs; [
@@ -59,6 +61,18 @@ in
       systemd
       vulkan-loader
       xdg-utils
+    ];
+
+    # Qt shims are optional (only used with -platform qt) and musl prebuilds
+    # of native node modules are unused on a glibc system.
+    autoPatchelfIgnoreMissingDeps = [
+      "libQt5Core.so.5"
+      "libQt5Gui.so.5"
+      "libQt5Widgets.so.5"
+      "libQt6Core.so.6"
+      "libQt6Gui.so.6"
+      "libQt6Widgets.so.6"
+      "libc.musl-x86_64.so.1"
     ];
 
     # Electron bundles prebuilt binaries; skip the usual fixups.

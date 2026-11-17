@@ -17,7 +17,6 @@
   boot.kernelModules = ["kvm-amd"];
   boot.initrd.luks.devices."enc" = {
     device = "/dev/disk/by-uuid/7a82a946-b28c-44a0-8802-09426cd129be"; # UUID can be found using: `blkid | grep /dev/nvme0n1p2`
-    preLVM = true; # only needed if using LVM
   };
 
   fileSystems."/" = {

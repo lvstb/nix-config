@@ -9,7 +9,7 @@
   nix.settings = {
     trusted-users = ["lars" "root" "@wheel"];
     auto-optimise-store = true;
-    experimental-features = "nix-command flakes";
+    experimental-features = ["nix-command" "flakes"];
 
     # Parallel build settings
     max-jobs = "auto"; # Use all available CPU cores

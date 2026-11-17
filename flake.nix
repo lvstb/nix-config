@@ -87,9 +87,21 @@
       flake = false;
     };
 
+    # Matt Pocock's agent skills (Claude Code)
+    mattpocock-skills = {
+      url = "github:mattpocock/skills";
+      flake = false;
+    };
+
     # Terminal workspace manager for AI coding agents
     herdr = {
       url = "github:ogulcancelik/herdr";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # OpenAI Codex CLI: official prebuilt release binaries, updated hourly
+    codex-cli-nix = {
+      url = "github:sadjow/codex-cli-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -113,7 +125,9 @@
       (final: prev: {dagger = inputs.dagger.packages.${system}.dagger;})
       (final: prev: {saws = inputs.saws.packages.${system}.default;})
       (final: prev: {pi-superpowers = inputs.superpowers;})
+      (final: prev: {mattpocock-skills = inputs.mattpocock-skills;})
       inputs.herdr.overlays.default
+      inputs.codex-cli-nix.overlays.default
       (final: prev: import ./pkgs prev)
       (final: prev: {
         vscode-marketplace = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;

@@ -12,10 +12,10 @@
   };
 
   # Log management
-  services.journald.extraConfig = ''
-    SystemMaxUse=1G
-    MaxRetentionSec=1month
-  '';
+  services.journald.settings.Journal = {
+    SystemMaxUse = "1G";
+    MaxRetentionSec = "1month";
+  };
 
   # Automatic cleanup moved to nix-settings.nix
 

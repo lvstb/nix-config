@@ -14,6 +14,7 @@ in {
     ../../system/desktop-services.nix
     ../../system/nix-settings.nix
     ../../system/wifi.nix
+    ../../system/tailscale.nix
     ../../users/lars-system.nix
   ];
 
@@ -76,6 +77,13 @@ in {
   # Enable LVFS testing to get UEFI updates
   services.fwupd.extraRemotes = ["lvfs-testing"];
   # programs.ssh.startAgent = true;
+
+  # Battery: let idle PCI devices (GPU, NVMe, Wi-Fi, ...) runtime-suspend,
+  # and drop the NMI watchdog's periodic wakeups.
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{power/control}="auto"
+  '';
+  boot.kernelParams = ["nmi_watchdog=0"];
 
   # Hardware settings moved to desktop-services.nix
 

@@ -8,6 +8,9 @@
     version,
     hash,
     npmDepsHash,
+    # Overrides for exact-pinned dependencies in the published package.json
+    # (e.g. to pick up security fixes); must match the pinned lockfile.
+    depOverrides ? {},
     ...
   } @ args:
     pkgs.buildNpmPackage ({
@@ -27,7 +30,8 @@
         postPatch = ''
           chmod u+w .
           cp ${./pi-extensions/${name}/package-lock.json} package-lock.json
-          ${pkgs.jq}/bin/jq 'del(.devDependencies)' package.json > package.json.tmp
+          ${pkgs.jq}/bin/jq --argjson overrides '${builtins.toJSON depOverrides}' \
+            'del(.devDependencies) | .dependencies += $overrides' package.json > package.json.tmp
           mv package.json.tmp package.json
         '';
 
@@ -42,13 +46,13 @@
           runHook postInstall
         '';
       }
-      // (removeAttrs args ["name" "version" "hash" "npmDepsHash"]));
+      // (removeAttrs args ["name" "version" "hash" "npmDepsHash" "depOverrides"]));
 in {
   pi-claude-marketplace = mkPiExtension {
     name = "pi-claude-marketplace";
     version = "0.14.0";
     hash = "sha256-fRgINRoaWf77Er3Yjka7SG9fgRUAjxkMJup0Ny88AxM=";
-    npmDepsHash = "sha256-eDNKNkjLp8yNTIYtsh8cDse9yhacpTihd6uV+LfP3Go=";
+    npmDepsHash = "sha256-bT5fuMEHkLiAjpMfv514+gQWcW9C4o7JY3kW87JmSRM=";
     # pi-coding-agent is a required (unresolvable, intentionally absent) peer
     # dep provided by the pi runtime at load time; npm ci must not fetch it
     npmFlags = ["--legacy-peer-deps"];
@@ -68,6 +72,13 @@ in {
     name = "pi-mcp-adapter";
     version = "2.25.0";
     hash = "sha256-JLgOGPUsgT9466B4hCX5EFvD9d0rkwCwdkE7JQtobgQ=";
-    npmDepsHash = "sha256-Vq10+qfZ9tAqpl1Ghmn28gc9l5lLstK1dZia8t/nqQI=";
+    npmDepsHash = "sha256-H7anYss/5g2aiFhcBwULLpW9ncCs+ItV+YbGO0V6OFc=";
+    # Upstream pins these exactly; 2.0.0 has high-severity advisories fixed in 2.3.0
+    # (client 2.3.0 requires core 2.3.0), and open 10.x is fixed in 11.x.
+    depOverrides = {
+      "@modelcontextprotocol/client" = "2.3.0";
+      "@modelcontextprotocol/core" = "2.3.0";
+      open = "^11.0.0";
+    };
   };
 }

@@ -17,6 +17,7 @@ in {
     ../../system/hyprland.nix
     ../../system/secrets.nix
     ../../system/loxone.nix
+    ../../system/tailscale.nix
     ../../users/lars-system.nix
   ];
 
@@ -40,6 +41,20 @@ in {
   };
 
   # Audio and Avahi config inherited from desktop-services.nix
+  # Only use the bridge interface for mDNS - prevents duplicates from wlp3s0
+  services.avahi.allowInterfaces = ["br0"];
+
+  # CPU governor - performance for desktop use
+  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
+
+  # AMD P-State for Zen 4 CPUs (Ryzen 7 8845HS)
+  boot.kernelParams = [
+    "amd_pstate=active"
+    "amd_pstate.shared_mem=1"
+    # Fix for Beelink SER7 AMD Radeon 780M random freezes
+    # Disables problematic Display Core features causing hangs on Phoenix Point APUs
+    "amdgpu.dcdebugmask=0x10"
+  ];
 
   # Keep login secrets unlocked in Hyprland sessions (e.g. Nextcloud credentials).
   services.gnome.gnome-keyring.enable = lib.mkOverride 40 true;

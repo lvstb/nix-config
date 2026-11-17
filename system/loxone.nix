@@ -12,15 +12,26 @@
         image = "ghcr.io/lian/docker-loxone-config:main";
         extraOptions = [
           "--network=host" # Use host network to access local Loxone appliances
+          # Give TigerVNC/Wine access to hardware rendering instead of falling
+          # back to software rendering.
+          "--device=/dev/dri"
+          # Loxone Config 17 embeds Chromium (QtWebEngine), which hangs with
+          # podman's default 64MB /dev/shm.
+          "--shm-size=1g"
         ];
         environment = {
           VNC_PASSWORD = "loxone";
+          # Disable the raw VNC TCP port. Access is web-only (noVNC on 5800),
+          # and with --network=host the default 5900 collides with libvirt
+          # SPICE/VNC consoles on hosts running VMs (e.g. framework's zscaler VM).
+          VNC_LISTENING_PORT = "-1";
           USER_ID = "1000";
           GROUP_ID = "1000";
           DISPLAY_WIDTH = "1920";
           DISPLAY_HEIGHT = "1080";
           HOME = "/config/";
           WINEPREFIX = "/config/wine";
+          KEEP_APP_RUNNING = "1";
           XLANG = "de"; # Keyboard layout: de=German, us=English, fr=French, etc.
         };
         volumes = [

@@ -1,5 +1,6 @@
 # Terminal configuration - shell, starship, tmux
 {
+  config,
   lib,
   pkgs,
   ...
@@ -79,7 +80,7 @@
   # Zsh configuration
   programs.zsh = {
     enable = true;
-    dotDir = "/home/lars/.config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
     history.extended = true;
     enableCompletion = true;
     syntaxHighlighting.enable = true;

@@ -579,6 +579,19 @@ in {
     '';
   };
 
+  # WhatsApp as a Helium web app, mirroring Omarchy's WhatsApp.desktop
+  xdg.desktopEntries.whatsapp = {
+    name = "WhatsApp";
+    exec = "helium --app=https://web.whatsapp.com/";
+    icon = pkgs.fetchurl {
+      url = "https://raw.githubusercontent.com/basecamp/omarchy/58858aecfa2a3e26c4d0a1371b369c672474fd04/applications/icons/WhatsApp.png";
+      hash = "sha256-onbglLXom+IuTMduXAIAtujJSghEmtwW/PEd0dSe4Pw=";
+    };
+    terminal = false;
+    startupNotify = true;
+    settings.StartupWMClass = "chrome-web.whatsapp.com__-Default";
+  };
+
   home.packages = with pkgs; [
     # Core applications
     ghostty
@@ -588,16 +601,14 @@ in {
     # Communication apps
     telegram-desktop
     # discord
-    karere
     slack
     nextcloud-client
-    gtk3
 
     # Text editors and IDEs
     obsidian
-    claude-code
     codex
     codex-app
+    t3code
     code-cursor
     kiro
     herdr

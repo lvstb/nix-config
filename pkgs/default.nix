@@ -2,8 +2,8 @@
 # You can build them using 'nix build .#example'
 pkgs:
 {
-  pipx = pkgs.python312Packages.pipx.overrideAttrs (_: {
-    dontUsePytestCheck = true;
+  pipx = pkgs.python312Packages.pipx.overridePythonAttrs (_: {
+    doCheck = false;
   });
 
   eid-mw = pkgs.eid-mw.overrideAttrs (old: rec {
@@ -20,6 +20,8 @@ pkgs:
   });
 
   jlink-jabra = import ./jlink.nix {inherit pkgs;};
+
+  codex-app = import ./codex-app.nix {inherit pkgs;};
 
   pi-coding-agent = import ./pi-coding-agent.nix {inherit pkgs;};
 

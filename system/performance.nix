@@ -31,15 +31,5 @@
   # SSD optimizations
   services.fstrim.enable = true;
 
-  # CPU governor - performance for desktop use
-  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
-
-  # AMD P-State for Zen 4 CPUs (Ryzen 7 8845HS)
-  boot.kernelParams = [
-    "amd_pstate=active"
-    "amd_pstate.shared_mem=1"
-    # Fix for Beelink SER7 AMD Radeon 780M random freezes
-    # Disables problematic Display Core features causing hangs on Phoenix Point APUs
-    "amdgpu.dcdebugmask=0x10"
-  ];
+  # CPU governor and AMD kernel params are host-specific: see hosts/beelink.
 }

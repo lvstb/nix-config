@@ -21,13 +21,6 @@
         }
       ];
     };
-    env = {
-      CLAUDE_CODE_USE_FOUNDRY = "1";
-      ANTHROPIC_FOUNDRY_RESOURCE = "foundry-devex";
-      ANTHROPIC_DEFAULT_SONNET_MODEL = "claude-sonnet-4-6";
-      ANTHROPIC_DEFAULT_HAIKU_MODEL = "claude-haiku-4-5";
-      ANTHROPIC_DEFAULT_OPUS_MODEL = "claude-opus-4-6";
-    };
   };
 
   staticSettingsJson = builtins.toJSON staticSettings;
@@ -57,17 +50,15 @@
       )
     else {};
 
-  # Skills to deploy (all except auto-commit, which is handled by the TaskCompleted hook)
+  # Local skills not covered by Matt Pocock's set. auto-commit is handled by
+  # the TaskCompleted hook. brainstorming, code-review, executing-plans,
+  # systematic-debugging, tdd and writing-plans are superseded by Pocock's
+  # grilling/grill-me, code-review, to-spec/to-tickets/implement,
+  # diagnosing-bugs and tdd (they stay in OpenCode).
   skills = [
-    "brainstorming"
-    "code-review"
-    "executing-plans"
     "karpathy-guidelines"
     "receiving-code-review"
-    "systematic-debugging"
-    "tdd"
     "verification"
-    "writing-plans"
   ];
 
   # Generate home.file entries for each skill's SKILL.md
@@ -77,20 +68,26 @@
     })
     skills);
 
+  # Matt Pocock's skills (flake input `mattpocock-skills`). Deploys exactly the
+  # promoted set listed in the upstream plugin manifest; misc/ and in-progress/
+  # are excluded. Update with `nix flake update mattpocock-skills`.
+  pocockSrc = pkgs.mattpocock-skills;
+  pocockManifest = builtins.fromJSON (builtins.readFile "${pocockSrc}/.claude-plugin/plugin.json");
+  pocockSkillDirs = builtins.listToAttrs (map (path: {
+      name = ".claude/skills/${baseNameOf path}";
+      value = {
+        source = "${pocockSrc}/${lib.removePrefix "./" path}";
+        recursive = true;
+      };
+    })
+    pocockManifest.skills);
+
   # Skills shipped as whole directories (assets/scripts alongside SKILL.md)
   skillDirs = {
     ".claude/skills/install-anti-slop" = {
       source = "${skillSrc}/install-anti-slop";
       recursive = true;
     };
-  };
-
-  # Supporting files for skills that have them
-  skillSupportFiles = {
-    ".claude/skills/systematic-debugging/root-cause-tracing.md".source = "${skillSrc}/systematic-debugging/root-cause-tracing.md";
-    ".claude/skills/systematic-debugging/defense-in-depth.md".source = "${skillSrc}/systematic-debugging/defense-in-depth.md";
-    ".claude/skills/systematic-debugging/condition-based-waiting.md".source = "${skillSrc}/systematic-debugging/condition-based-waiting.md";
-    ".claude/skills/tdd/testing-anti-patterns.md".source = "${skillSrc}/tdd/testing-anti-patterns.md";
   };
 
   # MCP server definitions for injection into ~/.claude.json
@@ -125,7 +122,7 @@ in {
     // agentFiles
     // skillFiles
     // skillDirs
-    // skillSupportFiles;
+    // pocockSkillDirs;
 
   # --- Activation: settings.json + MCP servers ---
   home.activation.claudeCodeSettings = lib.hm.dag.entryAfter ["writeBoundary"] ''

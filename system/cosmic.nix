@@ -2,6 +2,7 @@
   services.displayManager = {
     gdm.enable = lib.mkForce false;
     cosmic-greeter.enable = true;
+    defaultSession = lib.mkForce "cosmic";
   };
 
   services.desktopManager = {

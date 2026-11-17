@@ -90,7 +90,6 @@ in {
   services.avahi = {
     enable = true;
     nssmdns4 = true;
-    allowInterfaces = ["br0"]; # Only use bridge interface for mDNS - prevents duplicates from wlp3s0
     publish = {
       enable = lib.mkForce false; # Don't advertise this system as AirPlay receiver
       addresses = lib.mkForce false;
@@ -227,9 +226,6 @@ in {
       };
     };
   };
-
-  # Boot configuration for desktop systems
-  boot.initrd.systemd.enable = true;
 
   # Root user packages (minimal for desktop systems)
   users.users.root.packages = with pkgs; [

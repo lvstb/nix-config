@@ -16,6 +16,5 @@
     "boot.shell_on_fail"
   ];
   boot.consoleLogLevel = 0;
-  boot.initrd.verbose = false;
   boot.plymouth.enable = true;
 }

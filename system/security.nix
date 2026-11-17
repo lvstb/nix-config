@@ -19,8 +19,6 @@
   boot.kernelParams = [
     # Disable kernel debugging interfaces
     "debugfs=off"
-    "kptr_restrict=2"
-    "kernel.yama.ptrace_scope=2"
 
     # Memory protection
     "slab_nomerge"
@@ -46,14 +44,15 @@
   # Protect kernel logs via sysctl
   boot.kernel.sysctl = {
     "kernel.dmesg_restrict" = 1;
+    # Hide kernel pointers from all users, including root.
+    "kernel.kptr_restrict" = 2;
+    # kernel.yama.ptrace_scope stays at the default 1 (parent-only ptrace).
+    # Raising it to 2 would stop delve/gdb attaching to running processes.
   };
 
   # Secure SSH configuration
 
-  # Automatic security updates
-  system.autoUpgrade = {
-    enable = true;
-    dates = "weekly";
-    allowReboot = false;
-  };
+  # No unattended upgrades: hosts are deployed manually with `just deploy`.
+  # (autoUpgrade without `flake` set falls back to channels and always failed.)
+  system.autoUpgrade.enable = false;
 }
